@@ -2,6 +2,7 @@ package com.grille.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Created by alizeefaytre on 30/04/2017.
@@ -20,6 +21,9 @@ public class Evaluate implements Serializable {
     private String individualObservation;
 
     private String level;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "id_user")

@@ -1,6 +1,9 @@
 package com.grille.entities;
 
+import org.springframework.data.jpa.repository.*;
+
 import javax.persistence.*;
+import javax.persistence.Temporal;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -16,6 +19,7 @@ public class Attendance implements Serializable {
     @Column(name = "id_attendance")
     private int id;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     private boolean state;

@@ -21,6 +21,7 @@ public class Deadline implements Serializable {
 
     private String promo;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
