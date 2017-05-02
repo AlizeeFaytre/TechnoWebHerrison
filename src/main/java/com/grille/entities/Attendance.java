@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.*;
 import javax.persistence.*;
 import javax.persistence.Temporal;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * Created by alizeefaytre on 30/04/2017.

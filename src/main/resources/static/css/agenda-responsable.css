@@ -1,0 +1,25 @@
+body {
+color:black;
+background-color:white;
+background-image:url(/img/batiment_isep.jpg);
+background-size:cover;
+}
+
+.deadline{
+  margin-top: 10%;
+  background-color: #C8C8C8;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.deadline-title{
+  display:block;
+  vertical-align:center-block;
+  text-align:center;
+}
+
+.btn{
+  display:block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

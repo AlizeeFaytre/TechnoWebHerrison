@@ -1,0 +1,60 @@
+.title1 {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  float: left;
+  width: auto;
+  margin: auto;
+  padding: auto;
+  overflow: hidden;
+  border: 0 solid;
+  border-bottom: 2px solid rgba(90,90,90,1);
+  font: normal normal bold 30px/1 sans-serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+li{
+  list-style-type: none;
+}
+
+.groups-table{
+  margin-top: 10%;
+  background-color: #C8C8C8;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+.table{
+  display : block;
+  width : 500px;
+  height : 200px;
+  margin-left : auto;
+  margin-right : auto;
+  margin-bottom : 15px;
+  margin-top : 15px;
+  overflow : scroll;
+  overflow-x: auto;
+  background-color:#C8C8C8;
+}
+
+
+body {
+color:black;
+background-color:white;
+background-image:url(/img/batiment_isep.jpg);
+background-size:cover;
+}
+
+.panel-default{
+  background-color:#C8C8C8;
+  border-radius:15px;
+  width:50%;
+  margin:auto;
+  opacity:0.8;
+}
+
+.search-bar{
+  margin-bottom:8%;
+  margin-top:2%;
+}
