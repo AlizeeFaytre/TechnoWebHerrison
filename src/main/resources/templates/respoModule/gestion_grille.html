@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Gestion Grilles</title>
+	<link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
+	<link rel="stylesheet" href="../../static/css/gestiongrilles.css" data-th-href="@{/css/gestiongrilles.css}">
+	<script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
+	<script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
+</head>
+
+	<body>
+
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="../../static/img/iseplogo.png" data-th-src="@{/img/iseplogo.png}" class="logo" alt=""></a>
+					<a href="#" class="navbar-brand">Alizée Faytre - A2</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Home</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grille <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Informatique</a></li>
+								<li><a href="#">Electronique</a></li>
+								<li><a href="#">Telecomunication</a></li>
+								<li><a href="#">Compétences professionnelles</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filtres <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#"><input type="checkbox" name="" value="Alizee"><span> Alizée</span></a></li>
+								<li><a href="#"><input type="checkbox" name="" value=""><span> Aude</span></a></li>
+								<li><a href="#"><input type="checkbox" name="" value=""><span> Esther</span></a></li>
+								<li><a href="#"><input type="checkbox" name="" value=""><span> Thomas</span></a></li>
+								<li><a href="#"><input type="checkbox" name="" value=""><span> Jiawei</span></a></li>
+							</ul>
+						</li>
+						<li><a href="#" class="btn btn-default btn-outline btn-circle collapsed">Deconnexion</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+		<div class="container">
+			<div class="row">
+				<div class="new_grille col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+					<a href="#" class="new_grille_lien">Nouvelle Grille</a>
+			    </div>
+			</div>
+
+			<div class="row">
+				
+				<div class="grille col-xs-12 col-sm-2 col-sm-offset-0 col-md-2 col-md-offset-0 col-lg-2 col-lg-offset-0">
+					<div class="boite">
+						<h4>Grille 1</h4>
+					</div>
+					<div class="boite">
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div class="grille col-xs-12 col-sm-2 col-sm-offset-1 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-1">
+					<div class="boite">
+						<h4>Grille 2</h4>
+					</div>
+					<div class="boite">
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div class="grille col-xs-12 col-sm-2 col-sm-offset-1 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-1">
+					<div class="boite">
+						<h4>Grille 3</h4>
+					</div>
+					<div class="boite">
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div class="grille col-xs-12 col-sm-2 col-sm-offset-1 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-1">
+					<div class="boite">
+						<h4>Grille 4</h4>
+					</div>
+					<div class="boite">
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+			
+			</div>
+
+			
+			<div class="row">
+				<div class="attribution_grilles col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+					<h3>Attribution des grilles par classe</h3>
+			    </div>
+			</div>
+
+
+			<div class="row">
+				<table class="table table-bordered tableau_grilles">
+					<tr>
+						<th>Promotion</th>
+						<th colspan="8">Grilles</th>
+						<th>Modifier</th>
+						<th>Supprimer</th>
+					</tr>
+
+					<tr>
+						<td>I1</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<button type="button" class="btn btn-default modif" aria-label="Modification">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+
+					<tr>
+						<td>A2</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>
+							<button type="button" class="btn btn-default modif" aria-label="Modification">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>A1</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<button type="button" class="btn btn-default modif" aria-label="Modification">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+
+					<tr>
+						<td>A2</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td></td>
+						<td></td>
+						<td>
+							<button type="button" class="btn btn-default modif" aria-label="Modification">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+	</body>	
+</html>

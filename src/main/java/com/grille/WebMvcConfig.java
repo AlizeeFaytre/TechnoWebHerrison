@@ -1,4 +1,4 @@
-package main.java.com.grille;
+package com.grille;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
