@@ -21,7 +21,7 @@
 body {
 color:black;
 background-color:white;
-background-image:url(/img/batiment_isep.jpg);
+background-image:url(../img/batiment_isep.jpg);
 background-size:cover;
 }
 
