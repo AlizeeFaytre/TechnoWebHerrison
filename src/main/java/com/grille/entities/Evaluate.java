@@ -2,7 +2,7 @@ package com.grille.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by alizeefaytre on 30/04/2017.
