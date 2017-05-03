@@ -67,7 +67,7 @@ public class AuthenticationConfig implements AuthenticationManager {
             throw new BadCredentialsException("User not found");
             //throw new RuntimeException("LDAP ne repond pas, enfin peut etre ...", e);
         }
-        
+
         return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }
 }

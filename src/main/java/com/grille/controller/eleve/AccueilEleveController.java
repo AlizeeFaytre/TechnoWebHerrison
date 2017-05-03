@@ -12,6 +12,7 @@ public class AccueilEleveController {
 
     @GetMapping("/accueilEleve")
     public String accueil(){
+
         return "eleves/accueilEleve";
     }
 }
