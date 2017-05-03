@@ -15,6 +15,6 @@ public class HomeController {
     @GetMapping("/home")
     public String index (Model model){
         model.addAttribute("hello", "Hello Alizee");
-        return "eleves/index";
+        return "eleves/hello";
     }
 }

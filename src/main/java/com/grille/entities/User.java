@@ -25,6 +25,8 @@ public class User implements Serializable {
 
     private String classe;
 
+    private String identifiant;
+
     @ManyToMany(mappedBy = "listUser")
     private Set<Groupe> groupes;
 
@@ -36,6 +38,10 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     private Set<Grade> listGrade = new HashSet<Grade>();
+
+    @ManyToMany
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name="id_role"))
+    private Set<Role> roles = new HashSet<Role>();
 
     public User() {
     }
@@ -77,5 +83,13 @@ public class User implements Serializable {
 
     public Set<Groupe> getGroupes() {
         return groupes;
+    }
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
     }
 }

@@ -1,8 +1,9 @@
-package main.java.com.grille;
+package com.grille;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -18,6 +19,11 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
+    /*@Override
+    public void addViewControllers(ViewControllerRegistry registry){
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/logout").setViewName("login");
+    }*/
 
     @Bean
     public ViewResolver viewResolver() {
