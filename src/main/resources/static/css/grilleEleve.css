@@ -1,0 +1,23 @@
+
+body {
+  background-image: url("batiment_isep.jpg");
+  background-repeat: no-repeat;
+  height: 100%;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  background-size: 100% 100%;
+
+}
+
+.logo{
+  height: 2em;
+}
+
+.btn.btn-circle {
+  border-radius: 50px;
+}
+
+a.btn-circle:hover {
+  color: white !important;
+  background-color: #156EAB !important;
+}

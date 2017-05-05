@@ -1,0 +1,96 @@
+/*header*/
+/*.activeCustom {
+  color: #156EAB;
+  border-bottom: solid 2px #156EAB;
+}
+
+nav a {
+  color: black;
+}
+
+nav li :hover {
+  color: #156EAB;
+  border: solid 1px #156EAB;
+}*/
+
+/*side bar*/
+.intercalairePlier {
+  width: 70px;
+  height: 70px;
+  -webkit-clip-path: polygon(0 0, 51% 0, 51% 57%, 0% 100%);
+  clip-path: polygon(0 0, 51% 0, 51% 57%, 0% 100%);
+}
+
+.intercalaireDeplier{
+  height: 70px;
+  display: flex;
+  text-align: center;
+
+}
+
+.onglet{
+  margin: auto;
+  color: white;
+  font-weight: bold;
+}
+
+.side-menu{
+  position: fixed;
+  z-index: 1;
+}
+
+/*grille de compétence !!*/
+
+.tg  {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+.tg td{
+  padding:10px 5px;
+  border-style:solid;
+  border-width:1px;
+  overflow:hidden;
+  word-break:normal;
+}
+
+.tg th{
+  padding:10px 5px;
+  border-style:solid;
+  border-width:1px;
+  overflow:hidden;
+  word-break:normal;
+}
+
+.tg .tg-baqh{
+  text-align:center;
+  vertical-align:top;
+}
+
+.tg .tg-yw4l{
+  vertical-align:top;
+}
+
+.last{
+  border-bottom: solid 3px black;
+}
+
+.competence{
+  background-color: #156EAB;
+  color: white;
+  font-weight: bold;
+}
+
+.grey{
+  background-color: rgb(211, 213, 214);
+}
+
+.intitule{
+  text-align: center;
+  border-top: solid 3px black;
+  border-bottom: solid 3px black;
+}
+
+.cellule{
+  background-color: white;
+}
