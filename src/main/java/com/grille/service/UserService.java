@@ -16,6 +16,8 @@ import java.util.Set;
 @Service
 public class UserService {
 
+    //retourne la liste des competence ainsi que les notes associees de l'eleves, pour chaque competence
+    //la notes la plus recente est recuperee
     public Set<Evaluate> getLastEvaluate(User user){
         Set<Evaluate> listEvaluate = user.getListEvaluate();
         for (Evaluate e:listEvaluate) {

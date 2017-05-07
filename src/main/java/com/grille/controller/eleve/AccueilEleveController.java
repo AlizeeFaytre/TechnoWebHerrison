@@ -6,6 +6,7 @@ import com.grille.entities.Groupe;
 import com.grille.entities.Skill;
 import com.grille.entities.User;
 import com.grille.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,10 @@ import java.util.Set;
 @Controller
 public class AccueilEleveController {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private UserService userService;
 
     @GetMapping("/accueilEleve")
