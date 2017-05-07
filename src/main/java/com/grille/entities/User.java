@@ -92,4 +92,40 @@ public class User implements Serializable {
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
+
+    public void setGroupes(Set<Groupe> groupes) {
+        this.groupes = groupes;
+    }
+
+    public Set<Evaluate> getListEvaluate() {
+        return listEvaluate;
+    }
+
+    public void setListEvaluate(Set<Evaluate> listEvaluate) {
+        this.listEvaluate = listEvaluate;
+    }
+
+    public Set<Attendance> getListAttendance() {
+        return listAttendance;
+    }
+
+    public void setListAttendance(Set<Attendance> listAttendance) {
+        this.listAttendance = listAttendance;
+    }
+
+    public Set<Grade> getListGrade() {
+        return listGrade;
+    }
+
+    public void setListGrade(Set<Grade> listGrade) {
+        this.listGrade = listGrade;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

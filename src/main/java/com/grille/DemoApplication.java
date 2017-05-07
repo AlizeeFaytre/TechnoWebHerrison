@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.Calendar;
 import java.util.List;
 
 @SpringBootApplication
@@ -26,5 +27,7 @@ public class DemoApplication {
 
 		User myUser = dao.findById(2);
 		System.out.println(myUser.getNom());*/
+
+
 	}
 }
