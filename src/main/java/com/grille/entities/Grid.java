@@ -19,6 +19,8 @@ public class Grid implements Serializable{
 
     private String promo;
 
+    private String semester;
+
     @ManyToMany
     @JoinTable(name = "gridDomain", joinColumns = @JoinColumn(name = "id_grid"), inverseJoinColumns = @JoinColumn(name="id_domain"))
     private Set<Domain> listDomain = new HashSet<Domain>();
@@ -41,5 +43,13 @@ public class Grid implements Serializable{
 
     public void setPromo(String promo) {
         this.promo = promo;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 }

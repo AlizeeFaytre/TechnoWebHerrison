@@ -2,10 +2,8 @@ package com.grille.controller.eleve;
 
 import com.grille.dao.RoleRepository;
 import com.grille.dao.UserRepository;
-import com.grille.entities.Evaluate;
-import com.grille.entities.Groupe;
-import com.grille.entities.Role;
-import com.grille.entities.User;
+import com.grille.entities.*;
+import com.grille.service.GridService;
 import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +32,9 @@ public class grilleEleveController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GridService gridService;
+
     @GetMapping("/grille")
     public String grille(@AuthenticationPrincipal UserDetails userDetails, Model model){
         User currentUser = userRepository.findByIdentifiant(userDetails.getUsername());
@@ -49,7 +50,11 @@ public class grilleEleveController {
             }
         }
 
-        model.addAttribute(listStudentEvaluation);
+        model.addAttribute("listStudentEvaluation", listStudentEvaluation);
+
+        Grid studentGrid = gridService.getGrid(currentUser);
+
+        model.addAttribute("studentGrid", studentGrid);
 
         return "eleves/grilleEleve";
     }
