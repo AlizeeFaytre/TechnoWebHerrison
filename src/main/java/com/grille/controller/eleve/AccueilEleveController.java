@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -30,8 +31,8 @@ public class AccueilEleveController {
     private UserService userService;
 
     @GetMapping("/accueilEleve")
-    public String accueil(@AuthenticationPrincipal UserDetails userDetails, Model model){
-        User currentUser = userRepository.findByIdentifiant(userDetails.getUsername());
+    public String accueil(HttpSession session, Model model){
+        User currentUser = userService.getLogedUser(session);
         Set<Evaluate> listEvaluate = userService.getLastEvaluate(currentUser);
 
         model.addAttribute("listEvaluate", listEvaluate);

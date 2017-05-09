@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,8 @@ public class grilleEleveController {
     private GridService gridService;
 
     @GetMapping("/grille")
-    public String grille(@AuthenticationPrincipal UserDetails userDetails, Model model){
-        User currentUser = userRepository.findByIdentifiant(userDetails.getUsername());
+    public String grille(HttpSession session, Model model){
+        User currentUser = userService.getLogedUser(session);
         Groupe group = userService.getCurrentGroupe(currentUser);
         Set<User> listUser = group.getListUser();
 

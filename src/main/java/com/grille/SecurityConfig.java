@@ -1,5 +1,6 @@
 package com.grille;
 
+import com.grille.dao.RoleRepository;
 import com.grille.dao.UserRepository;
 import com.grille.service.LDAPService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -25,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     LDAPService ldapService;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     public void globalConfig(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,6 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
-        return new AuthenticationConfig(ldapService, userRepository);
+        return new AuthenticationConfig(ldapService, userRepository, roleRepository);
     }
 }

@@ -24,8 +24,20 @@ public class Role implements Serializable {
     public Role() {
     }
 
+    public Role(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public Set<User> getListUser() {
+        return listUser;
+    }
+
+    public void setListUser(Set<User> listUser) {
+        this.listUser = listUser;
     }
 
     public String getName() {

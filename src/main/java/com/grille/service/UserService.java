@@ -1,13 +1,17 @@
 package com.grille.service;
 
+import com.grille.dao.UserRepository;
 import com.grille.entities.Evaluate;
 import com.grille.entities.Groupe;
 import com.grille.entities.Skill;
 import com.grille.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Set;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * Created by alizeefaytre on 07/05/2017.
@@ -15,6 +19,9 @@ import java.util.Set;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     //retourne la liste des competence ainsi que les notes associees de l'eleves, pour chaque competence
     //la notes la plus recente est recuperee
@@ -67,5 +74,33 @@ public class UserService {
         String currentSemester = yearStr + " - " + semester;
 
         return currentSemester;
+    }
+
+    /*public Map<String, Object> getLogedUser(HttpSession session){
+        SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        String username = securityContext.getAuthentication().getName();
+
+        List<String> roles = new ArrayList<>();
+
+        for (GrantedAuthority ga:securityContext.getAuthentication().getAuthorities()) {
+            roles.add(ga.getAuthority());
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        params.put("roles", roles);
+        return params;
+
+
+    }*/
+
+    public User getLogedUser(HttpSession session){
+        SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        String username = securityContext.getAuthentication().getName();
+
+        User connectedUser = userRepository.findByIdentifiant(username);
+
+        return connectedUser;
+
     }
 }

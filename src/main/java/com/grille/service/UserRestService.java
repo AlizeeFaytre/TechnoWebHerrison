@@ -25,24 +25,7 @@ public class UserRestService {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/getLogedUser")
-    public Map<String, Object> getLogedUser(HttpSession session){
-        SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
-        String username = securityContext.getAuthentication().getName();
 
-        List<String> roles = new ArrayList<>();
-
-        for (GrantedAuthority ga:securityContext.getAuthentication().getAuthorities()) {
-            roles.add(ga.getAuthority());
-        }
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", username);
-        params.put("roles", roles);
-        return params;
-
-
-    }
 
 // @AuthenticationPrincipal UserDetails userDetails,
 }

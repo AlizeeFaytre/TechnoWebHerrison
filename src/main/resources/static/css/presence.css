@@ -1,0 +1,11 @@
+.newSection{
+  margin-top: 50px;
+}
+
+a h3 {
+  color: black;
+}
+
+.borderRed{
+  border: solid 3px red;
+}

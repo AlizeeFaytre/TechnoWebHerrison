@@ -1,7 +1,9 @@
 package com.grille;
 
+import com.grille.dao.RoleRepository;
 import com.grille.dao.UserRepository;
 import com.grille.dto.LDAPObject;
+import com.grille.entities.Role;
 import com.grille.entities.User;
 import com.grille.service.LDAPService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by alizeefaytre on 03/05/2017.
@@ -23,9 +28,12 @@ public class AuthenticationConfig implements AuthenticationManager {
 
     private UserRepository userRepository;
 
-    public AuthenticationConfig(LDAPService ldapService, UserRepository userRepository) {
+    private RoleRepository roleRepository;
+
+    public AuthenticationConfig(LDAPService ldapService, UserRepository userRepository, RoleRepository roleRepository) {
         this.ldapService = ldapService;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -33,6 +41,7 @@ public class AuthenticationConfig implements AuthenticationManager {
 
         String username = authentication.getName();
         String pw = authentication.getCredentials().toString();
+
 
 
         if ((username.equals("admin")) && (pw.equals("admin"))){
@@ -59,7 +68,23 @@ public class AuthenticationConfig implements AuthenticationManager {
                 user.setIdentifiant(userIdentified.getLogin());
                 user.setClasse(userIdentified.getPromo());
 
+
+
+                Role role = roleRepository.findByName(userIdentified.getType());
+                if(role == null){
+                    Role newRole = new Role(userIdentified.getType());
+                    roleRepository.save(newRole);
+                    role = newRole;
+                }
+
+                Set<Role> listRole = new HashSet<>();
+                listRole.add(role);
+
+                user.setRoles(listRole);
+
                 userRepository.save(user);
+
+
 
             }
 
@@ -68,6 +93,13 @@ public class AuthenticationConfig implements AuthenticationManager {
             //throw new RuntimeException("LDAP ne repond pas, enfin peut etre ...", e);
         }
 
-        return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        /*
+        User actual = userRepository.findByIdentifiant(username);
+        Set<Role> roles = actual.getRoles();
+        Role userRole = (Role) roles.toArray()[0];
+        String roleName = userRole.getName();
+        */
+
+        return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_eleve")));
     }
 }
