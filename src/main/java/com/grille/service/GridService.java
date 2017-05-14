@@ -21,7 +21,7 @@ public class GridService {
     @Autowired
     private UserService userService;
 
-    public Grid getGrid(User user){
+    public Grid getGrid(User user){ //a revoir pour recuperer la grille de l'année complete
 
         Set<Grid> listGrid = gridRepository.findByPromo(user.getClasse());
 

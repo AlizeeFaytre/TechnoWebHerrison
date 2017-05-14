@@ -50,4 +50,36 @@ public class Domain implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Skill> getListSkill() {
+        return listSkill;
+    }
+
+    public void setListSkill(Set<Skill> listSkill) {
+        this.listSkill = listSkill;
+    }
+
+    public Set<Grid> getListGrid() {
+        return listGrid;
+    }
+
+    public void setListGrid(Set<Grid> listGrid) {
+        this.listGrid = listGrid;
+    }
+
+    public Set<Deadline> getListDeadline() {
+        return listDeadline;
+    }
+
+    public void setListDeadline(Set<Deadline> listDeadline) {
+        this.listDeadline = listDeadline;
+    }
+
+    public Set<Grade> getListGrade() {
+        return listGrade;
+    }
+
+    public void setListGrade(Set<Grade> listGrade) {
+        this.listGrade = listGrade;
+    }
 }

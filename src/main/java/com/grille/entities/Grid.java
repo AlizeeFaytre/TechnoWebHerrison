@@ -52,4 +52,12 @@ public class Grid implements Serializable{
     public void setSemester(String semester) {
         this.semester = semester;
     }
+
+    public Set<Domain> getListDomain() {
+        return listDomain;
+    }
+
+    public void setListDomain(Set<Domain> listDomain) {
+        this.listDomain = listDomain;
+    }
 }

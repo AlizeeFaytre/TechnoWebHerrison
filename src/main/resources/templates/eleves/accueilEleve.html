@@ -14,7 +14,7 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="#"><img src="../../static/img/iseplogo.png" data-th-src="@{/img/iseplogo.png}" class="logo" alt=""></a>
-            <a href="#" class="navbar-brand">Alizée Faytre - A2</a>
+            <a href="#" data-th-text="${currentUser.prenom + ' '+ currentUser.nom + ' - A2'}" class="navbar-brand">Alizée Faytre - A2</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -74,56 +74,18 @@
           <th class="tg-031e col-md-1 col-lg-1 cell">acquisition</th>
           <th class="tg-yw4l col-md-6 col-lg-6 cell">Observation</th>
         </tr>
-        <tr>
-          <td class="tg-031e grille">Communication</td>
-          <td class="tg-yw4l note text-center" colspan="3"> 15 </td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Echanger</td>
-          <td class="tg-yw4l cell">1</td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Communiquer à l'oral</td>
-          <td class="tg-yw4l cell">1</td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Communiquer à l'écrit</td>
-          <td class="tg-yw4l cell">1</td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e grille">Travail en équipe</td>
-          <td class="tg-yw4l note" colspan="3"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Travailler en équipe</td>
-          <td class="tg-yw4l cell"></td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Gérer les conflits</td>
-          <td class="tg-yw4l cell"></td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Etre force de proposition</td>
-          <td class="tg-yw4l cell"></td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
-        <tr>
-          <td class="tg-031e competence">Outils de travail collaboratifs</td>
-          <td class="tg-yw4l cell"></td>
-          <td class="tg-031e cell"></td>
-          <td class="tg-yw4l cell"></td>
-        </tr>
+        <tbody data-th-each="domain : ${listeLigne}">
+          <tr>
+            <td data-th-text="${domain.key[0]}" class="tg-031e grille"></td>
+            <td class="tg-yw4l note text-center" colspan="3"> 15 </td>
+          </tr>
+          <tr data-th-each="skill : ${domain.value}">
+            <td data-th-text="${skill.competenceName}" class="tg-031e competence"></td>
+            <td data-th-text="${skill.competenceWeight}" class="tg-yw4l cell"></td>
+            <td data-th-text="${skill.competenceEvaluate}" class="tg-031e cell"></td>
+            <td data-th-text="${skill.individualObservation}" class="tg-yw4l cell"></td>
+          </tr>
+        </tbody>
       </table>
 
     </section>

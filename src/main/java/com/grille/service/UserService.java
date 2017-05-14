@@ -30,16 +30,17 @@ public class UserService {
         for (Evaluate e:listEvaluate) {
             Skill skill2 = e.getSkill();
             for (Evaluate evaluate:listEvaluate) {
-                Skill skill1 = evaluate.getSkill();
-                if(skill1.equals(skill2)){
-                    if (e.getDate().after(evaluate.getDate())){
-                        listEvaluate.remove(evaluate);
-                    }
-                    else{
-                        listEvaluate.remove(e);
+                if(!evaluate.equals(e)){
+                    Skill skill1 = evaluate.getSkill();
+                    if(skill1.equals(skill2)){
+                        if (e.getDate().after(evaluate.getDate())){
+                            listEvaluate.remove(evaluate);
+                        }
+                        else{
+                            listEvaluate.remove(e);
+                        }
                     }
                 }
-
             }
         }
         return listEvaluate;
@@ -65,10 +66,10 @@ public class UserService {
         int month = cal.get(Calendar.MONTH);
         String semester = new String();
         if(month>=2 && month<=8){
-            semester = "S1";
+            semester = "S2";
         }
         else{
-            semester = "S2";
+            semester = "S1";
         }
 
         String currentSemester = yearStr + " - " + semester;
