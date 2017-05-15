@@ -1,3 +1,4 @@
+
 .newSection{
   margin-top: 50px;
 }
@@ -9,3 +10,10 @@ a h3 {
 .borderRed{
   border: solid 3px red;
 }
+.dropdown-menu-center {
+    left: 50% !important;
+    right: auto !important;
+    text-align: center !important;
+    transform: translate(-50%, 0) !important;
+}
+
