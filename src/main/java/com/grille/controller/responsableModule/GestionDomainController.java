@@ -23,7 +23,6 @@ public class GestionDomainController {
 
     @GetMapping("/gestion_grille")
     public String index (Model model){
-
         List<Domain> listDomain = domainrepo.findAll();
         model.addAttribute("listDomain", listDomain);
         return "respoModule/gestion_grille";
