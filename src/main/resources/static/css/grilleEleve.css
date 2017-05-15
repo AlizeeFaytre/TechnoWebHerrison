@@ -1,6 +1,6 @@
 
 body {
-  background-image: url("batiment_isep.jpg");
+  background-image: url("../img/batiment_isep.jpg");
   background-repeat: no-repeat;
   height: 100%;
   margin: 0px 0px 0px 0px;
@@ -20,4 +20,8 @@ body {
 a.btn-circle:hover {
   color: white !important;
   background-color: #156EAB !important;
+}
+
+.green{
+  background-color: #42cc44;
 }

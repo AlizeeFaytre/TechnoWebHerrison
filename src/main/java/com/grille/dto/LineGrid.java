@@ -9,7 +9,9 @@ public class LineGrid implements Serializable{
 
     private String competenceName;
     private double competenceWeight;
+    private String competenceDescription;
     private String competenceEvaluate;
+    private String generalObservation;
     private String individualObservation;
     private String userName;
 
@@ -62,5 +64,21 @@ public class LineGrid implements Serializable{
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getCompetenceDescription() {
+        return competenceDescription;
+    }
+
+    public void setCompetenceDescription(String competenceDescription) {
+        this.competenceDescription = competenceDescription;
+    }
+
+    public String getGeneralObservation() {
+        return generalObservation;
+    }
+
+    public void setGeneralObservation(String generalObservation) {
+        this.generalObservation = generalObservation;
     }
 }
