@@ -27,6 +27,13 @@ public class GestionSkillsController {
         return "respoModule/new_grille";
     }
 
+    @GetMapping("/gestion-skills")
+    public String indexbis (Model model){
+        List<Skill> listSkill = skillrepo.findAll();
+        model.addAttribute("listSkill", listSkill);
+        return "respoModule/gestion-skills";
+    }
+
     @GetMapping("/new_grille2")
     public String formgrille(Model model){
         model.addAttribute("domain", new Domain());
