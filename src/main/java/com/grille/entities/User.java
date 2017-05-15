@@ -92,4 +92,10 @@ public class User implements Serializable {
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
 }
