@@ -1,8 +1,6 @@
 /**
- * Created by jiawei on 15/05/2017.
+ * Created by jiawei on 16/05/2017.
  */
-
-
 
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -14,14 +12,13 @@ $.urlParam = function(name){
     }
 }
 
-var condition = $.urlParam('groupe');
+var condition = $.urlParam('domain');
+console.log(condition);
 
 
 
-if (condition != 0){
+if (condition == 0){
     $(window).on('load',function(){
-        $('#modal_visualisation_groupe_user').modal('show');
+        $('#table').hide();
     });
 }
-
-

@@ -1,6 +1,5 @@
 
 body {
-  background-image: url("batiment_isep.jpg");
   background-repeat: no-repeat;
   height: 100%;
   margin: 0px 0px 0px 0px;
@@ -20,4 +19,11 @@ body {
 a.btn-circle:hover {
   color: white !important;
   background-color: #156EAB !important;
+}
+
+.dropdown-menu-center {
+  left: 50% !important;
+  right: auto !important;
+  text-align: center !important;
+  transform: translate(-50%, 0) !important;
 }

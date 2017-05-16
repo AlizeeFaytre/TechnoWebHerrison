@@ -60,6 +60,7 @@
             <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-center">
             <li th:each="groupe:${listGroupe}"> <a th:href="|presence?groupe=${groupe.id}|" th:text="${groupe.nom}"></a> </li>
+          </ul>
         </div>
 
 

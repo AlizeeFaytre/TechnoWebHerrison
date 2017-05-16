@@ -50,4 +50,12 @@ public class Domain implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<Skill> getListSkill() {
+        return listSkill;
+    }
 }
