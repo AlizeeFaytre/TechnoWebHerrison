@@ -19,6 +19,8 @@ public class Groupe implements Serializable{
     private String promo;
     private String semester;
     private String nom;
+    private int idTuteur;
+    private int idClient;
 
     @ManyToMany
     @JoinTable(name = "distributionGroup", joinColumns = @JoinColumn(name = "id_group"), inverseJoinColumns = @JoinColumn(name="id_user"))
@@ -28,10 +30,12 @@ public class Groupe implements Serializable{
     public Groupe() {
     }
 
-    public Groupe(String promo, String semester, String nom, Set<User> listUser) {
+    public Groupe(String promo, String semester, String nom,int idTuteur,int idClient, Set<User> listUser) {
         this.promo = promo;
         this.semester = semester;
         this.nom = nom;
+        this.idTuteur = idTuteur;
+        this.idClient = idClient;
         this.listUser = listUser;
     }
 
@@ -69,5 +73,25 @@ public class Groupe implements Serializable{
 
     public void setListUser(Set<User> listUser) {
         this.listUser = listUser;
+    }
+
+    public int getIdTuteur() {
+        return idTuteur;
+    }
+
+    public void setIdTuteur(int idTuteur) {
+        this.idTuteur = idTuteur;
+    }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

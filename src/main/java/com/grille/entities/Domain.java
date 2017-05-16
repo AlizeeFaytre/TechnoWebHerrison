@@ -50,7 +50,7 @@ public class Domain implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public Set<Skill> getListSkill() {
         return listSkill;
     }
@@ -81,5 +81,5 @@ public class Domain implements Serializable {
 
     public void setListGrade(Set<Grade> listGrade) {
         this.listGrade = listGrade;
-    }
+
 }

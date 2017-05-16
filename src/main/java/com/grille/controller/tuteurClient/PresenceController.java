@@ -42,6 +42,7 @@ public class PresenceController {
 
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id){
+
         //selection tous les domains
         List<Domain> listDomain = domainRepository.findAll();
 
@@ -77,7 +78,6 @@ public class PresenceController {
         model.addAttribute("groupeEleve", groupeEleve);
         model.addAttribute("listGroupe", listGroupe);
         model.addAttribute("listDomain", listDomain);
-
 
 
         return "/tuteur-client/presence";
