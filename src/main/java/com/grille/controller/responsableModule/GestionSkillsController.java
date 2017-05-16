@@ -20,6 +20,7 @@ public class GestionSkillsController {
     private SkillRepository skillrepo;
 
     @GetMapping("/gestion-skills")
+
     public String indexbis (Model model){
         List<Skill> listSkill = skillrepo.findAll();
         model.addAttribute("listSkill", listSkill);
