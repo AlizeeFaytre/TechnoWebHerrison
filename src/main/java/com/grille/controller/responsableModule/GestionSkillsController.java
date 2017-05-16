@@ -19,14 +19,6 @@ public class GestionSkillsController {
     @Autowired
     private SkillRepository skillrepo;
 
-    @GetMapping("/new_grille")
-    public String index (Model model){
-
-        List<Skill> listSkill = skillrepo.findAll();
-        model.addAttribute("listSkill", listSkill);
-        return "respoModule/new_grille";
-    }
-
     @GetMapping("/gestion-skills")
     public String indexbis (Model model){
         List<Skill> listSkill = skillrepo.findAll();
