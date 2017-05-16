@@ -1,0 +1,43 @@
+body {
+    color:black;
+    background-color:white;
+    background-image:url(../img/batiment_isep.jpg);
+    background-size:cover;
+}
+
+.view_groupes_conteneur
+{
+    background-color: rgb(200,200,200);
+    opacity: 0.8;
+    border-radius: 5px;
+}
+
+.button_simple
+{
+    border: none !important;
+}
+
+.visualisation_membres
+{
+    border-top: solid;
+    border-bottom: solid;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.nom_membre
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#titre
+{
+    background-color: rgb(200,200,200);
+    opacity: 0.8;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
