@@ -10,6 +10,6 @@ public class GestionSkillsController {
 
     @GetMapping("/gestion-skills")
     public String index (Model model){
-                return "responsable/gestion-skills";
+                return "respoModule/gestion-skills";
     }
 }

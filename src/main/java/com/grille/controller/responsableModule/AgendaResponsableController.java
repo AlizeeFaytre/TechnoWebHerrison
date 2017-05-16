@@ -10,6 +10,6 @@ public class AgendaResponsableController {
 
     @GetMapping("/agenda-responsable")
     public String index (Model model){
-                return "responsable/agenda-responsable";
+                return "respoModule/agenda-responsable";
     }
 }
