@@ -13,6 +13,7 @@
 
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
+    <script src="../../static/js/dashboard_tuteur.js" data-th-src="@{/js/dashboard_tuteur.js}" charset="utf-8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,20 +70,25 @@
           <td th:text="${groupe.nom}"></td>
           <td th:text="${groupe.promo}"></td>
           <td th:text="${groupe.semester}"></td>
+          <td>
+            <a th:href="|dashboard-tuteur?groupe=${groupe.id}|"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+          </td>
+          <td>
+            <a th:href="grilleprofvue"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+          </td>
         </tr>
       <tbody>
     </table>
 
-    <!--dive hidden or modal pour afficher les eleves ?? + un button vers grilleProf
-    <tr th:each="listUser:${listListUser}">
-        <td th:each="user:${listUser}"><span th:text="${user.nom}"></span></td>
-    </tr>
-    -->
+
+
 
       <table class="table table-hover">
         <thead>
           <tr>
             <th>Mes groupes (Client)</th>
+            <th>Promo</th>
+            <th>Semester</th>
           </tr>
       </thead>
       <tbody>
@@ -90,10 +96,47 @@
             <td th:text="${groupe.nom}"></td>
             <td th:text="${groupe.promo}"></td>
             <td th:text="${groupe.semester}"></td>
+            <td>
+              <a th:href="|dashboard-tuteur?groupe=${groupe.id}|"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+            </td>
+            <td>
+              <a th:href="grilleprofvue"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+            </td>
           </tr>
       <tbody>
     </table>
     </div>
+
+      <!-- Modal visualisation groupe user -->
+      <div class="modal fade" id="modal_visualisation_groupe_user" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" th:text="${selectedGroupe.nom}"></h4>
+            </div>
+
+            <div class="modal-body">
+              <div class="visualisation_membres">
+
+                <!-- 1er membre -->
+                <div class="membre row" th:each="user : ${listGroupeUsers}">
+                  <p class="nom_membre col-sm-4 text-right" th:text="${user.nom}"> </p>
+                  <p class="nom_membre col-sm-4 text-center" th:text="${user.prenom}"> </p>
+                  <p class="nom_membre col-sm-4 text-left" th:text="${user.classe}"> </p>
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
 </div>
 </body>
