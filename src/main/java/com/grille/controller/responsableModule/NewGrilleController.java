@@ -26,7 +26,7 @@ public class NewGrilleController {
     @Autowired
     private SkillRepository skillrepo;
 
-    @RequestMapping(value = "/new_domain", method = RequestMethod.POST)
+    @RequestMapping(value = "/new_domain", method = RequestMethod.GET)
     public String index (Model model){
 
         //selection tous les domain
@@ -39,10 +39,10 @@ public class NewGrilleController {
                 maxId = d.getId();
             }
         }
-
+        maxId = maxId + 1;
         Domain test = new Domain();
         test.setId(maxId);
-        test.setName();
+        test.setName("Italie");
         domainrepo.save(test);
 
         List<Skill> listSkill = skillrepo.findAll();
