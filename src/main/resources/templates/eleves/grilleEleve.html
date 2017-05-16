@@ -69,10 +69,10 @@
         </tr>
         <!-- fin de l'entete du tableau -->
         <tbody class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
         <!-- une compétence -->
-          <tbody data-th-each="competence : ${listeLigneGrid}">
-              <tbody  class="panel panel-default">
+          <tbody data-th-each="competence : ${ligneGrille}" class="panel panel-default">
+
+
                   <tr class="panel-heading" role="tab" id="headingOne">
                       <td class="competence intitule panel-title" colspan="9">
                           <a data-th-text="${competence.key.competenceName}" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -80,162 +80,34 @@
                           </a>
                       </td>
                   </tr>
-              </tbody>
-              <tbody class="completeCompetence">
-                  <tbody class="panel-body completeCompetence panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne" >
+
+              <!--<tbody class="completeCompetence">
+                  <tbody class="panel-body completeCompetence panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne" >-->
                   <tr>
                       <td data-th-text="${competence.key.competenceDescription}" class="tg-yw4l grey" rowspan="7">extraire et comprendre les besoins fonctionnel et non fonctionnel</td>
                       <td data-th-text="${competence.key.generalObservation}" class="tg-yw4l cellule" rowspan="7">ici iront les commentaires generaux</td>
                       <td data-th-text="${competence.key.individualObservation}" class="tg-yw4l cellule 0">observation individuel eleve 1</td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Loin') ? 'green' : ''" class="tg-yw4l cellule 0"></td>
-                      <td data-th-classappend="${competence.key.competenceEvaluate == Proche} ? green : ''" class="tg-yw4l cellule 0"></td>
-                      <td data-th-classappend="${competence.key.competenceEvaluate == Très Proche} ? green : ''" class="tg-yw4l cellule 0"></td>
-                      <td data-th-classappend="${competence.key.competenceEvaluate == Attendu} ? green : ''" class="tg-yw4l cellule 0"></td>
-                      <td data-th-classappend="${competence.key.competenceEvaluate == Au-delà} ? green : ''" class="tg-yw4l cellule 0"></td>
-                      <td data-th-text="competence.key.userName"  class="tg-yw4l grey 0">Alizée Faytre</td>
+                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Loin') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Proche') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Très Proche') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Attendu') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Au-delà') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <td data-th-text="${competence.key.userName}"  class="tg-yw4l grey 0">Alizée Faytre</td>
                   </tr>
                   <tr data-th-each="nextUser : ${competence.value}">
-                      <td class="tg-yw4l cellule 1">observation individuel du deuxième eleves qui est un cancre absolue c'est pas possible d'etre aussi nul !!</td>
-                      <td data-th-classappend="${nextUser.competenceEvaluate == Loin} ? green : ''" class="tg-yw4l cellule 1"></td>
-                      <td data-th-classappend="${nextUser.competenceEvaluate == Proche} ? green : ''" class="tg-yw4l cellule 1"></td>
-                      <td data-th-classappend="${nextUser.competenceEvaluate == Très Proche} ? green : ''" class="tg-yw4l cellule 1"></td>
-                      <td data-th-classappend="${nextUser.competenceEvaluate == Attendu} ? green : ''"class="tg-yw4l cellule 1"></td>
-                      <td data-th-classappend="${nextUser.competenceEvaluate == Au-delà} ? green : ''" class="tg-yw4l cellule 1"></td>
-                      <td data-th-text="nextUser.userName" class="tg-yw4l grey 1">Deuxième eleve !</td>
+                      <td data-th-text="${nextUser.individualObservation}" class="tg-yw4l cellule 1">observation individuel du deuxième eleves qui est un cancre absolue c'est pas possible d'etre aussi nul !!</td>
+                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Loin') ? green : ''" class="tg-yw4l 1"></td>
+                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Proche') ? green : ''" class="tg-yw4l 1"></td>
+                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Très Proche') ? green : ''" class="tg-yw4l 1"></td>
+                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Attendu') ? green : ''"class="tg-yw4l 1"></td>
+                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Au-delà') ? green : ''" class="tg-yw4l 1"></td>
+                      <td data-th-text="${nextUser.userName}" class="tg-yw4l grey 1">Deuxième eleve !</td>
                   </tr>
-                  <tr>
-
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l cellule 2"></td>
-                      <td class="tg-yw4l grey 2">Troisieme eleve</td>
-                  </tr>
-                  <tr>
-                      <td class="tg-yw4l cellule 3">Bonne élève très appliquée mais parle beaucoup</td>
-                      <td class="tg-yw4l cellule 3"></td>
-                      <td class="tg-yw4l cellule 3"></td>
-                      <td class="tg-yw4l cellule 3"></td>
-                      <td class="tg-yw4l cellule 3"></td>
-                      <td class="tg-yw4l cellule 3"></td>
-                      <td class="tg-yw4l grey 3">Esther Laurette</td>
-                  </tr>
-                  <tr>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l cellule 4"></td>
-                      <td class="tg-yw4l grey 4"></td>
-                  </tr>
-                  <tr>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l grey"></td>
-                  </tr>
-                  <tr class="last">
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l cellule"></td>
-                      <td class="tg-yw4l grey"></td>
-                  </tr>
-                </tbody>
-              </tbody>
+                <!--</tbody>
+              </tbody>-->
           </tbody>
+          
 
-
-
-        <!-- fin de la compétence -->
-        <!-- une compétence -->
-          <tbody class="panel panel-default">
-            <tr class="panel-heading" role="tab" id="headingTwo">
-              <td class="competence intitule panel-title" colspan="9">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                  Specification des besoins (MOA) n°2
-                </a>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="completeCompetence">
-            <tbody class="panel-body completeCompetence panel-collapse collapse in" id="collapseTwo" role="tabpanel" aria-labelledby="headingTwo" >
-              <tr>
-                <td class="tg-yw4l grey" rowspan="7">extraire et comprendre les besoins fonctionnel et non fonctionnel</td>
-                <td class="tg-yw4l cellule" rowspan="7">ici iront les commentaires generaux</td>
-                <td class="tg-yw4l cellule">observation individuel eleve 1</td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule">X</td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey">Alizée Faytre</td>
-              </tr>
-              <tr>
-                <td class="tg-yw4l cellule">observation individuel du deuxième eleves qui est un cancre absolue c'est pas possible d'etre aussi nul !!</td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey">Deuxième eleve !</td>
-              </tr>
-              <tr>
-
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey"></td>
-              </tr>
-              <tr>
-                <td class="tg-yw4l cellule">Bonne élève très appliquée mais parle beaucoup</td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey">Esther Laurette</td>
-              </tr>
-              <tr>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey"></td>
-              </tr>
-              <tr>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey"></td>
-              </tr>
-              <tr class="last">
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l cellule"></td>
-                <td class="tg-yw4l grey"></td>
-              </tr>
-            </tbody>
-          </tbody>
           <!-- fin de la compétence -->
         </tbody>
 

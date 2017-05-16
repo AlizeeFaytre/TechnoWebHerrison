@@ -107,11 +107,11 @@ public class grilleEleveController {
                             }
                         }
                     }
-                }
-                else{
-                    nextLine.setIndividualObservation(" ");
-                    nextLine.setCompetenceEvaluate(" ");
-                    nextLine.setUserName(user.getPrenom() + " " + user.getNom());
+                    else{
+                        nextLine.setIndividualObservation(" ");
+                        nextLine.setCompetenceEvaluate(" ");
+                        nextLine.setUserName(user.getPrenom() + " " + user.getNom());
+                    }
                 }
 
                 listLine.add(nextLine);
@@ -121,7 +121,7 @@ public class grilleEleveController {
         }
 
 
-        model.addAttribute("listeLigneGrid", listeLigne);
+        model.addAttribute("ligneGrille", listeLigne);
 
         return "eleves/grilleEleve";
     }
