@@ -90,8 +90,8 @@ public class grilleEleveController {
 
             ArrayList<LineGrid> listLine = new ArrayList<>();
             for (User user:listUser) {
-                LineGrid nextLine = new LineGrid();
                 if (!(user.equals(currentUser))){
+                    LineGrid nextLine = new LineGrid();
                     nextLine.setUserName(user.getPrenom() + " " + user.getNom());
                     Set<Evaluate> listUserEvaluate = userService.getLastEvaluate(user);
                     Set<Skill> userEvaluatedSkill = new HashSet<>();
@@ -112,9 +112,9 @@ public class grilleEleveController {
                         nextLine.setCompetenceEvaluate(" ");
                         nextLine.setUserName(user.getPrenom() + " " + user.getNom());
                     }
+                    listLine.add(nextLine);
                 }
 
-                listLine.add(nextLine);
             }
 
             listeLigne.put(firstLine, listLine);
