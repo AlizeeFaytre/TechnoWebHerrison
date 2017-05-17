@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeLeaf.org">
 <head>
 	<meta charset="utf-8">
 	<title>Gestion Grilles</title>
@@ -20,7 +20,7 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Home</a></li>
+						<li><a href="index.html">Home</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grille <span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -112,6 +112,24 @@
 					</div>
 				</div>
 			
+			</div>
+
+			<div class="row">
+
+				<div th:each="domain:${listDomain}" class="grille col-xs-12 col-sm-2 col-sm-offset-1 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-1">
+					<div class="boite">
+						<h4 th:text="${domain.name}"></h4>
+					</div>
+					<div class="boite">
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+
 			</div>
 
 			
