@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
 <html>
 <head>
 	<meta charset="utf-8">
@@ -53,26 +54,26 @@
 					<h1 class="titre_form">Nouvelle grille de compétences</h1>
 			    	<form action="" method="post">
 						<div class="form-group">
-							<label for="Nom_grille">Nom de la grille</label>
+							<label>Nom de la grille</label>
 							<input type="text" class="form-control" placeholder="Saisissez le nom de la grille">
 						</div>
-						<div class="form-group">
-							<label for="competences">Choix des compétences</label><br />
-							<label for="comp1">Compétence 1 :</label><input type="radio" name="competences" id="comp1" value="comp1" /><br />
-							<label for="comp2">Compétence 2 :</label><input type="radio" name="competences" id="comp2" value="comp2" /><br />
-							<label for="comp3">Compétence 3 :</label><input type="radio" name="competences" id="comp3" value="comp3" /><br />
-							<label for="comp4">Compétence 4 :</label><input type="radio" name="competences" id="comp4" value="comp4" /><br />
+
+						<div  class="form-group">
+							<label >Choix des compétences</label><br />
+							<div th:each="skill:${listSkill}">
+								<label th:text="${skill.name}"></label>&nbsp;<input type="checkbox" name="competences" id="comp1" value="comp1" /><br />
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="competences">Liste des compétences sélectionnées</label><br />
+						<!--<div class="form-group">
+							<label >Liste des compétences sélectionnées</label><br />
 							<ul>
 								<li>Compétence 1</li>
 								<li>Compétence 2</li>
 								<li>Compétence 3</li>
 								<li>Compétence 4</li>
 							</ul>
-						</div>
-						<button type="submit" class="btn btn-default bouton_connexion">Valider la grille</button></br></br>
+						</div>-->
+						<input type="submit" class="btn btn-default bouton_connexion" value="Save"><!--Valider la grille--></input></br></br>
 					</form>
 
 			    </div>

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class NewGrilleController {
 
 
-    @GetMapping("/new_grille")
+    @GetMapping("")
     public String index (Model model){
-        return "respoModule/new_grille";
+        return "";
     }
 }
