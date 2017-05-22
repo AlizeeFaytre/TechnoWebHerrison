@@ -6,6 +6,7 @@ import com.grille.entities.Groupe;
 import com.grille.entities.Role;
 import com.grille.entities.User;
 import com.grille.service.UserRestService;
+import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ import java.util.Set;
 public class DashboardTuteurController {
 
     @Autowired
-    private UserRestService userRestService;
+    private UserService userService;
     @Autowired
     private GroupeRepository groupeRepository;
     @Autowired
@@ -38,8 +39,8 @@ public class DashboardTuteurController {
         //selection tous les groupe
         List<Groupe> listGroupe = groupeRepository.findAll();
 
-        Map<String, Object> logedUser = userRestService.getLogedUser(session);
-        String userName = logedUser.get("username").toString();
+        User logedUser = userService.getLogedUser(session);
+        String userName = logedUser.getIdentifiant();
 
         //--A suivre----------------------------------------------------------------------------------
         //Suggestion : ajouter un champ tuteur et un champ client dans la tab des groupe

@@ -85,9 +85,6 @@ public class Domain implements Serializable {
 
     public void setListGrade(Set<Grade> listGrade) {
         this.listGrade = listGrade;
-
-
-    public Set<Skill> getListSkill() {
-        return listSkill;
     }
+
 }
