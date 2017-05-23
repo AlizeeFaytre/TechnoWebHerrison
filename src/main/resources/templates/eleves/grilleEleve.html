@@ -53,19 +53,12 @@
         <tr>
           <th class="tg-baqh competence" colspan="9">Composante informatique : concevoir et réaliser un site Web</th>
         </tr>
-        <tr>
-          <td class="tg-yw4l col-md-3 grey" rowspan="2"></td>
-          <td class="tg-baqh col-md-3 grey" rowspan="2">observation sur l'équipe</td>
-          <td class="tg-baqh col-md-3 grey" rowspan="2">observation individuelles</td>
-          <td class="tg-baqh col-md-2 grey" colspan="5">niveau individuel</td>
-          <td class="tg-baqh col-md-1 grey" rowspan="2">étudiants</td>
-        </tr>
         <tr class="last">
-          <td class="tg-baqh grey"><p>Loin</p></td>
-          <td class="tg-baqh grey"><p>Proche</p></td>
-          <td class="tg-baqh grey"><p>Tres Proche</p></td>
-          <td class="tg-baqh grey"><p>Attendu</p></td>
-          <td class="tg-baqh grey"><p>Au-Dela</p></td>
+          <td class="tg-yw4l col-md-3 grey" ></td>
+          <td class="tg-baqh col-md-3 grey" >observation sur l'équipe</td>
+          <td class="tg-baqh col-md-3 grey" >observation individuelles</td>
+          <td class="tg-baqh col-md-1 grey" >niveau individuel</td>
+          <td class="tg-baqh col-md-1 grey" >étudiants</td>
         </tr>
         <!-- fin de l'entete du tableau -->
         <tbody class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -87,20 +80,26 @@
                       <td data-th-text="${competence.key.competenceDescription}" class="tg-yw4l grey" rowspan="7">extraire et comprendre les besoins fonctionnel et non fonctionnel</td>
                       <td data-th-text="${competence.key.generalObservation}" class="tg-yw4l cellule" rowspan="7">ici iront les commentaires generaux</td>
                       <td data-th-text="${competence.key.individualObservation}" class="tg-yw4l cellule 0">observation individuel eleve 1</td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Loin') ? 'green' : 'a'" class="tg-yw4l 0"></td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Proche') ? 'green' : 'a'" class="tg-yw4l 0"></td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Très Proche') ? 'green' : 'a'" class="tg-yw4l 0"></td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Attendu') ? 'green' : 'a'" class="tg-yw4l 0"></td>
-                      <td data-th-classappend="(${competence.key.competenceEvaluate} == 'Au-delà') ? 'green' : 'a'" class="tg-yw4l 0"></td>
+                      <div data-th-switch="${competence.key.competenceEvaluate}">
+                          <td data-th-case="'Loin'" class="loin tg-yw4l" data-toggle="tooltip" data-container="body" data-placement="top" title="Loin"></td>
+                          <td data-th-case="'Proche'" class="tg-yw4l proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Proche"></td>
+                          <td data-th-case="'Très Proche'" class="tg-yw4l tres-proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Très Proche"></td>
+                          <td data-th-case="'Attendu'" class="tg-yw4l attendu 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Attendu" ></td>
+                          <td data-th-case="'Au-delà'" class="tg-yw4l au-dela 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Au-delà"></td>
+                          <td data-th-case="*" class="tg-yw4l 0"></td>
+                      </div>
                       <td data-th-text="${competence.key.userName}"  class="tg-yw4l grey 0">Alizée Faytre</td>
                   </tr>
                   <tr data-th-each="nextUser : ${competence.value}">
                       <td data-th-text="${nextUser.individualObservation}" class="tg-yw4l cellule 1">observation individuel du deuxième eleves qui est un cancre absolue c'est pas possible d'etre aussi nul !!</td>
-                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Loin') ? green : ''" class="tg-yw4l 1"></td>
-                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Proche') ? green : ''" class="tg-yw4l 1"></td>
-                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Très Proche') ? green : ''" class="tg-yw4l 1"></td>
-                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Attendu') ? green : ''"class="tg-yw4l 1"></td>
-                      <td data-th-classappend="(${nextUser.competenceEvaluate} == 'Au-delà') ? green : ''" class="tg-yw4l 1"></td>
+                      <div data-th-switch="${nextUser.competenceEvaluate}">
+                          <td data-th-case="'Loin'" class="loin tg-yw4l" data-toggle="tooltip" data-container="body" data-placement="top" title="Loin"></td>
+                          <td data-th-case="'Proche'" class="tg-yw4l proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Proche"></td>
+                          <td data-th-case="'Très Proche'" class="tg-yw4l tres-proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Très Proche"></td>
+                          <td data-th-case="'Attendu'" class="tg-yw4l attendu 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Attendu"></td>
+                          <td data-th-case="'Au-delà'" class="tg-yw4l au-dela 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Au-delà"></td>
+                          <td data-th-case="*" class="tg-yw4l 0"></td>
+                      </div>
                       <td data-th-text="${nextUser.userName}" class="tg-yw4l grey 1">Deuxième eleve !</td>
                   </tr>
                 <!--</tbody>

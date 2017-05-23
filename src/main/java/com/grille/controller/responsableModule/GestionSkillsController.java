@@ -21,6 +21,7 @@ public class GestionSkillsController {
     @Autowired
     private SkillRepository skillrepo;
 
+
     @RequestMapping(value="/gestion-skills", method = RequestMethod.GET)
     public String indexbis (Model model){
         List<Skill> listSkill = skillrepo.findAll();
