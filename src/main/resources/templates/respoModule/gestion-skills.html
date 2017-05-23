@@ -108,33 +108,34 @@
         <h4 class="modal-title" id="myModalLabel">Nouvelle compétence</h4>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
+        <form action="new_skill_insert" method="post">
         <div class="form-group">
-          <label for="Nom_grille">Nom de la compétence</label>
-          <input type="text" class="form-control" placeholder="Saisissez le nom de la compétence">
+          <label>Nom de la compétence</label>
+          <input type="text" name="name" class="form-control" placeholder="Saisissez le nom de la compétence">
         </div>
 
         <div class="describe-form">
-          <label for="description">Ajouter une description</label><br />
+          <label>Ajouter une description</label><br />
           <textarea name="description" rows="8" cols="70"></textarea>
         </div>
 
         <div class="domain-form">
-          <form>
-            <label for="domain"> A quel domaine appartient cette compétence ? </label>
+          <!--<form>
+            <label> A quel domaine appartient cette compétence ? </label>
             <select name="domain">
               <option value="Communication">Communication</option>
               <option value="Informatique">Informatique</option>
               <option value="Electronique">Electronique</option>
               <option value="Télécomunications">Télécommunications</option>
             </select>
-          </form>
+          </form>-->
         </div>
+          <input type="submit" class="btn btn-default bouton_connexion" value="Save" />
       </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-default bouton_connexion">Ajouter la compétence</button>
+
       </div>
     </div>
   </div>

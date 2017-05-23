@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -19,26 +21,28 @@ public class GestionSkillsController {
     @Autowired
     private SkillRepository skillrepo;
 
-    @GetMapping("/gestion-skills")
 
+    @RequestMapping(value="/gestion-skills", method = RequestMethod.GET)
     public String indexbis (Model model){
         List<Skill> listSkill = skillrepo.findAll();
         model.addAttribute("listSkill", listSkill);
+        model.addAttribute("skill", new Skill());
         return "respoModule/gestion-skills";
     }
 
-    @GetMapping("/new_grille2")
-    public String formgrille(Model model){
-        model.addAttribute("domain", new Domain());
-        return "respoModule/new_grille";
+
+    @RequestMapping(value = "/new_skill_insert", method = RequestMethod.POST)
+    public void grille (Model model, Skill s, HttpServletResponse response){
+
+        skillrepo.save(s);
+        try{
+            response.sendRedirect("/gestion-skills");
+        }catch (IOException i){
+            i.printStackTrace();
+        }
+
     }
 
 
-    /*@GetMapping(value="/new_grille3", method = RequestMethod.POST)
-    public String savegrille(Model model, Domain d){
-        DomainRepository.save(d);
-        model.addAttribute("domain", d);
-        return "respoModule/gestion_grille";
-    }*/
 
 }
