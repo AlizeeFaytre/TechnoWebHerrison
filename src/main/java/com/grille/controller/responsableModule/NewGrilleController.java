@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,48 +35,23 @@ public class NewGrilleController {
     public String index (Model model){
 
         //selection tous les domain
-        List<Domain> listDomain = domainrepo.findAll();
-
-        //selection max id
-        int maxId = 0;
-        for (Domain d : listDomain){
-            if (d.getId()> maxId){
-                maxId = d.getId();
-            }
-        }
-        maxId = maxId + 1;
-        Domain test = new Domain();
-        test.setId(maxId);
-        test.setName("Italie");
-        domainrepo.save(test);
-
         List<Skill> listSkill = skillrepo.findAll();
         model.addAttribute("listSkill", listSkill);
+        model.addAttribute("domain", new Domain());
         return "respoModule/new_grille";
     }
-/*
-    @RequestMapping(value = "/new_domain", method = RequestMethod.POST)
-    public ResponseEntity<Void> processXml(@RequestBody String requestBody){
 
-        //selection tous les domain
-        List<Domain> listDomain = domainrepo.findAll();
+    @RequestMapping(value = "/new_domain_insert", method = RequestMethod.POST)
+    public void grille (Model model, Domain d, HttpServletResponse response){
 
-        //selection max id
-        int maxId = 0;
-        for (Domain d : listDomain){
-            if (d.getId()> maxId){
-                maxId = d.getId();
-            }
+        domainrepo.save(d);
+        try{
+            response.sendRedirect("/gestion_grille");
+        }catch (IOException i){
+            i.printStackTrace();
         }
-        maxId = maxId + 1;
-        Domain test = new Domain();
-        test.setId(maxId);
-        test.setName(requestBody);
-        domainrepo.save(test);
 
-        return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-
-    }*/
+    }
 
 
 }

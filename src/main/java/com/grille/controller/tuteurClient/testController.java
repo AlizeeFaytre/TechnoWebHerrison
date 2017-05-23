@@ -1,5 +1,8 @@
 package com.grille.controller.tuteurClient;
 
+import com.grille.dao.DomainRepository;
+import com.grille.entities.Domain;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,17 +16,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class testController {
 
+    @Autowired
+    private DomainRepository domainrepos;
+
     @RequestMapping(value = "/testjia", method = RequestMethod.GET)
-    public String test(){
+    public String test(Model model){
+        model.addAttribute("domain", new Domain());
         return "tuteur-client/test";
 
     }
 
     @RequestMapping(value = "/chercher", method = RequestMethod.POST)
-    public String chercher(Model model, String nom){
+    public String chercher(Model model, Domain d){
 
-        model.addAttribute("resultat",nom);
-        return "tuteur-client/test2";
+        domainrepos.save(d);
+
+        return "tuteur-client/test";
 
     }
 }
