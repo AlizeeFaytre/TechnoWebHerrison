@@ -68,16 +68,32 @@ public class DashboardTuteurController {
                 break;
             }
         }
-        model.addAttribute("listGroupeUsers", listGroupeUsers);
-        model.addAttribute("selectedGroupe", selectedGroupe);
 
+
+        if (tuteurListGroupe.contains(selectedGroupe) || clientListGroupe.contains(selectedGroupe)){
+            model.addAttribute("selectedGroupe", selectedGroupe);
+            model.addAttribute("listGroupeUsers", listGroupeUsers);
+        }else {
+            listGroupeUsers = new ArrayList<>();
+            User videUser = new User();
+            videUser.setPrenom("Sorry : Access Denied !");
+            listGroupeUsers.add(videUser);
+            model.addAttribute("listGroupeUsers", listGroupeUsers);
+
+            selectedGroupe = new Groupe();
+            selectedGroupe.setNom("Error");
+            model.addAttribute("selectedGroupe", selectedGroupe);
+        }
+
+        String mapping = "dashboard-tuteur";
+        model.addAttribute("redirection", mapping);
 
         return "/tuteur-client/dashboard-tuteur";
 
     }
 
     @RequestMapping(value = "/dashboard-tuteur-recherche", method = RequestMethod.POST)
-    public String dashResultRecherche(Model model, HttpSession session, HttpServletResponse response, @RequestParam("groupe") int id, String motCle) {
+    public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
 
         //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
         if (motCle == "") {
@@ -87,6 +103,20 @@ public class DashboardTuteurController {
                 e.printStackTrace();
             }
         }
+
+        //sinon redirection vers la page pour affichage des resultats
+        try {
+            response.sendRedirect("/dashboard-tuteur-resultat?groupe="+id+"&recherche="+motCle);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @RequestMapping(value = "/dashboard-tuteur-resultat", method = RequestMethod.GET)
+    public String dashResultRecherche(Model model, HttpSession session, @RequestParam("groupe") int id,@RequestParam("recherche") String motCle) {
+
 
         //selection tous les groupe
         List<Groupe> listGroupe = groupeRepository.findAll();
@@ -106,7 +136,6 @@ public class DashboardTuteurController {
         listResultat.addAll(groupeRepository.findBySemester(motCle));
 
         //recherche par user : nom, prenom, identifiant
-        //----------! à revoir ------------------
         for (Groupe g : listGroupe) {
             Set<User> setUser = g.getListUser();
             ArrayList<User> listUser = new ArrayList<>(setUser);
@@ -119,7 +148,6 @@ public class DashboardTuteurController {
                 }
             }
         }
-        //----------------------------------------
 
         //recuperation des groupes dont l'utilisateur logger est le tuteur
         //et recuperation des groupes dont l'utilisateur logger est le client
@@ -149,9 +177,26 @@ public class DashboardTuteurController {
                 break;
             }
         }
-        model.addAttribute("listGroupeUsers", listGroupeUsers);
-        model.addAttribute("selectedGroupe", selectedGroupe);
 
+        if (tuteurListGroupe.contains(selectedGroupe) || clientListGroupe.contains(selectedGroupe)){
+            model.addAttribute("selectedGroupe", selectedGroupe);
+            model.addAttribute("listGroupeUsers", listGroupeUsers);
+        }else {
+            listGroupeUsers = new ArrayList<>();
+            User videUser = new User();
+            videUser.setPrenom("Sorry : Access Denied !");
+            listGroupeUsers.add(videUser);
+            model.addAttribute("listGroupeUsers", listGroupeUsers);
+
+            selectedGroupe = new Groupe();
+            selectedGroupe.setNom("Error");
+            model.addAttribute("selectedGroupe", selectedGroupe);
+        }
+
+        model.addAttribute("motCle",motCle);
+
+        String mapping = "dashboard-tuteur-resultat";
+        model.addAttribute("redirection", mapping);
 
         return "/tuteur-client/dashboard-tuteur";
     }
