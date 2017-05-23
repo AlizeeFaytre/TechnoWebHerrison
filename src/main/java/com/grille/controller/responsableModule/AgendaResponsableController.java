@@ -19,6 +19,7 @@ public class AgendaResponsableController {
 
     @GetMapping("/agenda-responsable")
     public String index (Model model){
+
         List<Deadline> listDeadline = agendarespo.findAll();
         model.addAttribute("listDeadline", listDeadline);
         return "respoModule/agenda-responsable";
