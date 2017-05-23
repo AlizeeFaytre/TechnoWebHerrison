@@ -111,9 +111,11 @@ public class DashboardTuteurController {
             Set<User> setUser = g.getListUser();
             ArrayList<User> listUser = new ArrayList<>(setUser);
             for (User u : listUser) {
-                if (u.getNom() == motCle || u.getPrenom() == motCle || u.getIdentifiant() == motCle || u.getClasse() == motCle) {
-                    listResultat.add(g);
-                    break;
+                if (u.getNom().equalsIgnoreCase(motCle) || u.getPrenom().equalsIgnoreCase(motCle) || u.getIdentifiant().equalsIgnoreCase(motCle) || u.getClasse().equalsIgnoreCase(motCle)) {
+                    if (!listResultat.contains(g)){
+                        listResultat.add(g);
+                        break;
+                    }
                 }
             }
         }
