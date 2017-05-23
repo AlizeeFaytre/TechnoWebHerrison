@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
+
 /**
  * Created by jiawei on 14/05/2017.
  */
@@ -21,17 +24,18 @@ public class testController {
 
     @RequestMapping(value = "/testjia", method = RequestMethod.GET)
     public String test(Model model){
-        model.addAttribute("domain", new Domain());
+        model.addAttribute("date", new Date());
         return "tuteur-client/test";
 
     }
 
     @RequestMapping(value = "/chercher", method = RequestMethod.POST)
-    public String chercher(Model model, Domain d){
+    public String chercher(Model model, Date d){
 
-        domainrepos.save(d);
+        model.addAttribute("date", d);
+        System.out.print(d);
 
-        return "tuteur-client/test";
+        return "tuteur-client/test2";
 
     }
 }
