@@ -22,3 +22,15 @@ background-size:cover;
   opacity: 0.8;
   border-radius: 10px;
 }
+
+.table{
+  display : block;
+  width : auto !important;
+  height : 200px;
+
+  margin-bottom : 15px;
+  margin-top : 15px;
+  overflow : scroll;
+  overflow-x: auto;
+  text-align:center;
+}
