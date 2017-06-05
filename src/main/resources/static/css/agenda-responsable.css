@@ -18,8 +18,46 @@ background-size:cover;
   text-align:center;
 }
 
-.btn{
+
+.input-group-btn{
   display:block;
-  margin-left: auto !important;
   margin-right: auto !important;
 }
+
+.form-control{
+	display:block;
+	vertical-align:center-block;
+	width:50%;
+	margin-bottom:5%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.btn-submit{
+	display:block;
+	margin-right: auto !important;
+	margin-left: auto !important;
+}
+
+.add-skill .btn-default{
+  font-family:sans-serif !important;}
+
+.skills-title h1{
+  display:block;
+  vertical-align:center-block;
+  text-align:center;
+}
+.skills .panel-group{
+  margin-top:50px;
+  width:500px;
+  height: 300px;
+  margin-left:auto;
+  margin-right:auto;
+  overflow : scroll;
+  overflow-x: auto;
+}
+
+.skills-header {
+  margin-top:20px;
+}
+

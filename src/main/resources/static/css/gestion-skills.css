@@ -10,8 +10,11 @@
 .skills .panel-group{
   margin-top:50px;
   width:500px;
+  height: 300px;
   margin-left:auto;
   margin-right:auto;
+  overflow : scroll;
+  overflow-x: auto;
 }
 
 .skills-header {

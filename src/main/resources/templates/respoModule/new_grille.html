@@ -51,31 +51,36 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="identifiants col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-					<h1 class="titre_form">Nouvelle grille de compétences</h1>
+					<h1 class="titre_form">Nouveau domaine de compétences</h1>
 			    	<form action="new_domain_insert" method="post">
 						<div class="form-group">
-							<label>Nom de la grille</label>
-							<input type="text" class="form-control" name="name" placeholder="Saisissez le nom de la grille">
+							<label>Nom du domaine :</label> <input type="text" class="form-control" name="name" placeholder="Saisissez le nom du domaine">
 						</div>
 
 						<div  class="form-group">
 							<label >Choix des compétences</label><br />
-							<div th:each="skill:${listSkill}">
-								<label th:text="${skill.name}"></label>&nbsp;<input type="checkbox" name="competences" id="comp1" value="comp1" /><br />
+							<div class="search-bar">
+						        <div class="">
+						            <div class="input-group">
+						              <input type="text" class="form-control" placeholder="Chercher une compétence...">
+						              <span class="input-group-btn">
+						                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						              </span><br />
+						            </div><!-- /input-group -->
+						        </div> <!--/.row -->
+						    </div>
+						    
+							<div class="form-group-overflow">
+							<div th:each="skill:${listSkill}" class="skills-flipped">
+								<div class="content"></div><input type="checkbox" name="competences" id="comp1" value="comp1" />&nbsp;&nbsp;<label th:text="${skill.name}"></label><br />
+								</div>
 							</div>
-						</div>
-						<!--<div class="form-group">
-							<label >Liste des compétences sélectionnées</label><br />
-							<ul>
-								<li>Compétence 1</li>
-								<li>Compétence 2</li>
-								<li>Compétence 3</li>
-								<li>Compétence 4</li>
-							</ul>
-						</div>-->
+							</div>
+						
+
 						<input type="submit" class="btn btn-default bouton_connexion" value="Save"><!--Valider la grille--></input></br></br>
 					</form>
-
+					</div>
 			    </div>
 			</div>
 		</div>
