@@ -43,6 +43,8 @@ public class PresenceController {
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id){
 
+        /*
+
         //selection tous les domains
         List<Domain> listDomain = domainRepository.findAll();
 
@@ -73,14 +75,37 @@ public class PresenceController {
                 groupeEleve.add(u);
             }
         }
-
-
         model.addAttribute("groupeEleve", groupeEleve);
         model.addAttribute("listGroupe", listGroupe);
         model.addAttribute("listDomain", listDomain);
+        */
+
+        //selection tous les groupe
+        List<Groupe> listGroupe = groupeRepository.findAll();
+
+        //Selection des differents promo
+        Set<String> setPromo = new HashSet<>();
+        for (Groupe g : listGroupe){
+            setPromo.add(g.getPromo());
+        }
+
+        model.addAttribute("setPromo", setPromo);
+
+        //Liste des groupes by promo
+        ArrayList<ArrayList<Groupe>> listGroupeByPromo = new ArrayList<>();
+        for (String p : setPromo){
+            ArrayList<Groupe> tempListGroupe = new ArrayList<>();
+            for (Groupe g : listGroupe){
+                if (g.getPromo().equalsIgnoreCase(p)){
+                    tempListGroupe.add(g);
+                }
+            }
+            listGroupeByPromo.add(tempListGroupe);
+        }
+        model.addAttribute("listGroupeByPromo", listGroupeByPromo);
 
 
-        return "/tuteur-client/presence";
+        return "/tuteur-client/presence-tuteur";
     }
 
 }
