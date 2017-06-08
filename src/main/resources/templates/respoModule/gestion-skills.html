@@ -41,21 +41,22 @@
 		          </div>
 		
 		      </div>
-		
+				<form action="gestion-skill-recherche" method="post">
 		      <div class="search-bar">
 		        <div class="">
 		          <div class="col-md-offset-3 col-md-5" >
 		            <div class="input-group">
-		              <input type="text" class="form-control" placeholder="Chercher une compétence...">
+		              <input type="text" class="form-control" name="motCle" placeholder="Chercher une compétence...">
 		              <span class="input-group-btn">
-		                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		              </span>
 		            </div><!-- /input-group -->
 		          </div><!-- /.col-lg-6 --> g
 		        </div> <!--/.row -->
 		      </div>
+				</form>
 		    </div>
-		
+
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		
 		  <div th:each="skill:${listSkill}" class="panel panel-default">

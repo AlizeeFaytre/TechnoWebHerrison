@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,6 +31,27 @@ public class GestionSkillsController {
         return "respoModule/gestion-skills";
     }
 
+    @RequestMapping(value = "/gestion-skill-recherche", method = RequestMethod.POST)
+    public void collectMotCle(HttpServletResponse response, String motCle){
+
+        try {
+            response.sendRedirect("/gestion-skills-resultat?recherche="+motCle);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @RequestMapping(value="/gestion-skills-resultat", method = RequestMethod.GET)
+    public String resultat (Model model, @RequestParam("recherche") String motCle){
+        List<Skill> listSkill = skillrepo.findAll();
+        model.addAttribute("skill", new Skill());
+
+        Skill resultatRecherche = skillrepo.findByName(motCle);
+        model.addAttribute("listSkill", resultatRecherche);
+
+        return "respoModule/gestion-skills";
+    }
 
     @RequestMapping(value = "/new_skill_insert", method = RequestMethod.POST)
     public void grille (Model model, Skill s, HttpServletResponse response){
