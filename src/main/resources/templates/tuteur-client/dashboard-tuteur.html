@@ -10,7 +10,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/dashboard-tuteur.css" data-th-href="@{/css/dashboard-tuteur.css}">
-
+	<link rel="stylesheet" href="../../static/css/header-tuteur.css" data-th-href="@{/css/header-tuteur.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
     <script src="../../static/js/dashboard_tuteur.js" data-th-src="@{/js/dashboard_tuteur.js}" charset="utf-8"></script>
@@ -24,26 +24,30 @@
 </head>
 
 <body>
+<div th:include="fragments/header-tuteur :: header-tuteur"></div>
+<header>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><img src="../../static/img/iseplogo.png" data-th-src="@{/img/iseplogo.png}" class="logo" alt=""></a>
+					<a href="#" class="navbar-brand">Alizée Faytre</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="index.html">Groupes</a></li>
+						<li><a href="index.html">Domaines</a></li>
+						<li><a href="index.html">Compétences</a></li>
+						<li><a href="index.html">Deadlines</a></li>
+						
+						<li><a href="#" class="btn btn-default btn-outline btn-circle collapsed">Deconnexion</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
 <div class="container">
-    <div class="dashboard-header">
-        <ul class="nav nav-tabs nav-justified">
-            <li role="presentation" class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"
-                                                                     aria-hidden="true"></span> Home</a></li>
-            <li role="presentation"><a href="#"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                Agenda</a></li>
-            <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Tuteur <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#"> Déconnexion</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-
     <div class="groups-table col-md-8 col-md-offset-2 ">
         <form action="dashboard-tuteur-recherche?groupe=0" method="post">
             <div class="search-bar">

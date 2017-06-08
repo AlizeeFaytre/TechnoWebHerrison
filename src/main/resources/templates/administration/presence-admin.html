@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeLeaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/presence-admin.css" data-th-href="@{/css/presence-admin.css}">
+    <link rel="stylesheet" href="../../static/css/header-admin.css" data-th-href="@{/css/header-admin.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
 
@@ -25,6 +26,7 @@
   </head>
 
   <body>
+  <div th:include="fragments/header-admin :: header-admin"></div>
     <div class="container">
 
 <div class="skills col-md-8 col-md-offset-2 ">
