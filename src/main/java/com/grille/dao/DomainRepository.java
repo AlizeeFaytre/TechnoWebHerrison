@@ -12,4 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DomainRepository extends JpaRepository<Domain, Integer> {
 
     public Domain findOneByName(String name);
+
+    public Domain findById(int id);
 }
