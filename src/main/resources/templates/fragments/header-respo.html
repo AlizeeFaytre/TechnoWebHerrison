@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#"><img src="../../static/img/iseplogo.png" data-th-src="@{/img/iseplogo.png}" class="logo" alt=""></a>
-					<a href="#" class="navbar-brand">Alizée Faytre</a>
+					<a href="#" th:text="${currentUser.prenom} + ' ' + ${currentUser.nom}" class="navbar-brand">Alizée Faytre</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">

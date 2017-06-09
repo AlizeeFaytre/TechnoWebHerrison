@@ -68,15 +68,13 @@
             <div th:each="promo:${listdeadlinepromo}" class="panel panel-default">
               <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${promo.key}"  aria-expanded="true" aria-controls="collapseOne">
-                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span><p th:text="${promo.key}"></p>
-                  </a>
+                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>&nbsp;<a th:text="${promo.key}" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" th:href="'#' + ${promo.key}"  aria-expanded="true" aria-controls="${promo.key}"></a>&nbsp;
                 </h4>
               </div>
-              <div id="${promo.key}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              
+              <div th:id="${promo.key}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
-
-                  <table class="table table-hover">
+				<table class="table table-hover">
                     <thead>
                     <tr>
                       <th>Nom du domaine</th>
