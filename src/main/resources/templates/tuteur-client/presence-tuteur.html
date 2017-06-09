@@ -40,17 +40,17 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
             <!-- -----------------------------------------------  -->
-            <div class="panel panel-default">
+            <div th:each="promo : ${listPromo}" class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                           aria-expanded="true" aria-controls="collapseOne">
-                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> I1
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="|#${promo}|"
+                           aria-expanded="true" aria-controls="#${promo}">
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"><p th:text="${promo}"></p></span>
 
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div th:id="${promo}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                         <table class="table table-hover">
                             <thead>
@@ -149,6 +149,7 @@
             </div>
             <!-- -----------------------------------------------  -->
 
+            <!--
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -357,9 +358,8 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
-
-
     </div>
 </div>
 

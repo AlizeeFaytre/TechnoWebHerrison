@@ -98,19 +98,14 @@ public class DashboardTuteurController {
 
     @RequestMapping(value = "/dashboard-tuteur-recherche", method = RequestMethod.POST)
     public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
-
         //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
-        if (motCle == "") {
-            try {
-                response.sendRedirect("/dashboard-tuteur?groupe=0");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         //sinon redirection vers la page pour affichage des resultats
+        String redirectPath = "/dashboard-tuteur?groupe=0";
+        if (motCle != "") {
+            redirectPath = "/dashboard-tuteur-resultat?groupe="+id+"&recherche="+motCle;
+        }
         try {
-            response.sendRedirect("/dashboard-tuteur-resultat?groupe="+id+"&recherche="+motCle);
+            response.sendRedirect(redirectPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,6 +123,9 @@ public class DashboardTuteurController {
         //recup le logges user
         User logedUser = userService.getLogedUser(session);
         int logedUserId = logedUser.getId();
+
+        User currentUser = userService.getLogedUser(session);
+        model.addAttribute("currentUser", currentUser);
 
 
         //list contenant les resultats de la recherche par motCle

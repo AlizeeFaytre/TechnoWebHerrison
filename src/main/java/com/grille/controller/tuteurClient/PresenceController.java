@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -95,8 +92,25 @@ public class PresenceController {
         for (Groupe g : listGroupe){
             setPromo.add(g.getPromo());
         }
-
-        model.addAttribute("setPromo", setPromo);
+        //Promo sorting by ordre decroissant
+        List<String> listPromo = new ArrayList(setPromo);
+        try {
+            Collections.sort(listPromo, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    int i1 = Integer.parseInt(o1);
+                    int i2 = Integer.parseInt(o2);
+                    if (i1 > i2){
+                        return -1;
+                    }else{
+                        return 1;
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        model.addAttribute("listPromo", listPromo);
 
         //Liste des groupes by promo
         ArrayList<ArrayList<Groupe>> listGroupeByPromo = new ArrayList<>();
@@ -112,6 +126,14 @@ public class PresenceController {
         model.addAttribute("listGroupeByPromo", listGroupeByPromo);
 
 
+        /* Affichage data test
+    for (ArrayList<Groupe> l : listGroupeByPromo){
+        System.out.println();
+        for (Groupe g : l){
+            System.out.print(g.getNom());
+        }
+    }
+    */
         return "/tuteur-client/presence-tuteur";
     }
 
