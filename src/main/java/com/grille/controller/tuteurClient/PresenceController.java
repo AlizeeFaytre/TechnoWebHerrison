@@ -9,6 +9,8 @@ import com.grille.entities.Domain;
 import com.grille.entities.Groupe;
 import com.grille.entities.Role;
 import com.grille.entities.User;
+import com.grille.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,9 +43,11 @@ public class PresenceController {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
-    public String presence(Model model, @RequestParam("groupe") int id){
+    public String presence(Model model, @RequestParam("groupe") int id, HttpSession session){
 
         /*
 
@@ -79,7 +85,8 @@ public class PresenceController {
         model.addAttribute("listGroupe", listGroupe);
         model.addAttribute("listDomain", listDomain);
         */
-
+    	User currentUser = userService.getLogedUser(session);
+    	model.addAttribute("currentUser", currentUser);
         //selection tous les groupe
         List<Groupe> listGroupe = groupeRepository.findAll();
 

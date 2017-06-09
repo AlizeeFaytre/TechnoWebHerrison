@@ -29,6 +29,7 @@ public class DashboardTuteurController {
     private GroupeRepository groupeRepository;
 
 
+
     @RequestMapping(value = "/dashboard-tuteur", method = RequestMethod.GET)
     public String index(Model model, HttpSession session, @RequestParam("groupe") int id) {
 
@@ -38,6 +39,9 @@ public class DashboardTuteurController {
         //recup le logges user
         User logedUser = userService.getLogedUser(session);
         int logedUserId = logedUser.getId();
+        
+        User currentUser = userService.getLogedUser(session);
+    	model.addAttribute("currentUser", currentUser);
 
 
         //recuperation des groupes dont l'utilisateur logger est le tuteur

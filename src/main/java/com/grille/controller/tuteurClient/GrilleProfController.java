@@ -6,6 +6,9 @@ import com.grille.dao.SkillRepository;
 import com.grille.entities.Domain;
 import com.grille.entities.Groupe;
 import com.grille.entities.Skill;
+import com.grille.entities.User;
+import com.grille.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by jiawei on 15/05/2017.
@@ -30,12 +35,14 @@ public class GrilleProfController {
     private GroupeRepository groupeRepository;
     @Autowired
     private SkillRepository skillRepository;
+    @Autowired
+    private UserService userService;
 
     //---------1 ---un mapping pour le visionnage qui map sur la vue grilleEleve
     //---------2 ---un mapping pour la modification (remplisage)
 
     @RequestMapping(value = "/grilleprofvue", method = RequestMethod.GET)
-    public String grilleProfvue(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom){
+    public String grilleProfvue(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, HttpSession session){
 
         //selection tous les domains
         List<Domain> listDomain = domainRepository.findAll();
@@ -54,6 +61,9 @@ public class GrilleProfController {
             }
         }
         model.addAttribute("selectedDomain",selectedDomain);
+        
+        User currentUser = userService.getLogedUser(session);
+    	model.addAttribute("currentUser", currentUser);
 
 
 
