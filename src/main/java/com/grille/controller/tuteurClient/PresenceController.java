@@ -14,6 +14,7 @@ import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,42 +47,6 @@ public class PresenceController {
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
 
-        /*
-
-        //selection tous les domains
-        List<Domain> listDomain = domainRepository.findAll();
-
-        //selection tous les groupe
-        List<Groupe> listGroupe = groupeRepository.findAll();
-
-        //selection tous les user
-        List<User> listUser = userRepository.findAll();
-
-        //selection tous les roles
-        List<Role> listRole = roleRepository.findAll();
-
-        //Utilisateur du groupe selected
-        ArrayList<User> listGroupeUsers = new ArrayList<User>();
-        for (Groupe g : listGroupe){
-            if (g.getId() == id){
-                Set<User> groupeUsers = g.getListUser();
-                listGroupeUsers = new ArrayList<User>(groupeUsers);
-                break;
-            }
-        }
-
-        ArrayList<User> groupeEleve = new ArrayList<User>();
-        for(User u : listGroupeUsers) {
-            Set<Role> uRoles = u.getRoles();
-            List<Role> list = new ArrayList<>(uRoles);
-            if (list.get(0).getName().equalsIgnoreCase("Eleve")){
-                groupeEleve.add(u);
-            }
-        }
-        model.addAttribute("groupeEleve", groupeEleve);
-        model.addAttribute("listGroupe", listGroupe);
-        model.addAttribute("listDomain", listDomain);
-        */
         User currentUser = userService.getLogedUser(session);
         model.addAttribute("currentUser", currentUser);
         //selection tous les groupe
@@ -112,7 +77,7 @@ public class PresenceController {
         }
         model.addAttribute("listPromo", listPromo);
 
-        //Liste des groupes by promo
+        //Liste des groupes by promo et groupe selectionner dans url
         Map<String, ArrayList<Groupe>> mapGroupeByPromo = new HashMap<>();
         for (String p : setPromo) {
             ArrayList<Groupe> tempListGroupe = new ArrayList<>();
@@ -128,6 +93,33 @@ public class PresenceController {
         model.addAttribute("mapGroupeByPromo", mapGroupeByPromo);
 
 
+        //Utilisateur du groupe selected
+        ArrayList<User> listGroupeUsers = new ArrayList<>();
+        Groupe selectedGroupe = new Groupe();
+        for (Groupe g : listGroupe) {
+            if (g.getId() == id) {
+                selectedGroupe = g;
+                Set<User> groupeUsers = g.getListUser();
+                listGroupeUsers = new ArrayList<>(groupeUsers);
+                break;
+            }
+        }
+
+        ArrayList<User> listGroupeEleve = new ArrayList<>();
+        for (User u : listGroupeUsers){
+            if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()){
+                listGroupeEleve.add(u);
+            }
+
+        }
+        model.addAttribute("listGroupeEleve", listGroupeEleve);
+
+        String mapping = "presence";
+        model.addAttribute("redirection", mapping);
+
+
+
+
         /* Affichage data test
     for (ArrayList<Groupe> l : mapGroupeByPromo){
         System.out.println();
@@ -135,8 +127,31 @@ public class PresenceController {
             System.out.print(g.getNom());
         }
     }
+
+    System.out.println("-----------------------------------------------");
+        System.out.println(selectedGroupe.getNom());
+        for (User u : listGroupeUsers){
+            System.out.print(u.getNom());
+        }
+        System.out.println();
+        System.out.println("-----------------------------------------------");
+
+        System.out.println("-----------------------------------------------");
+        System.out.println(selectedGroupe.getNom());
+        for (User u : listGroupeEleve){
+            System.out.print(u.getNom());
+        }
+        System.out.println();
+        System.out.println("-----------------------------------------------");
     */
         return "/tuteur-client/presence-tuteur";
     }
+
+    @RequestMapping(value = "/presence", method = RequestMethod.POST)
+    public void presenceSubmit(Model model, HttpSession session, String motCle) {
+
+    }
+
+
 
 }

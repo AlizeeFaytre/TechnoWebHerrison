@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="../../static/css/jquery-ui.min.css" data-th-href="@{/css/jquery-ui.min.css}">
     <link rel="stylesheet" href="../../static/css/header-tuteur.css" data-th-href="@{/css/header-tuteur.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
-    <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
+    <script src="../../static/js/presence-tuteur.js" data-th-src="@{/js/presence-tuteur.js}" charset="utf-8"></script>
 
 
 <body>
@@ -38,8 +39,6 @@
         </div>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-            <!-- -----------------------------------------------  -->
             <div th:each="promo : ${mapGroupeByPromo}" class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -47,7 +46,7 @@
                            aria-expanded="true" aria-controls="#${promo.key}">
                             <div class="row">
                                 <span class="glyphicon glyphicon-triangle-bottom col-sm-1" aria-hidden="true"></span>
-                                <p th:text="|Promotion : ${promo.key}"|></p>
+                                <p th:text="|Promotion : ${promo.key}" |></p>
                             </div>
                         </a>
                     </h4>
@@ -66,193 +65,12 @@
                             <tr th:each="groupe : ${promo.value}">
                                 <td th:text="${groupe.nom}"></td>
                                 <td>
+                                    <!--
                                     <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
                                             data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
                                                                           aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-
-                            <!--
-                            <tr>
-                                <td>Groupe 2</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            -->
-                            <tbody>
-                        </table>
-
-
-                    </div>
-                </div>
-            </div>
-            <!-- -----------------------------------------------  -->
-
-            <!--
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> I2
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Mes groupes</th>
-                                <th>Ajouter une présence</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Groupe 1</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 2</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
+                                    -->
+                                    <a th:href="|${redirection}?groupe=${groupe.id}&recherche=${motCle}|"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                                 </td>
                             </tr>
                             <tbody>
@@ -260,111 +78,6 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> A1
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Mes groupes</th>
-                                <th>Ajouter une présence</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Groupe 1</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 2</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Groupe 3</td>
-                                <td>
-                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
-                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
-                                                                          aria-hidden="true"></span></button>
-                                </td>
-                            </tr>
-                            <tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </div>
 </div>
@@ -380,7 +93,7 @@
                 <h4 class="modal-title" id="modalTwpLabel">Ajouter des présences</h4>
             </div>
             <div class="modal-body">
-                <form class="modify-attendance" action="presence-admin.html" method="post">
+                <form class="modify-attendance" action="presence" method="post">
                     <div class="attendance-form">
                         <p>Date: <input type="date" id="datepicker"></p>
 
@@ -394,18 +107,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Laurette</td>
-                                <td>Esther</td>
-                                <td><input type="radio" name="eleve1" value="present"></td>
-                                <td><input type="radio" name="eleve1" value="absent"></td>
+
+                            <!-- ------------------------ -->
+                            <tr th:each="eleve : ${listGroupeEleve}">
+                                <td th:text="${eleve.nom}"></td>
+                                <td th:text="${eleve.prenom}"></td>
+                                <td><input type="radio" name="chainePresence" value="1"></td>
+                                <td><input type="radio" name="chainePresence" value="0"></td>
                             </tr>
+                            <!-- ------------------------ -->
+
+                            <!--
                             <tr>
                                 <td>Faytre</td>
                                 <td>Alizée</td>
                                 <td><input type="radio" name="eleve2" value="present"></td>
                                 <td><input type="radio" name="eleve2" value="absent"></td>
                             </tr>
+
                             <tr>
                                 <td>de Maricourt</td>
                                 <td>Aude</td>
@@ -424,11 +143,11 @@
                                 <td><input type="radio" name="eleve5" value="present"></td>
                                 <td><input type="radio" name="eleve5" value="absent"></td>
                             </tr>
+                            -->
+
                             <tbody>
 
                         </table>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
