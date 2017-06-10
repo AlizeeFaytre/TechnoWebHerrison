@@ -1,14 +1,8 @@
 package com.grille.controller.tuteurClient;
 
 
-import com.grille.dao.DomainRepository;
-import com.grille.dao.GroupeRepository;
-import com.grille.dao.RoleRepository;
-import com.grille.dao.UserRepository;
-import com.grille.entities.Domain;
-import com.grille.entities.Groupe;
-import com.grille.entities.Role;
-import com.grille.entities.User;
+import com.grille.dao.*;
+import com.grille.entities.*;
 import com.grille.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -43,6 +42,8 @@ public class PresenceController {
     private RoleRepository roleRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AttendanceRepository attendanceRepository;
 
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
@@ -150,7 +151,25 @@ public class PresenceController {
     @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
     public void presenceSubmit(HttpServletResponse response,Model model, String motCle){
 
-        System.out.println(motCle);
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+
+
+        String [] parts = motCle.split(",");
+        for (String s : parts){
+            String [] subParts = s.split("-");
+            Attendance attendance = new Attendance();
+            User u = userRepository.findById(Integer.parseInt(subParts[0]));
+            attendance.setUser(u);
+            Boolean state = false;
+            if (Integer.parseInt(subParts[0]) == 1){
+                state = true;
+            }
+            attendance.setState(state);
+            attendance.setDate(date);
+            attendanceRepository.save(attendance);
+        }
+
 
         //10/06/17 -------- A faire : Exploitation des data motCle (separation en substring par ",") et insertion dans bdd
 
