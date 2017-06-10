@@ -39,11 +39,9 @@ public class testController {
     }
 
     @RequestMapping(value = "/chercher", method = RequestMethod.POST)
-    public String chercher(Model model){
+    public String chercher(Model model, String motCle){
 
-
-
-
+        model.addAttribute("presence", motCle);
 
         return "tuteur-client/test2";
 

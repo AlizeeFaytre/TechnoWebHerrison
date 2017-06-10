@@ -93,7 +93,7 @@
                 <h4 class="modal-title" id="modalTwpLabel">Ajouter des présences</h4>
             </div>
             <div class="modal-body">
-                <form class="modify-attendance" action="presence" method="post">
+                <form class="modify-attendance" th:action="presence-submit" method="post">
                     <div class="attendance-form">
                         <p>Date: <input type="date" id="datepicker"></p>
 
@@ -108,42 +108,13 @@
                             </thead>
                             <tbody>
 
-                            <!-- ------------------------ -->
                             <tr th:each="eleve : ${listGroupeEleve}">
                                 <td th:text="${eleve.nom}"></td>
                                 <td th:text="${eleve.prenom}"></td>
-                                <td><input type="radio" name="chainePresence" value="1"></td>
-                                <td><input type="radio" name="chainePresence" value="0"></td>
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="1"></td>
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="0"></td>
+                                <input th:id="${eleve.id}" type="hidden" name = "motCle">
                             </tr>
-                            <!-- ------------------------ -->
-
-                            <!--
-                            <tr>
-                                <td>Faytre</td>
-                                <td>Alizée</td>
-                                <td><input type="radio" name="eleve2" value="present"></td>
-                                <td><input type="radio" name="eleve2" value="absent"></td>
-                            </tr>
-
-                            <tr>
-                                <td>de Maricourt</td>
-                                <td>Aude</td>
-                                <td><input type="radio" name="eleve3" value="present"></td>
-                                <td><input type="radio" name="eleve3" value="absent"></td>
-                            </tr>
-                            <tr>
-                                <td>Dafit</td>
-                                <td>Jiawei</td>
-                                <td><input type="radio" name="eleve4" value="present"></td>
-                                <td><input type="radio" name="eleve4" value="absent"></td>
-                            </tr>
-                            <tr>
-                                <td>Richard</td>
-                                <td>Thomas</td>
-                                <td><input type="radio" name="eleve5" value="present"></td>
-                                <td><input type="radio" name="eleve5" value="absent"></td>
-                            </tr>
-                            -->
 
                             <tbody>
 

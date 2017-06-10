@@ -147,11 +147,14 @@ public class PresenceController {
         return "/tuteur-client/presence-tuteur";
     }
 
-    @RequestMapping(value = "/presence", method = RequestMethod.POST)
-    public void presenceSubmit(Model model, HttpSession session, String motCle) {
+    @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
+    public void presenceSubmit(HttpServletResponse response,Model model, String motCle){
+
+        System.out.println(motCle);
+
+        //10/06/17 -------- A faire : Exploitation des data motCle (separation en substring par ",") et insertion dans bdd
 
     }
-
 
 
 }
