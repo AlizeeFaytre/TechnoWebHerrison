@@ -44,7 +44,7 @@ public class PresenceController {
     private UserService userService;
 
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
-    public String presence(Model model, @RequestParam("groupe") int id, HttpSession session){
+    public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
 
         /*
 
@@ -82,14 +82,14 @@ public class PresenceController {
         model.addAttribute("listGroupe", listGroupe);
         model.addAttribute("listDomain", listDomain);
         */
-    	User currentUser = userService.getLogedUser(session);
-    	model.addAttribute("currentUser", currentUser);
+        User currentUser = userService.getLogedUser(session);
+        model.addAttribute("currentUser", currentUser);
         //selection tous les groupe
         List<Groupe> listGroupe = groupeRepository.findAll();
 
         //Selection des differents promo
         Set<String> setPromo = new HashSet<>();
-        for (Groupe g : listGroupe){
+        for (Groupe g : listGroupe) {
             setPromo.add(g.getPromo());
         }
         //Promo sorting by ordre decroissant
@@ -100,34 +100,36 @@ public class PresenceController {
                 public int compare(String o1, String o2) {
                     int i1 = Integer.parseInt(o1);
                     int i2 = Integer.parseInt(o2);
-                    if (i1 > i2){
+                    if (i1 > i2) {
                         return -1;
-                    }else{
+                    } else {
                         return 1;
                     }
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         model.addAttribute("listPromo", listPromo);
 
         //Liste des groupes by promo
-        ArrayList<ArrayList<Groupe>> listGroupeByPromo = new ArrayList<>();
-        for (String p : setPromo){
+        Map<String, ArrayList<Groupe>> mapGroupeByPromo = new HashMap<>();
+        for (String p : setPromo) {
             ArrayList<Groupe> tempListGroupe = new ArrayList<>();
-            for (Groupe g : listGroupe){
-                if (g.getPromo().equalsIgnoreCase(p)){
-                    tempListGroupe.add(g);
+            for (Groupe g : listGroupe) {
+                if (g.getPromo().equalsIgnoreCase(p)) {
+                    if (g.getIdClient() == currentUser.getId() || g.getIdTuteur() == currentUser.getId()) {
+                        tempListGroupe.add(g);
+                    }
                 }
             }
-            listGroupeByPromo.add(tempListGroupe);
+            mapGroupeByPromo.put(p, tempListGroupe);
         }
-        model.addAttribute("listGroupeByPromo", listGroupeByPromo);
+        model.addAttribute("mapGroupeByPromo", mapGroupeByPromo);
 
 
         /* Affichage data test
-    for (ArrayList<Groupe> l : listGroupeByPromo){
+    for (ArrayList<Groupe> l : mapGroupeByPromo){
         System.out.println();
         for (Groupe g : l){
             System.out.print(g.getNom());

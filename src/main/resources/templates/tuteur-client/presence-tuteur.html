@@ -40,17 +40,20 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
             <!-- -----------------------------------------------  -->
-            <div th:each="promo : ${listPromo}" class="panel panel-default">
+            <div th:each="promo : ${mapGroupeByPromo}" class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="|#${promo}|"
-                           aria-expanded="true" aria-controls="#${promo}">
-                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"><p th:text="${promo}"></p></span>
-
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="|#${promo.key}|"
+                           aria-expanded="true" aria-controls="#${promo.key}">
+                            <div class="row">
+                                <span class="glyphicon glyphicon-triangle-bottom col-sm-1" aria-hidden="true"></span>
+                                <p th:text="|Promotion : ${promo.key}"|></p>
+                            </div>
                         </a>
                     </h4>
                 </div>
-                <div th:id="${promo}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div th:id="${promo.key}" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
                     <div class="panel-body">
                         <table class="table table-hover">
                             <thead>
@@ -60,14 +63,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Groupe 1</td>
+                            <tr th:each="groupe : ${promo.value}">
+                                <td th:text="${groupe.nom}"></td>
                                 <td>
                                     <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
                                             data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
                                                                           aria-hidden="true"></span></button>
                                 </td>
                             </tr>
+
+                            <!--
                             <tr>
                                 <td>Groupe 2</td>
                                 <td>
@@ -140,6 +145,7 @@
                                                                           aria-hidden="true"></span></button>
                                 </td>
                             </tr>
+                            -->
                             <tbody>
                         </table>
 
