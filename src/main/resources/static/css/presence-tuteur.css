@@ -29,8 +29,10 @@ background-size:cover;
   height : 200px;
   margin-left : auto;
   margin-right : auto;
+  /* Modification par Jiawei le 10/06/17 : plus d'esthetisme
   margin-bottom : 15px;
   margin-top : 15px;
+  */
   overflow : scroll;
   overflow-x: auto;
   text-align:center;
