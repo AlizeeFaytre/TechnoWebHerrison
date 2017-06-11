@@ -1,19 +1,15 @@
 package com.grille.controller.tuteurClient;
 
 
-import com.grille.dao.DomainRepository;
-import com.grille.dao.GroupeRepository;
-import com.grille.dao.RoleRepository;
-import com.grille.dao.UserRepository;
-import com.grille.entities.Domain;
-import com.grille.entities.Groupe;
-import com.grille.entities.Role;
-import com.grille.entities.User;
+import com.grille.dao.*;
+import com.grille.entities.*;
 import com.grille.service.UserService;
 
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -42,48 +43,15 @@ public class PresenceController {
     private RoleRepository roleRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AttendanceRepository attendanceRepository;
 
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
 
-        /*
-
-        //selection tous les domains
-        List<Domain> listDomain = domainRepository.findAll();
-
-        //selection tous les groupe
-        List<Groupe> listGroupe = groupeRepository.findAll();
-
-        //selection tous les user
-        List<User> listUser = userRepository.findAll();
-
-        //selection tous les roles
-        List<Role> listRole = roleRepository.findAll();
-
-        //Utilisateur du groupe selected
-        ArrayList<User> listGroupeUsers = new ArrayList<User>();
-        for (Groupe g : listGroupe){
-            if (g.getId() == id){
-                Set<User> groupeUsers = g.getListUser();
-                listGroupeUsers = new ArrayList<User>(groupeUsers);
-                break;
-            }
-        }
-
-        ArrayList<User> groupeEleve = new ArrayList<User>();
-        for(User u : listGroupeUsers) {
-            Set<Role> uRoles = u.getRoles();
-            List<Role> list = new ArrayList<>(uRoles);
-            if (list.get(0).getName().equalsIgnoreCase("Eleve")){
-                groupeEleve.add(u);
-            }
-        }
-        model.addAttribute("groupeEleve", groupeEleve);
-        model.addAttribute("listGroupe", listGroupe);
-        model.addAttribute("listDomain", listDomain);
-        */
         User currentUser = userService.getLogedUser(session);
         model.addAttribute("currentUser", currentUser);
+
         //selection tous les groupe
         List<Groupe> listGroupe = groupeRepository.findAll();
 
@@ -110,16 +78,17 @@ public class PresenceController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        model.addAttribute("listPromo", listPromo);
 
-        //Liste des groupes by promo
+        //Map des groupes by promo et liste de tous les groupes dont le currentUser possede les droits
         Map<String, ArrayList<Groupe>> mapGroupeByPromo = new HashMap<>();
-        for (String p : setPromo) {
+        ArrayList<Groupe> AllCurrentUserGroupes = new ArrayList<>();
+        for (String p : listPromo) {
             ArrayList<Groupe> tempListGroupe = new ArrayList<>();
             for (Groupe g : listGroupe) {
                 if (g.getPromo().equalsIgnoreCase(p)) {
                     if (g.getIdClient() == currentUser.getId() || g.getIdTuteur() == currentUser.getId()) {
                         tempListGroupe.add(g);
+                        AllCurrentUserGroupes.add(g);
                     }
                 }
             }
@@ -128,14 +97,176 @@ public class PresenceController {
         model.addAttribute("mapGroupeByPromo", mapGroupeByPromo);
 
 
-        /* Affichage data test
-    for (ArrayList<Groupe> l : mapGroupeByPromo){
-        System.out.println();
-        for (Groupe g : l){
-            System.out.print(g.getNom());
+        //Recuperation de la liste des Utilisateurs du groupe selected
+        //et identification du groupe selected
+        ArrayList<User> listGroupeUsers = new ArrayList<>();
+        Groupe selectedGroupe = new Groupe();
+        for (Groupe g : listGroupe) {
+            if (g.getId() == id) {
+                selectedGroupe = g;
+                Set<User> groupeUsers = g.getListUser();
+                listGroupeUsers = new ArrayList<>(groupeUsers);
+                break;
+            }
+        }
+
+        String modaltitle = "Ajouter des présences";
+
+        //verifier que le currentUser possede les droits sur le groupe selected
+        //si oui : recup de la liste des users du groupe selected les eleves seulement
+        //si non : envoie message error
+        if (AllCurrentUserGroupes.contains(selectedGroupe)) {
+            ArrayList<User> listGroupeEleve = new ArrayList<>();
+            for (User u : listGroupeUsers) {
+                if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()) {
+                    listGroupeEleve.add(u);
+                }
+            }
+            model.addAttribute("modalTitle", modaltitle);
+            model.addAttribute("listGroupeEleve", listGroupeEleve);
+        } else {
+            modaltitle = "Error : Sorry Access Denied !";
+            model.addAttribute("modalTitle", modaltitle);
+        }
+
+
+        //recuperation de la date du jour
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String dateAffichage = dt.format(date);
+        model.addAttribute("date", dateAffichage);
+
+        String mapping = "presence";
+        model.addAttribute("redirection", mapping);
+
+        return "/tuteur-client/presence-tuteur";
+    }
+
+    @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
+    public void presenceSubmit(HttpServletResponse response, Model model, String motCle) {
+
+        ArrayList<Attendance> listAttendanceByDate = attendanceRepository.findByDate(new Date());
+
+        String[] parts = motCle.split(",");
+        for (String s : parts) {
+            String[] subParts = s.split("-");
+            Attendance attendance = new Attendance();
+            User u = userRepository.findById(Integer.parseInt(subParts[0]));
+            attendance.setUser(u);
+            Boolean state = false;
+            if (Integer.parseInt(subParts[1]) == 1) {
+                state = true;
+            }
+            attendance.setState(state);
+            attendance.setDate(new Date());
+
+            boolean existe = false;
+            for (Attendance a : listAttendanceByDate) {
+                if (a.getUser() == u) {
+                    a.setState(state);
+                    attendanceRepository.saveAndFlush(a);
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                attendanceRepository.save(attendance);
+            }
+        }
+
+
+        String redirectPath = "/presence?groupe=0";
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    */
+
+    @RequestMapping(value = "/presence-groupe-recherche", method = RequestMethod.POST)
+    public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
+        //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
+        //sinon redirection vers la page pour affichage des resultats
+        String redirectPath = "/presence?groupe=0";
+        if (motCle != "") {
+            redirectPath = "/presence-recherche-resultat?groupe="+id+"&recherche="+motCle;
+        }
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/presence-recherche-resultat", method = RequestMethod.GET)
+    public String dashResultRecherche(Model model, HttpSession session,@RequestParam("groupe") int id,@RequestParam("recherche") String motCle) {
+
+        User currentUser = userService.getLogedUser(session);
+        model.addAttribute("currentUser", currentUser);
+
+        model.addAttribute("motCle", motCle);
+        //selection du groupe rechercher
+        Groupe groupeRecherche = groupeRepository.findByNom(motCle);
+
+        //Map des groupes by promo et groupe recherche ici 1 element
+        Map<String, ArrayList<Groupe>> mapGroupeByPromo = new HashMap<>();
+        ArrayList<Groupe> tempListGroupe = new ArrayList<>();
+
+        //si le currentUser possede les droits : remplissage du map
+        //sinon : renvoie map vide = rien est affiche
+        try {
+            if (groupeRecherche.getIdClient() == currentUser.getId() || groupeRecherche.getIdTuteur() == currentUser.getId()){
+                tempListGroupe.add(groupeRecherche);
+                mapGroupeByPromo.put(groupeRecherche.getPromo(), tempListGroupe);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("mapGroupeByPromo", mapGroupeByPromo);
+
+        //Utilisateur du groupe recherche
+        Set<User> groupeRechercheUser = new HashSet<>();
+        try {
+            groupeRechercheUser = groupeRecherche.getListUser();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        ArrayList<User> listGroupeUsers = new ArrayList<>(groupeRechercheUser);
+
+        String modaltitle = "Ajouter des présences";
+
+        //selection des eleves only dans la list de tous les utilisateur du groupe recherche
+        try {
+            if (groupeRecherche.getIdClient() == currentUser.getId() || groupeRecherche.getIdTuteur() == currentUser.getId()){
+                ArrayList<User> listGroupeEleve = new ArrayList<>();
+                for (User u : listGroupeUsers) {
+                    if (u.getId() != groupeRecherche.getIdTuteur() && u.getId() != groupeRecherche.getIdClient()) {
+                        listGroupeEleve.add(u);
+                    }
+
+                }
+                model.addAttribute("modalTitle", modaltitle);
+                model.addAttribute("listGroupeEleve", listGroupeEleve);
+            } else {
+                modaltitle = "Error : Sorry Access Denied !";
+                model.addAttribute("modalTitle", modaltitle);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            modaltitle = "Error : Sorry Access Denied !";
+            model.addAttribute("modalTitle", modaltitle);
+        }
+
+        //recuperation de la date du jour
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String dateAffichage = dt.format(date);
+        model.addAttribute("date", dateAffichage);
+
+        String mapping = "/presence-recherche-resultat";
+        model.addAttribute("redirection", mapping);
+
         return "/tuteur-client/presence-tuteur";
     }
 

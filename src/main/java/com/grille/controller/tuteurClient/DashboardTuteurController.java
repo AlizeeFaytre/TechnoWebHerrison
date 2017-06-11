@@ -1,6 +1,9 @@
 package com.grille.controller.tuteurClient;
 
+import com.fasterxml.jackson.core.util.InternCache;
+import com.grille.dao.DomainRepository;
 import com.grille.dao.GroupeRepository;
+import com.grille.entities.Domain;
 import com.grille.entities.Groupe;
 import com.grille.entities.User;
 import com.grille.service.UserService;
@@ -27,6 +30,8 @@ public class DashboardTuteurController {
     private UserService userService;
     @Autowired
     private GroupeRepository groupeRepository;
+    @Autowired
+    private DomainRepository domainRepository;
 
 
 
@@ -92,6 +97,14 @@ public class DashboardTuteurController {
         String mapping = "dashboard-tuteur";
         model.addAttribute("redirection", mapping);
 
+        List<Domain> listDomain = domainRepository.findAll();
+        String firstDomainId = "";
+        try {
+            firstDomainId = String.valueOf(listDomain.get(0).getId());
+        }catch (NullPointerException e){
+
+        }
+        model.addAttribute("domainId",firstDomainId);
         return "/tuteur-client/dashboard-tuteur";
 
     }
@@ -131,7 +144,7 @@ public class DashboardTuteurController {
         //list contenant les resultats de la recherche par motCle
         ArrayList<Groupe> listResultat = new ArrayList<>();
         //ajout des resultat matching avec groupe nom
-        listResultat.addAll(groupeRepository.findByNom(motCle));
+        listResultat.add(groupeRepository.findByNom(motCle));
         //ajout des resultat matching avec groupe Promo
         listResultat.addAll(groupeRepository.findByPromo(motCle));
         //ajout des resultat matching avec groupe semester
@@ -155,15 +168,21 @@ public class DashboardTuteurController {
         //et recuperation des groupes dont l'utilisateur logger est le client
         ArrayList<Groupe> tuteurListGroupe = new ArrayList<>();
         ArrayList<Groupe> clientListGroupe = new ArrayList<>();
-        for (Groupe g : listResultat) {
-            if (g.getIdTuteur() == logedUserId) {
-                tuteurListGroupe.add(g);
-            }
-            if (g.getIdClient() == logedUserId) {
-                clientListGroupe.add(g);
-            }
 
+        try {
+            for (Groupe g : listResultat) {
+                if (g.getIdTuteur() == logedUserId) {
+                    tuteurListGroupe.add(g);
+                }
+                if (g.getIdClient() == logedUserId) {
+                    clientListGroupe.add(g);
+                }
+
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
+
         model.addAttribute("tuteurListGroupe", tuteurListGroupe);
         model.addAttribute("clientListGroupe", clientListGroupe);
 
