@@ -21,6 +21,8 @@ public class Evaluate implements Serializable {
 
     private String individualObservation;
 
+    private String tuteurClientObservation;
+
     private String level;
 
     @Temporal(TemporalType.DATE)
@@ -94,5 +96,13 @@ public class Evaluate implements Serializable {
 
     public void setSkill(Skill skill) {
         this.skill = skill;
+    }
+
+    public String getTuteurClientObservation() {
+        return tuteurClientObservation;
+    }
+
+    public void setTuteurClientObservation(String tuteurClientObservation) {
+        this.tuteurClientObservation = tuteurClientObservation;
     }
 }

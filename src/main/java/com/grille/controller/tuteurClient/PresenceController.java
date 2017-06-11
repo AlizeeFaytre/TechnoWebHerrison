@@ -121,7 +121,6 @@ public class PresenceController {
                 if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()) {
                     listGroupeEleve.add(u);
                 }
-
             }
             model.addAttribute("modalTitle", modaltitle);
             model.addAttribute("listGroupeEleve", listGroupeEleve);

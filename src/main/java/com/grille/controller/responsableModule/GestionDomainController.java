@@ -27,9 +27,6 @@ public class GestionDomainController {
 
     @Autowired
     private DomainRepository domainrepo;
-    
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private GridRepository gridRepository;
