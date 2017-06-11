@@ -131,7 +131,7 @@ public class DashboardTuteurController {
         //list contenant les resultats de la recherche par motCle
         ArrayList<Groupe> listResultat = new ArrayList<>();
         //ajout des resultat matching avec groupe nom
-        listResultat.addAll(groupeRepository.findByNom(motCle));
+        listResultat.add(groupeRepository.findByNom(motCle));
         //ajout des resultat matching avec groupe Promo
         listResultat.addAll(groupeRepository.findByPromo(motCle));
         //ajout des resultat matching avec groupe semester
@@ -155,15 +155,21 @@ public class DashboardTuteurController {
         //et recuperation des groupes dont l'utilisateur logger est le client
         ArrayList<Groupe> tuteurListGroupe = new ArrayList<>();
         ArrayList<Groupe> clientListGroupe = new ArrayList<>();
-        for (Groupe g : listResultat) {
-            if (g.getIdTuteur() == logedUserId) {
-                tuteurListGroupe.add(g);
-            }
-            if (g.getIdClient() == logedUserId) {
-                clientListGroupe.add(g);
-            }
 
+        try {
+            for (Groupe g : listResultat) {
+                if (g.getIdTuteur() == logedUserId) {
+                    tuteurListGroupe.add(g);
+                }
+                if (g.getIdClient() == logedUserId) {
+                    clientListGroupe.add(g);
+                }
+
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
+
         model.addAttribute("tuteurListGroupe", tuteurListGroupe);
         model.addAttribute("clientListGroupe", clientListGroupe);
 

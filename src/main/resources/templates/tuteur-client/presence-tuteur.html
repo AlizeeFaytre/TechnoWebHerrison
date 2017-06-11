@@ -22,20 +22,21 @@
         <div class="skills-title"><h1>Présence</h1></div>
 
         <div class="grades-header row">
-
-            <div class="search-bar">
-                <div class="">
-                    <div class="col-md-offset-7 col-md-5">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Chercher un groupe...">
-                            <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"
+            <form action="presence-groupe-recherche?groupe=0" method="post">
+                <div class="search-bar">
+                    <div class="">
+                        <div class="col-md-offset-7 col-md-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="motCle" placeholder="Chercher un groupe...">
+                                <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"
                                                                     aria-hidden="true"></span></button>
               </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                </div> <!--/.row -->
-            </div>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div> <!--/.row -->
+                </div>
+            </form>
         </div>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -70,7 +71,8 @@
                                             data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
                                                                           aria-hidden="true"></span></button>
                                     -->
-                                    <a th:href="|${redirection}?groupe=${groupe.id}&recherche=${motCle}|"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                                    <a th:href="|${redirection}?groupe=${groupe.id}&recherche=${motCle}|"><span
+                                            class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                                 </td>
                             </tr>
                             <tbody>
@@ -90,12 +92,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalTwpLabel">Ajouter des présences</h4>
+                <h4 class="modal-title" id="modalTwpLabel" th:text="${modalTitle}"></h4>
             </div>
             <div class="modal-body">
                 <form class="modify-attendance" th:action="presence-submit" method="post">
                     <div class="attendance-form">
-                        <p>Date: <input type="date" id="datepicker"></p>
+                        <p th:text="${date}"></p>
 
                         <table class="table table-hover">
                             <thead>
@@ -111,9 +113,11 @@
                             <tr th:each="eleve : ${listGroupeEleve}">
                                 <td th:text="${eleve.nom}"></td>
                                 <td th:text="${eleve.prenom}"></td>
-                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="1"></td>
-                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="0"></td>
-                                <input th:id="${eleve.id}" type="hidden" name = "motCle">
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio"
+                                           th:name="${eleve.id}" value="1"></td>
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio"
+                                           th:name="${eleve.id}" value="0"></td>
+                                <input th:id="${eleve.id}" type="hidden" name="motCle">
                             </tr>
 
                             <tbody>
