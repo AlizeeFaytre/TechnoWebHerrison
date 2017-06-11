@@ -1,7 +1,9 @@
 package com.grille.controller.tuteurClient;
 
+import com.grille.dao.AttendanceRepository;
 import com.grille.dao.DomainRepository;
 import com.grille.dao.UserRepository;
+import com.grille.entities.Attendance;
 import com.grille.entities.Domain;
 import com.grille.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +29,25 @@ public class testController {
     private DomainRepository domainrepos;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AttendanceRepository attendanceRepository;
 
     @RequestMapping(value = "/testjia", method = RequestMethod.GET)
-    public String test(Model model){
+    public String test(Model model) {
+        Date date = new Date();
+        System.out.println(date.getTime());
+        User user = userRepository.findById(1);
+        Attendance attendance = new Attendance();
+        attendance.setState(true);
+        attendance.setUser(user);
+        attendance.setDate(date);
 
-        List<User> listUser = userRepository.findAll();
-        model.addAttribute("listUser", listUser);
-        model.addAttribute("simpleChaine", new simpleChaine());
         return "tuteur-client/test";
 
     }
 
     @RequestMapping(value = "/chercher", method = RequestMethod.POST)
-    public String chercher(Model model, String motCle){
+    public String chercher(Model model, String motCle) {
 
         model.addAttribute("presence", motCle);
 
@@ -47,15 +55,5 @@ public class testController {
 
     }
 
-    public class simpleChaine{
-        public List<String> chaine;
 
-        public List<String> getChaine() {
-            return chaine;
-        }
-
-        public void setChaine(List<String> chaine) {
-            this.chaine = chaine;
-        }
-    }
 }

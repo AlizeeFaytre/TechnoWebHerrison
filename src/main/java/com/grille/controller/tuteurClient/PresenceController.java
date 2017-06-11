@@ -151,9 +151,7 @@ public class PresenceController {
     @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
     public void presenceSubmit(HttpServletResponse response,Model model, String motCle){
 
-        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
-
+       ArrayList<Attendance> listAttendanceByDate = attendanceRepository.findByDate(new Date());
 
         String [] parts = motCle.split(",");
         for (String s : parts){
@@ -162,17 +160,25 @@ public class PresenceController {
             User u = userRepository.findById(Integer.parseInt(subParts[0]));
             attendance.setUser(u);
             Boolean state = false;
-            if (Integer.parseInt(subParts[0]) == 1){
+            if (Integer.parseInt(subParts[1]) == 1){
                 state = true;
             }
             attendance.setState(state);
-            attendance.setDate(date);
-            attendanceRepository.save(attendance);
+            attendance.setDate(new Date());
+
+            boolean existe = false;
+            for (Attendance a : listAttendanceByDate){
+                if (a.getUser() == u){
+                    a.setState(state);
+                    attendanceRepository.saveAndFlush(a);
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe){
+                attendanceRepository.save(attendance);
+            }
         }
-
-
-        //10/06/17 -------- A faire : Exploitation des data motCle (separation en substring par ",") et insertion dans bdd
-
     }
 
 
