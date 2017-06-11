@@ -14,7 +14,9 @@ public interface GroupeRepository extends JpaRepository<Groupe, Integer> {
 
     public ArrayList<Groupe> findByPromo(String promo);
     public ArrayList<Groupe> findBySemester(String semester);
-    public ArrayList<Groupe> findByNom(String nom);
     public Page<Groupe> findByPromo(String promo, Pageable pageable);
+    public Groupe findByNom(String nom);
+    public Groupe findById(int id);
+
 
 }
