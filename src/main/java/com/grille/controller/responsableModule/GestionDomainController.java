@@ -3,13 +3,10 @@ package com.grille.controller.responsableModule;
 import com.grille.dao.DomainRepository;
 import com.grille.dao.GridRepository;
 import com.grille.entities.Domain;
-<<<<<<< HEAD
-import com.grille.service.UserService;
-=======
+
 import com.grille.entities.User;
 import com.grille.service.UserService;
 
->>>>>>> 506ef8eb80592150b47d60e82a526278abd11e2f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
