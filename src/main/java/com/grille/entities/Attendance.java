@@ -56,4 +56,12 @@ public class Attendance implements Serializable {
     public void setState(boolean state) {
         this.state = state;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

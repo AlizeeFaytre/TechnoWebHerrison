@@ -1,312 +1,135 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html xmlns:th="http://thymeLeaf.org">
+<head>
     <meta charset="utf-8">
     <title>Présence</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/presence-tuteur.css" data-th-href="@{/css/presence-tuteur.css}">
     <link rel="stylesheet" href="../../static/css/jquery-ui.min.css" data-th-href="@{/css/jquery-ui.min.css}">
+    <link rel="stylesheet" href="../../static/css/header-tuteur.css" data-th-href="@{/css/header-tuteur.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
-    <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-  </head>
+    <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
+    <script src="../../static/js/presence-tuteur.js" data-th-src="@{/js/presence-tuteur.js}" charset="utf-8"></script>
 
-  <body>
-    <div class="container">
 
-  <div class="skills col-md-8 col-md-offset-2 ">
-    <div class ="skills-title"> <h1>Présence</h1> </div>
+<body>
+<div th:include="fragments/header-tuteur :: header-tuteur"></div>
+<div class="container">
 
-    <div class="grades-header row">
+    <div class="skills col-md-8 col-md-offset-2 ">
+        <div class="skills-title"><h1>Présence</h1></div>
 
-      <div class="search-bar">
-        <div class="">
-          <div class="col-md-offset-7 col-md-5" >
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Chercher un groupe...">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        <div class="grades-header row">
+
+            <div class="search-bar">
+                <div class="">
+                    <div class="col-md-offset-7 col-md-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Chercher un groupe...">
+                            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"
+                                                                    aria-hidden="true"></span></button>
               </span>
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-        </div> <!--/.row -->
-      </div>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div> <!--/.row -->
+            </div>
+        </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div th:each="promo : ${mapGroupeByPromo}" class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" th:href="|#${promo.key}|"
+                           aria-expanded="true" aria-controls="#${promo.key}">
+                            <div class="row">
+                                <span class="glyphicon glyphicon-triangle-bottom col-sm-1" aria-hidden="true"></span>
+                                <p th:text="|Promotion : ${promo.key}" |></p>
+                            </div>
+                        </a>
+                    </h4>
+                </div>
+                <div th:id="${promo.key}" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Mes groupes</th>
+                                <th>Ajouter une présence</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="groupe : ${promo.value}">
+                                <td th:text="${groupe.nom}"></td>
+                                <td>
+                                    <!--
+                                    <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal"
+                                            data-target="#modalAdd"><span class="glyphicon glyphicon-plus"
+                                                                          aria-hidden="true"></span></button>
+                                    -->
+                                    <a th:href="|${redirection}?groupe=${groupe.id}&recherche=${motCle}|"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> I1
-
-              </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Mes groupes</th>
-                  <th>Ajouter une présence</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Groupe 1</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 2</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-              <tbody>
-            </table>
+</div>
 
 
+<!-- Modal 2 -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalTwpLabel">Ajouter des présences</h4>
+            </div>
+            <div class="modal-body">
+                <form class="modify-attendance" th:action="presence-submit" method="post">
+                    <div class="attendance-form">
+                        <p>Date: <input type="date" id="datepicker"></p>
 
-          </div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Présent</th>
+                                <th>Absent</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="eleve : ${listGroupeEleve}">
+                                <td th:text="${eleve.nom}"></td>
+                                <td th:text="${eleve.prenom}"></td>
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="1"></td>
+                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio" th:name="${eleve.id}" value="0"></td>
+                                <input th:id="${eleve.id}" type="hidden" name = "motCle">
+                            </tr>
+
+                            <tbody>
+
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="buton" class="btn btn-default bouton_connexion">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> I2
-            </a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Mes groupes</th>
-                  <th>Ajouter une présence</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Groupe 1</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 2</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-              <tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingThree">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> A1
-            </a>
-          </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="panel-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Mes groupes</th>
-                  <th>Ajouter une présence</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Groupe 1</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 2</td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr>
-                  <td >Groupe 3 </td>
-                  <td><button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalAdd"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
-                </tr>
-              <tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
+</div>
 
 
-
-  </div>
-  </div>
-
-  
-  <!-- Modal 2 -->
-  <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modalTwpLabel">Ajouter des présences</h4>
-      </div>
-      <div class="modal-body">
-        <form class="modify-attendance" action="presence-admin.html" method="post">
-        <div class="attendance-form">
-          <p>Date: <input type="date" id="datepicker"></p>
-
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Nom</th>
-                  <th>Prénom</th>
-                  <th>Présent</th>
-                  <th>Absent</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Laurette</td>
-                  <td>Esther</td>
-                  <td><input type="radio" name="eleve1" value="present"></td>
-                  <td><input type="radio" name="eleve1" value="absent"></td>
-                </tr>
-                <tr>
-                  <td>Faytre</td>
-                  <td>Alizée</td>
-                  <td><input type="radio" name="eleve2" value="present"></td>
-                  <td><input type="radio" name="eleve2" value="absent"></td>
-                </tr>
-                <tr>
-                  <td>de Maricourt</td>
-                  <td>Aude</td>
-                  <td><input type="radio" name="eleve3" value="present"></td>
-                  <td><input type="radio" name="eleve3" value="absent"></td>
-                </tr>
-                <tr>
-                  <td>Dafit</td>
-                  <td>Jiawei</td>
-                  <td><input type="radio" name="eleve4" value="present"></td>
-                  <td><input type="radio" name="eleve4" value="absent"></td>
-                </tr>
-                <tr>
-                  <td>Richard</td>
-                  <td>Thomas</td>
-                  <td><input type="radio" name="eleve5" value="present"></td>
-                  <td><input type="radio" name="eleve5" value="absent"></td>
-                </tr>
-                <tbody>
-
-            </table>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-        <button type="buton" class="btn btn-default bouton_connexion">Enregistrer</button>
-      </div>
-      </form>
-    </div>
-  </div>
-  </div>
-  </div>
-
-
-
-  </body>
+</body>
 </html>

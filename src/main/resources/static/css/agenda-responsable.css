@@ -61,3 +61,6 @@ background-size:cover;
   margin-top:20px;
 }
 
+.btn{
+	opacity: 1 !important;
+}

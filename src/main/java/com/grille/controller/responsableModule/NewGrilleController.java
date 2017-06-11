@@ -4,6 +4,9 @@ import com.grille.dao.DomainRepository;
 import com.grille.dao.SkillRepository;
 import com.grille.entities.Domain;
 import com.grille.entities.Skill;
+import com.grille.entities.User;
+import com.grille.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -30,14 +35,18 @@ public class NewGrilleController {
 
     @Autowired
     private SkillRepository skillrepo;
+    
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/new_domain", method = RequestMethod.GET)
-    public String index (Model model){
-
+    public String index (Model model, HttpSession session){
+    	User currentUser = userService.getLogedUser(session);
         //selection tous les domain
         List<Skill> listSkill = skillrepo.findAll();
         model.addAttribute("listSkill", listSkill);
         model.addAttribute("domain", new Domain());
+        model.addAttribute("currentUser", currentUser);
         return "respoModule/new_grille";
     }
 

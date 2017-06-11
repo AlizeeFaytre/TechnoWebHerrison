@@ -3,7 +3,13 @@ package com.grille.controller.responsableModule;
 import com.grille.dao.DomainRepository;
 import com.grille.dao.GridRepository;
 import com.grille.entities.Domain;
+<<<<<<< HEAD
 import com.grille.service.UserService;
+=======
+import com.grille.entities.User;
+import com.grille.service.UserService;
+
+>>>>>>> 506ef8eb80592150b47d60e82a526278abd11e2f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Thomas on 09/05/2017.
@@ -22,6 +30,9 @@ public class GestionDomainController {
 
     @Autowired
     private DomainRepository domainrepo;
+    
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GridRepository gridRepository;
@@ -30,9 +41,11 @@ public class GestionDomainController {
     private UserService userService;
 
     @GetMapping("/gestion_grille")
-    public String index (Model model){
-        List<Domain> listDomain = domainrepo.findAll();
+    public String index (Model model, HttpSession session){
+    	User currentUser = userService.getLogedUser(session);
+    	List<Domain> listDomain = domainrepo.findAll();
         model.addAttribute("listDomain", listDomain);
+
         Map<String, Set<Domain>> domainByPromo = new HashMap<>();
 
         String currentSemester = userService.getCurrentSemester();
@@ -77,6 +90,8 @@ public class GestionDomainController {
         }
 
         model.addAttribute("domainByPromo", domainByPromo);
+
+        model.addAttribute("currentUser", currentUser);
 
         return "respoModule/gestion_grille";
     }
