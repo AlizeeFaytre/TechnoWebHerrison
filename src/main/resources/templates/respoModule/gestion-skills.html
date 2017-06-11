@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/gestion-skills.css" data-th-href="@{/css/gestion-skills.css}">
     <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
 
@@ -30,10 +31,10 @@
   <div th:include="fragments/header-respo :: header-respo"></div>
     <div class="container">
       
-		<div class="skills col-md-8 col-md-offset-2 ">
-		    <div class ="skills-title"> <h1>Liste des compétences</h1> </div>
+		<div class="grey-box col-md-8 col-md-offset-2 ">
+		    <div class ="grey-box-title"> <h1>Liste des compétences</h1> </div>
 		
-		    <div class="skills-header row">
+		    <div class="grey-box-header row">
 		      <div class="add-skill">
 		          <div  class="col-md-4" >
 		            <!-- Button trigger modal -->
@@ -50,7 +51,7 @@
 		            <div class="input-group">
 		              <input type="text" class="form-control" name="motCle" placeholder="Chercher une compétence...">
 		              <span class="input-group-btn">
-		                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		                <button class="btn btn-default btn-search" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		              </span>
 		            </div><!-- /input-group -->
 		          </div><!-- /.col-lg-6 --> 

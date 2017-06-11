@@ -1,11 +1,4 @@
-html, body {
-    height: 100%;
-    margin: 0px 0px 0px 0px;
-    width: 100%;
-    background-image: url('../img/batiment_isep.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-}
+
 
 /* optimize for 320 x 480 px*/
 .logo{
@@ -29,12 +22,6 @@ a.btn-circle:hover {
 }
 
 
-.identifiants {
-    margin-top: 10%;
-    background-color: rgb(200,200,200);
-    opacity: 0.8;
-    border-radius: 10px;
-}
 
 
 .titre_form{
@@ -108,9 +95,9 @@ a.btn-circle:hover {
 }
 
 
-.btn{
+/*.btn{
     background-color: rgb(200,200,200);
-}
+}*/
 
 
 .modif{
@@ -148,10 +135,17 @@ a.btn-circle:hover {
 
 .input-group .form-control{
 	display:block;
-	width:200% !important;s
+	width:100% !important;s
 }
 
-.input-group-btn{
-	display:block;
-	margin-right:auto !important;
-}
+.btn-search{
+  display:block;
+  margin-right: auto !important;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;}
+  
+  .search-bar-new-domain{
+  display:block;
+  width:50%;
+  }

@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
 	<link rel="stylesheet" href="../../static/css/gestiongrilles.css" data-th-href="@{/css/gestiongrilles.css}">
 	<link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
+	<link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
 	<script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
 	<script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
 </head>
@@ -17,7 +18,7 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="identifiants col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+				<div class="grey-box col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 					<h1 class="titre_form">Nouveau domaine de compétences</h1>
 			    	<form action="new_domain_insert" method="post">
 						<div class="form-group">
@@ -26,15 +27,16 @@
 
 						<div  class="form-group">
 							<label >Choix des compétences</label><br />
-							<div class="search-bar">
-						        <div class="">
+							<div class="search-bar-new-domain">
+						        <!--  <div class="">  -->
 						            <div class="input-group">
 						              <input type="text" class="form-control" placeholder="Chercher une compétence...">
 						              <span class="input-group-btn">
-						                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						                <button class="btn btn-default btn-search" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 						              </span><br />
+						              </input>
 						            </div><!-- /input-group -->
-						        </div> <!--/.row -->
+						        <!--  </div>  --> <!--/.row --> 
 						    </div>
 						    
 							<div class="form-group-overflow">

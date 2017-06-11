@@ -1,26 +1,15 @@
-body {
-color:black;
-background-color:white;
-background-image:url(../img/batiment_isep.jpg);
-background-size:cover;
-}
 
-.skills-title h1{
+
+/*.skills-title h1{
   display:block;
   vertical-align:center-block;
   text-align:center;
-}
-.skills .panel-group{
+}*/
+.grey-box .panel-group{
   margin-top:50px;
   width:500px;
   margin-left:auto;
   margin-right:auto;
-}
-.skills{
-  margin-top: 10%;
-  background-color: #C8C8C8;
-  opacity: 0.8;
-  border-radius: 10px;
 }
 
 .table{
