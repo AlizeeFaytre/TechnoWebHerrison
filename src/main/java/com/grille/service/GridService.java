@@ -23,16 +23,9 @@ public class GridService {
 
     public Grid getGrid(User user){ //a revoir pour recuperer la grille de l'année complete
 
-        Set<Grid> listGrid = gridRepository.findByPromo(user.getClasse());
+        Grid grid = gridRepository.findByPromo(user.getClasse());
 
-        String currentSemester = userService.getCurrentSemester();
 
-        for (Grid g:listGrid) {
-            if(g.getSemester().equals(currentSemester)){
-                return g;
-            }
-
-        }
-        return null;
+        return grid;
     }
 }

@@ -60,4 +60,5 @@ public class Grid implements Serializable{
     public void setListDomain(Set<Domain> listDomain) {
         this.listDomain = listDomain;
     }
+
 }

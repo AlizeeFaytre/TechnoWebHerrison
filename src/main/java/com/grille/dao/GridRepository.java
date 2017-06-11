@@ -10,5 +10,5 @@ import java.util.Set;
  */
 public interface GridRepository extends JpaRepository<Grid, Integer> {
 
-    public Set<Grid> findByPromo(String promo);
+    public Grid findByPromo(String promo);
 }
