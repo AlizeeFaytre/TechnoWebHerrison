@@ -45,14 +45,10 @@
         <div class="view_groupes_conteneur text-center row col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
             <!-- view 1st groupe -->
-            <div class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <p>Groupe 1</p>
+            <div data-th-each="groupe:${listeGroupe}" class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <p data-th-text="${groupe.key}">Groupe 1</p>
                 <ul class="list-unstyled">
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
+                    <li data-th-each="user:${groupe.value}" data-th-text="${user.prenom} + ' ' + ${user.nom}">Nom Prenom</li>
                 </ul>
                 <p>tuteur :Hervé Feller</p>
                 <p>Client : Zakia</p>
@@ -69,6 +65,30 @@
             </div>
 
             <!-- view 2nd groupe -->
+            <!--<div class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <p>Groupe 1</p>
+                <ul class="list-unstyled">
+                    <li>Nom Prenom</li>
+                    <li>Nom Prenom</li>
+                    <li>Nom Prenom</li>
+                    <li>Nom Prenom</li>
+                    <li>Nom Prenom</li>
+                </ul>
+                <p>tuteur :Hervé Feller</p>
+                <p>Client : Zakia</p>
+
+                &lt;!&ndash; les deux buttons &ndash;&gt;
+                <div class="boite_gestion_groupes">
+                    <button type="button" class="btn btn-default modif" aria-label="Modification" data-toggle="modal" data-target="#modification_groupe_modal">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default suppr" aria-label="Suppression" data-toggle="modal" data-target="#confirmation_supp_groupe_modal">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+            &lt;!&ndash; view 3rd groupe &ndash;&gt;
             <div class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <p>Groupe 1</p>
                 <ul class="list-unstyled">
@@ -81,7 +101,7 @@
                 <p>tuteur :Hervé Feller</p>
                 <p>Client : Zakia</p>
 
-                <!-- les deux buttons -->
+                &lt;!&ndash; les deux buttons &ndash;&gt;
                 <div class="boite_gestion_groupes">
                     <button type="button" class="btn btn-default modif" aria-label="Modification" data-toggle="modal" data-target="#modification_groupe_modal">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -90,31 +110,7 @@
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
-            </div>
-
-            <!-- view 3rd groupe -->
-            <div class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <p>Groupe 1</p>
-                <ul class="list-unstyled">
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                    <li>Nom Prenom</li>
-                </ul>
-                <p>tuteur :Hervé Feller</p>
-                <p>Client : Zakia</p>
-
-                <!-- les deux buttons -->
-                <div class="boite_gestion_groupes">
-                    <button type="button" class="btn btn-default modif" aria-label="Modification" data-toggle="modal" data-target="#modification_groupe_modal">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-default suppr" aria-label="Suppression" data-toggle="modal" data-target="#confirmation_supp_groupe_modal">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
+            </div>-->
         </div>
     </div>
 
@@ -123,11 +119,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <ul class="pagination">
                 <li><a href="#" class="glyphicon glyphicon-chevron-left"></a></li>
-                <li class="active "><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <li data-th-each="p:${totalPage}"  data-th-classappend="${page == p ? active : ''} "><a data-th-text="${p} + 1" data-th-href="'gestionGroupes?promo=' + ${promo} + '&page=' + ${p}" href="#">1</a></li>
                 <li><a href="#" class="glyphicon glyphicon-chevron-right"></a></li>
             </ul>
         </div>
