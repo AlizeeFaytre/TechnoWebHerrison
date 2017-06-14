@@ -4,6 +4,7 @@ import com.grille.entities.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
 <<<<<<< HEAD
@@ -11,4 +12,5 @@ import java.util.ArrayList;
  */
 public interface SkillRepository extends JpaRepository<Skill, Integer> {
     public Skill findByName(String motCle);
+    public Skill findById(int id);
 }
