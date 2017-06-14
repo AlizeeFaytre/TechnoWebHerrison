@@ -1,5 +1,7 @@
 package com.grille.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -9,7 +11,7 @@ import java.util.Set;
  */
 
 @Entity
-public class Role implements Serializable {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue
@@ -46,5 +48,10 @@ public class Role implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.name;
     }
 }

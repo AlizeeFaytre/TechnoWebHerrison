@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by alizeefaytre on 11/06/2017.
@@ -70,6 +67,29 @@ public class GestionGroupeController {
         model.addAttribute("totalPage", nbPage);
         model.addAttribute("actualPage", page);
 
+        Map<String, String> listPromo = new HashMap<>();
+        String currentSemester = userService.getCurrentSemester();
+        String[] semester = currentSemester.split(" - ");
+
+        if (semester[1] == "S1"){
+            Integer year = Integer.parseInt(semester[0]);
+            listPromo.put("I1", Integer.toString(year + 5));
+            listPromo.put("I2", Integer.toString(year + 4));
+            listPromo.put("A1", Integer.toString(year + 3));
+            listPromo.put("A2", Integer.toString(year + 2));
+            listPromo.put("A3", Integer.toString(year + 1));
+        }
+        else {
+            Integer year = Integer.parseInt(semester[0]);
+            listPromo.put("I1", Integer.toString(year + 4));
+            listPromo.put("I2", Integer.toString(year + 3));
+            listPromo.put("A1", Integer.toString(year + 2));
+            listPromo.put("A2", Integer.toString(year + 1));
+            listPromo.put("A3", Integer.toString(year + 0));
+
+        }
+
+        model.addAttribute("listPromo", listPromo);
         model.addAttribute("promo", promo);
 
         return "respoModule/gestion_groupes";
