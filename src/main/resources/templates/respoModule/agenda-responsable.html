@@ -28,7 +28,7 @@
   <body>
  <div class="header" th:include="fragments/header-respo :: header-respo"></div>
     <div class="container">
-      <div class="grey-box col-md-8 col-md-offset-2 ">
+      <div class="grey-box col-xs-9 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
           <div class ="grey-box-title"> <h1>Agenda par promotion</h1><br>
           </div>
           
@@ -44,7 +44,7 @@
 		      </div>
 		
 		      <div class="search-bar">
-		          <div class="col-md-offset-3 col-md-5" >
+		          <div class="col-xs-12 col-sm-4 col-sm-offset-3 col-md-5 col-md-offset-3 col-lg-5 col-lg-offset-3 " >
 		            <div class="input-group">
 		              <input type="text" class="form-control" placeholder="Chercher une promotion...">
 		              <span class="input-group-btn">
@@ -55,16 +55,7 @@
 		      </div>
 		    </div>
           
-          	<div class ="grey-box-title">  
-            <h4>Mis à jour pour le
-              <select class="semester" name="semester">
-              <option value="first">1er</option>
-                <option value="second">2nd</option>
-              
-            </select>
-            semestre  </h4>
-          </div>
-
+          	
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
             <div th:each="promo:${listdeadlinepromo}" class="panel panel-default">
@@ -223,9 +214,7 @@
 		    </div>
 		  </div>
 </div>
-
+  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
   </body>
   
-  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
-
 </html>

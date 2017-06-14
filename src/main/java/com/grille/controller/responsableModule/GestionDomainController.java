@@ -13,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -89,4 +92,18 @@ public class GestionDomainController {
 
         return "respoModule/gestion_grille";
     }
+
+    @RequestMapping(value = "/delete-domain", method = RequestMethod.GET)
+    public void delete(HttpServletResponse response, @RequestParam("domain") int id){
+        Domain d = domainrepo.findById(id);
+        domainrepo.delete(d);
+
+        String redirectPath = "/gestion_grille";
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+  
 }

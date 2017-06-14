@@ -53,12 +53,14 @@ public class GestionSkillsController {
     }
 
     @RequestMapping(value="/gestion-skills-resultat", method = RequestMethod.GET)
-    public String resultat (Model model, @RequestParam("recherche") String motCle){
+    public String resultat (Model model, @RequestParam("recherche") String motCle, HttpSession session){
         List<Skill> listSkill = skillrepo.findAll();
         model.addAttribute("skill", new Skill());
 
         Skill resultatRecherche = skillrepo.findByName(motCle);
         model.addAttribute("listSkill", resultatRecherche);
+        User currentUser = userService.getLogedUser(session);
+        model.addAttribute("currentUser", currentUser);
         return "respoModule/gestion-skills";
     }
 
