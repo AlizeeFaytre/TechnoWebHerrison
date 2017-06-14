@@ -54,9 +54,7 @@
 						<button type="button" class="btn btn-default modif" aria-label="Modification">
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</button>
-						<button type="button" class="btn btn-default suppr" aria-label="Suppression">
-							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						</button>
+						<a th:href="|delete-domain?domain=${domain.id}|"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 					</div>
 				</div>
 
