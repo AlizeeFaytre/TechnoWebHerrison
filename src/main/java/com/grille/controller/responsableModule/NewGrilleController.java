@@ -51,7 +51,7 @@ public class NewGrilleController {
     }
 
     @RequestMapping(value = "/new_domain_insert", method = RequestMethod.POST)
-    public void grille (Model model, Domain d, HttpServletResponse response){
+    public void grille (Model model, Domain d, String motcle, HttpServletResponse response){
 
         domainrepo.save(d);
         try{
