@@ -6,3 +6,25 @@ html, body {
     background-size: cover !important;
     background-repeat: no-repeat!important;
 }
+
+.form-group{
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
+.bouton_connexion{
+	display:block;
+	margin-left:auto !important;
+	margin-right: auto !important;
+}
+
+.grey-box{
+	margin-top: 15% !important;
+}
+
+.submit{
+	width: 100%;
+	margin-bottom:2%;
+}

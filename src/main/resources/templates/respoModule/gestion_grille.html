@@ -2,6 +2,7 @@
 <html xmlns:th="http://thymeLeaf.org">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Gestion Grilles</title>
 	<link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
 	<link rel="stylesheet" href="../../static/css/gestiongrilles.css" data-th-href="@{/css/gestiongrilles.css}">
@@ -38,7 +39,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="new_grille col-xs-9 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+				<div class="new_grille col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
 					
 					<a href="new_domain" class="new_grille_lien">Nouveau domaine </a>
 			    </div>
@@ -54,7 +55,9 @@
 						<button type="button" class="btn btn-default modif" aria-label="Modification">
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</button>
+						<button type="button" class="btn btn-default modif" aria-label="Modification">
 						<a th:href="|delete-domain?domain=${domain.id}|"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+						</button>
 					</div>
 				</div>
 

@@ -46,6 +46,8 @@
 
 .table{
 	display:block;
-	margin-left:30%;
+	margin-left:auto;
 	margin-right:auto;
+	background-color:#fff !important;
+	width:40% !important;
 }
