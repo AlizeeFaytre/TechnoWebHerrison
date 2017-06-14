@@ -54,7 +54,7 @@ a.btn-circle:hover {
     border-radius: 5px;
     opacity: 0.9;
     text-align: center;
-    margin-top: 20%;
+    margin-top: 10% !important;
     margin-bottom: 2%;
 }
 

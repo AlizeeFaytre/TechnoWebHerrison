@@ -45,12 +45,7 @@
   overflow-x: auto;
 }
 
-@media screen 
-  and (device-width: 360px) 
-  and (device-height: 640px) 
-  and (-webkit-device-pixel-ratio: 3) {
 
-}
 
 .btn{
 	opacity: 1 !important;
