@@ -76,6 +76,31 @@ public class GestionSkillsController {
 
     }
 
+    @RequestMapping(value = "/new_skill_update", method = RequestMethod.POST)
+    public void update_skill (Model model, Skill s, HttpServletResponse response){
+
+        skillrepo.saveAndFlush(s);
+        try{
+            response.sendRedirect("/gestion-skills");
+        }catch (IOException i){
+            i.printStackTrace();
+        }
+
+    }
+
+    @RequestMapping(value = "/delete-skill", method = RequestMethod.GET)
+    public void delete(HttpServletResponse response, @RequestParam("skill") int id){
+        Skill s = skillrepo.findById(id);
+        skillrepo.delete(s);
+
+        String redirectPath = "/gestion-skills";
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
