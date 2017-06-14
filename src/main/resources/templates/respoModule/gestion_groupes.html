@@ -45,7 +45,7 @@
 
             <!-- view 1st groupe -->
             <div data-th-each="groupe:${listeGroupe}" class="view_groupes_contenu col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <p data-th-text="${groupe.key}">Groupe 1</p>
+                <p data-th-text="${groupe.key.nom}">Groupe 1</p>
                 <ul class="list-unstyled">
                     <li data-th-each="user:${groupe.value}" data-th-text="${user.prenom} + ' ' + ${user.nom}">Nom Prenom</li>
                 </ul>
@@ -54,10 +54,10 @@
 
                 <!-- les deux buttons -->
                 <div class="boite_gestion_groupes">
-                    <button type="button" class="btn btn-default modif" aria-label="Modification" data-toggle="modal" data-target="#modification_groupe_modal">
+                    <button type="button" class="btn btn-default modif" aria-label="Modification" data-toggle="modal" data-th-data-target="'#modification_groupe_modal' + ${groupe.key.id}" data-target="#modification_groupe_modal">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default suppr" aria-label="Suppression" data-toggle="modal" data-target="#confirmation_supp_groupe_modal">
+                    <button type="button" class="btn btn-default suppr" aria-label="Suppression" data-toggle="modal" data-th-data-target="'#confirmation_supp_groupe_modal' + ${groupe.key.id}" data-target="#confirmation_supp_groupe_modal">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -329,7 +329,7 @@
     </div>
 
     <!-- Modal de confirmation de supp de groupe -->
-    <div class="modal fade" id="confirmation_supp_groupe_modal" role="dialog">
+    <div data-th-each="groupe:${listeGroupe}" class="modal fade"  data-th-id="'confirmation_supp_groupe_modal' + ${groupe.key.id}" id="confirmation_supp_groupe_modal" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -338,14 +338,15 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title text-center">Supprimer ce groupe ?</h4>
                 </div>
-
-
-                <div class="modal-footer">
-                    <div class="row text-center">
-                        <button type="button" class="btn btn-default" >Annuler</button>
-                        <button type="button" class="btn btn-default">Confirmer</button>
+                <p data-th-text="${groupe.key.id}"></p>
+                <form data-th-action="'/deleteGroupe?promo=' + ${promo} + '&groupID=' + ${groupe.key.id}">
+                    <div class="modal-footer">
+                        <div class="row text-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" >Annuler</button>
+                            <input class="btn btn-default" type="submit" value="Confirmer">
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
         </div>

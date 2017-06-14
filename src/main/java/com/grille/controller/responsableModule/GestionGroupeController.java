@@ -44,10 +44,10 @@ public class GestionGroupeController {
 
         Page<Groupe> listGroupe = groupeRepository.findByPromo(promo, new PageRequest(page, 3));
 
-        Map<String, Set<User>> groupes = new HashMap<>();
+        Map<Groupe, Set<User>> groupes = new HashMap<>();
 
         for (Groupe g:listGroupe) {
-            groupes.put(g.getNom(), groupeService.getStudent(g));
+            groupes.put(g, groupeService.getStudent(g));
         }
 
         model.addAttribute("listeGroupe", groupes);
@@ -124,6 +124,17 @@ public class GestionGroupeController {
         groupe.setPromo(promo);
 
         groupeRepository.save(groupe);
+
+        try{
+            response.sendRedirect("/gestionGroupes?promo=" + promo + "&page=0");
+        }catch (IOException i){
+            i.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/deleteGroupe")
+    public void deleteGroupe(@RequestParam(name = "groupID") Integer groupeID, @RequestParam(name="promo")String promo, HttpServletResponse response){
+       groupeRepository.delete(groupeID);
 
         try{
             response.sendRedirect("/gestionGroupes?promo=" + promo + "&page=0");

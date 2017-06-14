@@ -122,6 +122,7 @@ public class grilleEleveController {
 
 
         model.addAttribute("ligneGrille", listeLigne);
+        model.addAttribute("currentUser", currentUser);
 
         return "eleves/grilleEleve";
     }

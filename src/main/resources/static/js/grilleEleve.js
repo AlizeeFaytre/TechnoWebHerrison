@@ -35,6 +35,22 @@ function filtres(){
   });
 }
 
+function myCollapse(){
+    $('.oneCompetence').click(function () {
+        if (!($(this).siblings().hasClass('in'))){
+            $(this).siblings().collapse();
+            if (!($(this).siblings().hasClass('in'))){
+                $(this).siblings().addClass('in');
+            }
+        }
+        else {
+            $(this).siblings().removeClass('in');
+        }
+
+    })
+}
+
 $(document).ready(function(){
   filtres();
+  myCollapse();
 });

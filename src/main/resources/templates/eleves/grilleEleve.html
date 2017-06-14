@@ -33,10 +33,10 @@
         <!-- fin de l'entete du tableau -->
         <tbody class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <!-- une compétence -->
-          <tbody data-th-each="competence : ${ligneGrille}" class="panel panel-default">
+          <tbody data-th-each="competence : ${ligneGrille}" class=" panel panel-default">
 
 
-                  <tr class="panel-heading" role="tab" id="headingOne">
+                  <tr class="panel-heading oneCompetence" role="tab" id="headingOne">
                       <td class="competence intitule panel-title" colspan="9">
                           <a data-th-text="${competence.key.competenceName}" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                               Specification des besoins (MOA)
@@ -46,11 +46,11 @@
 
               <!--<tbody class="completeCompetence">
                   <tbody class="panel-body completeCompetence panel-collapse collapse in" id="collapseOne" role="tabpanel" aria-labelledby="headingOne" >-->
-                  <tr>
+                  <tr class="collapse">
                       <td data-th-text="${competence.key.competenceDescription}" class="tg-yw4l grey" rowspan="7">extraire et comprendre les besoins fonctionnel et non fonctionnel</td>
                       <td data-th-text="${competence.key.generalObservation}" class="tg-yw4l cellule" rowspan="7">ici iront les commentaires generaux</td>
                       <td data-th-text="${competence.key.individualObservation}" class="tg-yw4l cellule 0">observation individuel eleve 1</td>
-                      <div data-th-switch="${competence.key.level}">
+                      <div data-th-switch="${competence.key.competenceEvaluate}">
                           <td data-th-case="'Loin'" class="loin tg-yw4l" data-toggle="tooltip" data-container="body" data-placement="top" title="Loin"></td>
                           <td data-th-case="'Proche'" class="tg-yw4l proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Proche"></td>
                           <td data-th-case="'Très Proche'" class="tg-yw4l tres-proche 0" data-toggle="tooltip" data-container="body" data-placement="top" title="Très Proche"></td>
@@ -60,7 +60,7 @@
                       </div>
                       <td data-th-text="${competence.key.userName}"  class="tg-yw4l grey 0">Alizée Faytre</td>
                   </tr>
-                  <tr data-th-each="nextUser : ${competence.value}">
+                  <tr class="collapse" data-th-each="nextUser : ${competence.value}">
                       <td data-th-text="${nextUser.individualObservation}" class="tg-yw4l cellule 1">observation individuel du deuxième eleves qui est un cancre absolue c'est pas possible d'etre aussi nul !!</td>
                       <div data-th-switch="${nextUser.competenceEvaluate}">
                           <td data-th-case="'Loin'" class="loin tg-yw4l" data-toggle="tooltip" data-container="body" data-placement="top" title="Loin"></td>
