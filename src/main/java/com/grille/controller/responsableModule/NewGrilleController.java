@@ -2,6 +2,7 @@ package com.grille.controller.responsableModule;
 
 import com.grille.dao.DomainRepository;
 import com.grille.dao.SkillRepository;
+import com.grille.entities.Attendance;
 import com.grille.entities.Domain;
 import com.grille.entities.Skill;
 import com.grille.entities.User;
@@ -21,7 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Thomas on 09/05/2017.
@@ -51,8 +55,14 @@ public class NewGrilleController {
     }
 
     @RequestMapping(value = "/new_domain_insert", method = RequestMethod.POST)
-    public void grille (Model model, Domain d, HttpServletResponse response){
+    public void grille (Model model, Domain d, String motcle, HttpServletResponse response){
 
+        String[] parts = motcle.split(",");
+        Set<Skill> setSkill = new HashSet<>();
+        for (String s : parts) {
+            setSkill.add(skillrepo.findById(Integer.parseInt(s)));
+        }
+        d.setListSkill(setSkill);
         domainrepo.save(d);
         try{
             response.sendRedirect("/gestion_grille");

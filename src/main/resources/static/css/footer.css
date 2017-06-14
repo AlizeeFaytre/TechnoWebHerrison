@@ -1,0 +1,55 @@
+.footer{
+	background-color: #292c2f;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: center;
+	font: normal 13px sans-serif;
+	padding: 5px;
+  	position:relative;
+	bottom:0;
+	right:0;
+	left:0;
+	margin-top:7%;
+}
+
+.footer .footer-company-name{
+	color:  #f0f0f5;
+	font-size: 9px;
+	margin: 0;
+}
+
+.footer .footer-links{
+	list-style: none;
+	font-weight: bold;
+	color:  #ffffff; 
+	padding: 15px 0 10px;
+	margin: 0;
+}
+
+.footer-links a{
+	display:inline-block;
+	text-decoration: none;
+	color: inherit;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+@media (max-width: 600px) {
+
+	.footer{
+		padding: 10px;
+	}
+
+	.footer .footer-company-name{
+		font-size: 9px;
+	}
+
+	.footer .footer-links{
+		font-size: 10px;
+		padding: 15px 0 10px;
+	}
+
+	.footer .footer-links a{
+		line-height: 1.8;
+	}
+}

@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Deadlines de validation</title>
+    <title>Deadlines de validation des domaines</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/agenda-responsable.css" data-th-href="@{/css/agenda-responsable.css}">
-    <link rel="stylesheet" href="../../static/css/header-respo.css" data-th-href="@{/css/header-respo.css}">
+    <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="../../static/js/bootstrap.js" data-th-src="@{/js/bootstrap.js}" charset="utf-8"></script>
 
@@ -24,17 +26,17 @@
     <![endif]-->
   </head>
   <body>
-  <!-- <div th:include="fragments/header-respo :: header-respo"></div> -->
+ <div class="header" th:include="fragments/header-respo :: header-respo"></div>
     <div class="container">
-      <div class="deadline col-md-8 col-md-offset-2 ">
-          <div class ="deadline-title"> <h1>Agenda par promotion</h1><br>
+      <div class="grey-box col-md-8 col-md-offset-2 ">
+          <div class ="grey-box-title"> <h1>Agenda par promotion</h1><br>
           </div>
           
-          	<div class="skills-header row">
+          	<div class="grey-box-header row">
 		      <div class="add-skill">
 		          <div  class="col-md-4" >
 		            <!-- Button trigger modal -->
-		            <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#myModal">
+		            <button type="button" class="btn btn-default bouton_add" data-toggle="modal" data-target="#myModal">
 		              <span class="glyphicon glyphicon-plus" aria-hidden="true"> Ajouter une deadline </span>
 		            </button>
 		          </div>
@@ -46,14 +48,14 @@
 		            <div class="input-group">
 		              <input type="text" class="form-control" placeholder="Chercher une promotion...">
 		              <span class="input-group-btn">
-		                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		                <button class="btn btn-default btn-search" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		              </span>
 		            </div><!-- /input-group -->
 		          </div><!-- /.col-lg-6 -->
 		      </div>
 		    </div>
           
-          	<div class ="deadline-title">  
+          	<div class ="grey-box-title">  
             <h4>Mis à jour pour le
               <select class="semester" name="semester">
               <option value="first">1er</option>
@@ -223,4 +225,7 @@
 </div>
 
   </body>
+  
+  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
+
 </html>

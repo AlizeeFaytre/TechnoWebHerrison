@@ -6,12 +6,13 @@
     <title>Title</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
+    <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
 </head>
 <body>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="identifiants col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <div class="grey-box col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
                 <h1 class="titre_form">Grille de compétences APP!</h1>
                 <form data-th-action="@{/login}" method="post">
                     <div class="form-group">
@@ -30,4 +31,5 @@
     </div>
 
 </body>
+  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
 </html>

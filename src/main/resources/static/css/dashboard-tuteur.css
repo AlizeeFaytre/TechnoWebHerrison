@@ -19,12 +19,7 @@ li{
   list-style-type: none;
 }
 
-.groups-table{
-  margin-top: 10%;
-  background-color: #C8C8C8;
-  opacity: 0.8;
-  border-radius: 10px;
-}
+
 .table{
   display : block;
   width : 500px;
@@ -35,16 +30,11 @@ li{
   margin-top : 15px;
   overflow : scroll;
   overflow-x: auto;
-  background-color:#C8C8C8;
+  background-color:#C8C8C8 !important;
 }
 
 
-body {
-color:black;
-background-color:white;
-background-image:url(/img/batiment_isep.jpg);
-background-size:cover;
-}
+
 
 .panel-default{
   background-color:#C8C8C8;
@@ -57,4 +47,9 @@ background-size:cover;
 .search-bar{
   margin-bottom:8%;
   margin-top:2%;
+}
+
+.btn-search{
+  display:block;
+  margin-right: auto !important;
 }

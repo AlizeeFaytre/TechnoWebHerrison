@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/presence-tuteur.css" data-th-href="@{/css/presence-tuteur.css}">
     <link rel="stylesheet" href="../../static/css/jquery-ui.min.css" data-th-href="@{/css/jquery-ui.min.css}">
-    <link rel="stylesheet" href="../../static/css/header-tuteur.css" data-th-href="@{/css/header-tuteur.css}">
+    <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
+    <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
+    <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
     <script src="../../static/js/jquery-3.1.1.min.js" data-th-src="@{/js/jquery-3.1.1.min.js}" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -15,11 +17,11 @@
 
 
 <body>
-<div th:include="fragments/header-tuteur :: header-tuteur"></div>
+<div class="header" th:include="fragments/header-tuteur :: header-tuteur"></div>
 <div class="container">
 
-    <div class="skills col-md-8 col-md-offset-2 ">
-        <div class="skills-title"><h1>Présence</h1></div>
+    <div class="grey-box col-md-8 col-md-offset-2 ">
+        <div class="grey-box-title"><h1>Présence</h1></div>
 
         <div class="grades-header row">
             <form action="presence-groupe-recherche?groupe=0" method="post">
@@ -153,4 +155,5 @@
 
 
 </body>
+  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
 </html>

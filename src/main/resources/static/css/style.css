@@ -3,9 +3,11 @@ html, body {
     margin: 0px 0px 0px 0px;
     width: 100%;
     background-image: url('../img/batiment_isep.jpg');
-    background-size: 100% 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
+
+
 
 /* optimize for 320 x 480 px*/
 
@@ -17,13 +19,23 @@ html, body {
 }
 
 
-.identifiants {
+.grey-box {
     margin-top: 10%;
     background-color: rgb(200,200,200);
     opacity: 0.8;
     border-radius: 10px;
 }
 
+.grey-box-title{
+  display:block;
+  vertical-align:center-block;
+  text-align:center;
+}
+
+.grey-box-header {
+  margin-top:20px;
+  margin-bottom:20px;
+}
 
 .titre_form{
     text-align: center;
@@ -96,9 +108,9 @@ html, body {
 }
 
 
-.btn{
-    background-color: rgb(200,200,200);
-}
+/*.btn{
+    background-color: rgb(120, 120, 120);
+}*/
 
 
 .modif{
