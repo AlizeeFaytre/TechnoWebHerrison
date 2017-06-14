@@ -42,7 +42,7 @@
 						    
 							<div class="form-group-overflow">
 							<div th:each="skill:${listSkill}" class="skills-flipped">
-								<div class="content"></div><input type="checkbox" name="competences" id="comp1" value="comp1" />&nbsp;&nbsp;<label th:text="${skill.name}"></label><br />
+								<div class="content"></div><input type="checkbox" name="competences" id="comp1" th:value="${skill.id}" />&nbsp;&nbsp;<label th:text="${skill.name}"></label><input th:id="${skill.id}" type="hidden" name="motcle"/><br />
 								</div>
 							</div>
 							</div>
