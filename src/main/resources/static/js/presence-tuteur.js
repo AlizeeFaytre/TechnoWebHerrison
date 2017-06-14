@@ -15,7 +15,6 @@ $.urlParam = function (name) {
 var condition = $.urlParam('groupe');
 
 
-console.log(condition);
 if (condition != 0) {
     $(window).on('load', function () {
         $('#modalAdd').modal('show');

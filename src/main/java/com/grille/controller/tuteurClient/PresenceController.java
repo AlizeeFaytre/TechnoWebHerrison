@@ -117,13 +117,28 @@ public class PresenceController {
         //si non : envoie message error
         if (AllCurrentUserGroupes.contains(selectedGroupe)) {
             ArrayList<User> listGroupeEleve = new ArrayList<>();
+            Map<User, String> mapEleve = new HashMap<>();
             for (User u : listGroupeUsers) {
                 if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()) {
                     listGroupeEleve.add(u);
                 }
             }
+
+            for (User u : listGroupeEleve){
+                String state = "vide";
+                Attendance  a = attendanceRepository.findByDateAndUser(new Date(), u);
+                if (a != null){
+                    if (a.isState() == true){
+                        state = "present";
+                    }else{
+                        state = "absent";
+                    }
+                }
+                mapEleve.put(u, state);
+            }
+
             model.addAttribute("modalTitle", modaltitle);
-            model.addAttribute("listGroupeEleve", listGroupeEleve);
+            model.addAttribute("mapEleve", mapEleve);
         } else {
             modaltitle = "Error : Sorry Access Denied !";
             model.addAttribute("modalTitle", modaltitle);
@@ -138,6 +153,8 @@ public class PresenceController {
 
         String mapping = "presence";
         model.addAttribute("redirection", mapping);
+
+
 
         return "/tuteur-client/presence-tuteur";
     }
@@ -240,14 +257,28 @@ public class PresenceController {
         try {
             if (groupeRecherche.getIdClient() == currentUser.getId() || groupeRecherche.getIdTuteur() == currentUser.getId()){
                 ArrayList<User> listGroupeEleve = new ArrayList<>();
+                Map<User, String> mapEleve = new HashMap<>();
                 for (User u : listGroupeUsers) {
                     if (u.getId() != groupeRecherche.getIdTuteur() && u.getId() != groupeRecherche.getIdClient()) {
                         listGroupeEleve.add(u);
                     }
-
                 }
+                for (User u : listGroupeEleve){
+                    String state = "vide";
+                    Attendance  a = attendanceRepository.findByDateAndUser(new Date(), u);
+                    if (a != null){
+                        if (a.isState() == true){
+                            state = "present";
+                        }else{
+                            state = "absent";
+                        }
+                    }
+                    mapEleve.put(u, state);
+                }
+
                 model.addAttribute("modalTitle", modaltitle);
-                model.addAttribute("listGroupeEleve", listGroupeEleve);
+                model.addAttribute("mapEleve", mapEleve);
+
             } else {
                 modaltitle = "Error : Sorry Access Denied !";
                 model.addAttribute("modalTitle", modaltitle);

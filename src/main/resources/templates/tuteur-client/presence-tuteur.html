@@ -112,14 +112,31 @@
                             </thead>
                             <tbody>
 
-                            <tr th:each="eleve : ${listGroupeEleve}">
-                                <td th:text="${eleve.nom}"></td>
-                                <td th:text="${eleve.prenom}"></td>
-                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio"
-                                           th:name="${eleve.id}" value="1"></td>
-                                <td><input th:onclick="|autoComplete(${eleve.id}, this.value);|" type="radio"
-                                           th:name="${eleve.id}" value="0"></td>
-                                <input th:id="${eleve.id}" type="hidden" name="motCle">
+                            <tr th:each="eleve : ${mapEleve}">
+                                <td th:text="${eleve.key.nom}"></td>
+                                <td th:text="${eleve.key.prenom}"></td>
+                                <div data-th-switch="${eleve.value}">
+                                    <div data-th-case="'present'">
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="1" checked></td>
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="0"></td>
+                                    </div>
+                                    <div data-th-case="'absent'">
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="1"></td>
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="0" checked></td>
+                                    </div>
+                                    <div data-th-case="'vide'">
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="1"></td>
+                                        <td><input th:onclick="|autoComplete(${eleve.key.id}, this.value);|" type="radio"
+                                                   th:name="${eleve.key.id}" value="0"></td>
+                                    </div>
+                                </div>
+
+                                <input th:id="${eleve.key.id}" type="hidden" name="motCle">
                             </tr>
 
                             <tbody>
