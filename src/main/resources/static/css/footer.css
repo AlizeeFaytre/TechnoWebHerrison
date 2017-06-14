@@ -33,11 +33,12 @@
 	color: inherit;
 }
 
-/* If you don't want the footer to be responsive, remove these media queries */
+ If you don't want the footer to be responsive, remove these media queries 
 @media (max-width: 600px) {
 
 	.footer{
 		padding: 10px;
+		background-color: #80ff80;
 	}
 
 	.footer .footer-company-name{
