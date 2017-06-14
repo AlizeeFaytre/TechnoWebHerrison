@@ -1,6 +1,7 @@
 package com.grille.controller.responsableModule;
 
 import com.grille.dao.GroupeRepository;
+import com.grille.dao.UserRepository;
 import com.grille.entities.Groupe;
 import com.grille.entities.User;
 import com.grille.service.GroupeService;
@@ -10,10 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -31,6 +33,9 @@ public class GestionGroupeController {
 
     @Autowired
     private GroupeService groupeService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/gestionGroupes")
     public String groupeAccueil(HttpSession session, Model model, @RequestParam(name="promo")String promo, @RequestParam(name="page")Integer page){
@@ -92,6 +97,38 @@ public class GestionGroupeController {
         model.addAttribute("listPromo", listPromo);
         model.addAttribute("promo", promo);
 
+        model.addAttribute("groupe", new Groupe());
+
+        Set<User> listeEleve = userRepository.findByClasse(promo);
+
+        model.addAttribute("listeEleve", listeEleve);
+
         return "respoModule/gestion_groupes";
+    }
+
+    @RequestMapping(value = "/groupeInsert", method = RequestMethod.POST)
+    public void inserte(Groupe groupe, HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo){
+        System.out.println(postbody);
+        String[] tab = postbody.split("&");
+
+        Set<User> listUser = new HashSet<>();
+
+        for (int i= 2; i<tab.length; i++){
+            String userstr = tab[i].substring(12);
+            User user = userRepository.findByIdentifiant(userstr);
+            listUser.add(user);
+        }
+
+        groupe.setListUser(listUser);
+
+        groupe.setPromo(promo);
+
+        groupeRepository.save(groupe);
+
+        try{
+            response.sendRedirect("/gestionGroupes?promo=" + promo + "&page=0");
+        }catch (IOException i){
+            i.printStackTrace();
+        }
     }
 }

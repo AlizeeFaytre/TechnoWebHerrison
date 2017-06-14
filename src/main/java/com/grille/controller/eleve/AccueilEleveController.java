@@ -44,9 +44,6 @@ public class AccueilEleveController {
         User currentUser = userService.getLogedUser(session);
         Set<Evaluate> listEvaluate = userService.getLastEvaluate(currentUser);
 
-        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        System.out.println("Role : ");
-        System.out.println(authorities);
         Grid userGrid = gridService.getGrid(currentUser);
 
         Set<Skill> listEvaluateSkill = new HashSet<>();
