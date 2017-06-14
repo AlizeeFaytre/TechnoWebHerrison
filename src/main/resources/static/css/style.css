@@ -21,9 +21,10 @@ html, body {
 
 
 .grey-box {
-    margin-top: 20%;
+    margin-top: 18%;
     background-color: rgba(216,216,216,.57);
     border-radius: 10px;
+      padding:15px;
 }
 
 .grey-box-title{

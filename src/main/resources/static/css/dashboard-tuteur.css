@@ -45,8 +45,14 @@ li{
 }
 
 .search-bar{
-  margin-bottom:8%;
+	display:block;
+  margin-bottom:5%;
   margin-top:2%;
+}
+
+.row .table-hover{
+	margin-top:10%;
+	margin-bottom: 5%;
 }
 
 .btn-search{
