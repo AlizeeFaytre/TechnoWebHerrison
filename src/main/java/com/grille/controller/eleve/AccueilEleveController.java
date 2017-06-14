@@ -1,17 +1,23 @@
 package com.grille.controller.eleve;
 
+import com.grille.dao.RolesNames;
 import com.grille.dao.UserRepository;
 import com.grille.dto.LineGrid;
 import com.grille.entities.*;
 import com.grille.service.GridService;
 import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -31,12 +37,16 @@ public class AccueilEleveController {
     @Autowired
     private GridService gridService;
 
+    // @RolesAllowed({RolesNames.eleve})
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/accueilEleve")
     public String accueil(HttpSession session, Model model){
         User currentUser = userService.getLogedUser(session);
         Set<Evaluate> listEvaluate = userService.getLastEvaluate(currentUser);
 
-
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        System.out.println("Role : ");
+        System.out.println(authorities);
         Grid userGrid = gridService.getGrid(currentUser);
 
         Set<Skill> listEvaluateSkill = new HashSet<>();

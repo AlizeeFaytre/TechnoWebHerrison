@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<div class="header" th:include="fragments/header-respo :: header-respo"></div>
+<div class="header" data-th-include="fragments/header-respo :: header-respo"></div>
 <div class="container">
 
     <!--Le titre -->
@@ -30,11 +30,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 text-center">
             <ul class="pagination">
-                <li><a class="selection_pagination" href="#">I1</a></li>
-                <li><a href="#">I2</a></li>
-                <li><a href="#">A1</a></li>
-                <li><a href="#">A2</a></li>
-                <li><a href="#">A3</a></li>
+                <li data-th-each="promotion:${listPromo}"><a data-th-text="${promotion.key}" data-th-classappend="${ppromotion == promo ? selection_pagination : ''} "data-th-href="'gestionGroupes?promo=' + ${promotion.value} + '&page=0'" href="#">I1</a></li>
             </ul>
         </div>
     </div>

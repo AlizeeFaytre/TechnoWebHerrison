@@ -14,10 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by alizeefaytre on 03/05/2017.
@@ -84,8 +81,19 @@ public class AuthenticationConfig implements AuthenticationManager {
 
                 userRepository.save(user);
 
+                if (role.getName() == "eleve"){
+                    return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_eleve")));
+                }
 
+            }
+            else {
+                Set<Role> roleSet = identifiedUser.getRoles();
+                ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
+                for (Role role:roleSet) {
+                    roles.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+                }
 
+                return new UsernamePasswordAuthenticationToken(username, pw, roles);
             }
 
         } catch (Exception e) {

@@ -21,11 +21,11 @@
 						<li class="dropdown"> Mes grilles
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grille <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <lith:each="domain:${listDomain}"><a th:text="${domain.name}" href="#"></a></li>
+                  <li data-th-each="domain:${listDomain}"><a th:text="${domain.name}" href="#"></a></li>
                 </ul>
               </li>
 						
-						<li><a href="#" class="btn btn-default btn-outline btn-circle collapsed">Deconnexion</a></li>
+						<li><a href="logout" class="btn btn-default btn-outline btn-circle collapsed">Deconnexion</a></li>
 					</ul>
 				</div>
 			</div>
