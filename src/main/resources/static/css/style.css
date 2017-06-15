@@ -6,6 +6,7 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;*/
     background-color: #134d64;
+    min-height:100%;
 }
 
 

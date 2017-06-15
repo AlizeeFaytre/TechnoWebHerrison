@@ -77,14 +77,14 @@
                     </thead>
                     <tbody>
                     <tr th:each="deadline:${promo.value}">
-                      <td th:text="${test}"></td>
-                      <td th:text="${deadline.date}">&nbsp;<a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true">  </span></a>&nbsp;<a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                      <td th:text="${deadline.nameDo}"></td>
+                      <td th:text="${deadline.deadline.date}">&nbsp;<a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true">  </span></a>&nbsp;<a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
                       <td><!-- Buttons trigger modal -->
 		            <button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalModification">
 		              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 		            </button>
-		          	<button type="button" class="btn btn-default bouton_connexion" data-toggle="modal" data-target="#modalSupression">
-		              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		          	<button type="button" class="btn btn-default bouton_connexion">
+						<a th:href="|delete_deadline?deadline=${deadline.deadline.id}|"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 		            </button></td>
                     </tr>
                     <tbody>
@@ -95,11 +95,10 @@
             </div>
 
           </div>
-
-        <div class="button-submit">
-              <button type="submit" class="btn btn-default bouton_connexion">Valider</button></br></br>
-            </div>
-
+          
+          
+          
+          
     </div>
     </div>
 
