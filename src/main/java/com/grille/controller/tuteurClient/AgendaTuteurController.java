@@ -42,30 +42,52 @@ public class AgendaTuteurController {
         model.addAttribute("listDeadline", listDeadline);
         model.addAttribute("deadline", new Deadline()); */
     	User currentUser = userService.getLogedUser(session);
+
     	Set<String> listpromo = new HashSet<>();
         List<Deadline> listdeadline = deadlinerepo.findAll();
         for (Deadline d : listdeadline){
             listpromo.add(d.getPromo());
         }
 
-        // ArrayList<ArrayList<Deadline>> listdeadlinepromo = new ArrayList<>();
-        Map<String, List<Deadline>> listdeadlinepromo = new HashMap<>();
+        Map<String, List<DeadlineAndNameDo>> listdeadlinepromo = new HashMap<>();
         for (String s : listpromo){
-            listdeadlinepromo.put(s, deadlinerepo.findByPromo(s));
+            List<DeadlineAndNameDo> listDeadLineAndNameDo = new ArrayList<>();
+            for (Deadline d : deadlinerepo.findByPromo(s)){
+                DeadlineAndNameDo deadlineAndNameDo = new DeadlineAndNameDo();
+                deadlineAndNameDo.setDeadline(d);
+                deadlineAndNameDo.setNameDo(d.getDomain().getName());
+                listDeadLineAndNameDo.add(deadlineAndNameDo);
+            }
+            listdeadlinepromo.put(s, listDeadLineAndNameDo);
         }
         model.addAttribute("listpromo", listpromo);
         model.addAttribute("listdeadlinepromo", listdeadlinepromo);
 
-        String nameDo = domainRepo.findById(1).getName();
-        model.addAttribute("domainRepo", domainRepo);
-
-        model.addAttribute("test", nameDo);
         
         model.addAttribute("currentUser", currentUser);
 
         return "tuteur-client/agenda-tuteur";
     }
 
+    public class DeadlineAndNameDo{
+        private Deadline deadline;
+        private String nameDo;
 
+        public Deadline getDeadline() {
+            return deadline;
+        }
+
+        public void setDeadline(Deadline deadline) {
+            this.deadline = deadline;
+        }
+
+        public String getNameDo() {
+            return nameDo;
+        }
+
+        public void setNameDo(String nameDo) {
+            this.nameDo = nameDo;
+        }
+    }
     
 }

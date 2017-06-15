@@ -79,3 +79,7 @@ a.btn-circle:hover {
 .cell{
   background-color: white;
 }
+
+h1{
+	font-weight:bold;
+}
