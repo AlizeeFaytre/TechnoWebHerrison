@@ -11,6 +11,7 @@ import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class NewGrilleController {
     @Autowired
     private UserService userService;
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/new_domain", method = RequestMethod.GET)
     public String index (Model model, HttpSession session){
     	User currentUser = userService.getLogedUser(session);
@@ -54,6 +56,7 @@ public class NewGrilleController {
         return "respoModule/new_grille";
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/new_domain_insert", method = RequestMethod.POST)
     public void grille (Model model, Domain d, String motcle, HttpServletResponse response){
 
