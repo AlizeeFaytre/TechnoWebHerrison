@@ -1,10 +1,7 @@
 package com.grille.service;
 
 import com.grille.dao.UserRepository;
-import com.grille.entities.Evaluate;
-import com.grille.entities.Groupe;
-import com.grille.entities.Skill;
-import com.grille.entities.User;
+import com.grille.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -103,5 +100,20 @@ public class UserService {
 
         return connectedUser;
 
+    }
+
+    public String getGrade(User user, Domain domain){
+        Set<Grade> gradeSet = user.getListGrade();
+        String currentSemester = getCurrentSemester();
+
+        double note = new Double(0);
+
+        for (Grade grade:gradeSet) {
+            if(grade.getListDomain().contains(domain) && grade.getListDomain().size() == 1 && grade.getSemester().equals(currentSemester)){
+                note = grade.getGrade();
+            }
+        }
+
+        return Double.toString(note);
     }
 }

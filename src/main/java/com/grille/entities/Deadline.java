@@ -55,4 +55,14 @@ public class Deadline implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Domain getDomain() {
+        return domain;
+    }
+
+
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
+    }
 }

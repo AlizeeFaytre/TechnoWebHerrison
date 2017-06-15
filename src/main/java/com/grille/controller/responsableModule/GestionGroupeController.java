@@ -164,8 +164,8 @@ public class GestionGroupeController {
         }
     }
 
-    @RequestMapping(value = "/deleteGroupe")
-    public void deleteGroupe(@RequestParam(name = "groupID") Integer groupeID, @RequestParam(name="promo")String promo, HttpServletResponse response){
+    @RequestMapping(value = "/deleteGroupe", method = RequestMethod.GET)
+    public void deleteGroupe( @RequestParam(name="promo")String promo, @RequestParam(name = "groupeID") Integer groupeID, HttpServletResponse response){
        groupeRepository.delete(groupeID);
 
         try{

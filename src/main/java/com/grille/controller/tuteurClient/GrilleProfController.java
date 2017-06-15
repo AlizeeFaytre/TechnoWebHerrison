@@ -112,8 +112,13 @@ public class GrilleProfController {
             String groupObservation = "";
             String tuteurClientObservation = "";
             try{
-                groupObservation = listUserAndEval.get(0).getEvaluate().getGroupObservation();
-                tuteurClientObservation =listUserAndEval.get(0).getEvaluate().getTuteurClientObservation();
+                for (int i = 0; i<listUserAndEval.size(); i++){
+                    if (listUserAndEval.get(i).getEvaluate().getGroupObservation() != null){
+                        groupObservation = listUserAndEval.get(i).getEvaluate().getGroupObservation();
+                        tuteurClientObservation =listUserAndEval.get(i).getEvaluate().getTuteurClientObservation();
+                        break;
+                    }
+                }
             }catch (NullPointerException e){
 
             }

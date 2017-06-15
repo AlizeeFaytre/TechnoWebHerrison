@@ -10,4 +10,5 @@ import java.util.ArrayList;
  */
 public interface DeadlineRepository extends JpaRepository<Deadline, Integer> {
     public ArrayList<Deadline> findByPromo(String promo);
+    public Deadline findById(int id);
 }
