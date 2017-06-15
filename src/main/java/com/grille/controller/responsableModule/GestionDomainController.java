@@ -10,10 +10,7 @@ import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -82,11 +79,38 @@ public class GestionDomainController {
                             break;
                     }
                 }
+                else {
+                    switch (i){
+                        case 4:
+                            domainByPromo.put("I1", new HashSet<>());
+                            break;
+
+                        case 3:
+                            domainByPromo.put("I2", new HashSet<>());
+                            break;
+
+                        case 2:
+                            domainByPromo.put("A1", new HashSet<>());
+                            break;
+
+                        case 1:
+                            domainByPromo.put("A2", new HashSet<>());
+                            break;
+
+                        default:
+                            domainByPromo.put("A3", new HashSet<>());
+                            break;
+                    }
+
+                }
             }
 
         }
 
         model.addAttribute("domainByPromo", domainByPromo);
+
+        List<Domain> allDomain = domainrepo.findAll();
+        model.addAttribute("allDomain", allDomain);
 
         model.addAttribute("currentUser", currentUser);
 
@@ -104,6 +128,11 @@ public class GestionDomainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping(value = "/deleteGrille", method = RequestMethod.GET)
+    public void deleteGrille(HttpServletResponse response, @RequestParam("promo") String promo, @RequestBody String getbody){
+        System.out.println(getbody);
     }
 
 }

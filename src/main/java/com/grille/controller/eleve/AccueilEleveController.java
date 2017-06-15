@@ -57,6 +57,7 @@ public class AccueilEleveController {
             String[] oneDomaine = new String[2];
             ArrayList<LineGrid> lines = new ArrayList<>();
             oneDomaine[0] = domaine.getName();
+            oneDomaine[1] = userService.getGrade(currentUser,domaine);
             for (Skill skill:domaine.getListSkill()) {
                 if (listEvaluateSkill.contains(skill)){
                     for (Evaluate evaluate:listEvaluate) {
@@ -86,6 +87,10 @@ public class AccueilEleveController {
         }
 
         model.addAttribute("listeLigne", listeLigne);
+
+        Groupe groupe = userService.getCurrentGroupe(currentUser);
+        model.addAttribute("groupe", groupe);
+
         model.addAttribute("currentUser", currentUser);
 
         return "eleves/accueilEleve";
