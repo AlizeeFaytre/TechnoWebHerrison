@@ -60,7 +60,9 @@ public class NewGrilleController {
         String[] parts = motcle.split(",");
         Set<Skill> setSkill = new HashSet<>();
         for (String s : parts) {
-            setSkill.add(skillrepo.findById(Integer.parseInt(s)));
+            if (!s.equalsIgnoreCase("")){
+                setSkill.add(skillrepo.findById(Integer.parseInt(s)));
+            }
         }
         d.setListSkill(setSkill);
         domainrepo.save(d);

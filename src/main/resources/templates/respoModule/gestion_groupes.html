@@ -311,8 +311,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title text-center">Supprimer ce groupe ?</h4>
                 </div>
-                <p data-th-text="${groupe.key.id}"></p>
-                <form data-th-action="'/deleteGroupe?promo=' + ${promo} + '&groupID=' + ${groupe.key.id}">
+                <form data-th-action="'/deleteGroupe?promo=' + ${promo} + '&groupeID=' + ${groupe.key.id}">
                     <div class="modal-footer">
                         <div class="row text-center">
                             <button type="button" class="btn btn-default" data-dismiss="modal" >Annuler</button>
