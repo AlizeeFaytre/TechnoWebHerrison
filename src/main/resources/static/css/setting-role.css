@@ -1,8 +1,8 @@
-
-
-
-
-
+.bouton_connexion{
+	display:block;
+	margin-left:auto !important;
+	margin-right: auto !important;
+}
 
 .input-group-btn{
   display:block;
@@ -12,7 +12,7 @@
 .form-control{
 	display:block;
 	vertical-align:center-block;
-	width:50%;
+	width:100%;
 	margin-bottom:5%;
 	margin-left:auto;
 	margin-right:auto;
@@ -45,9 +45,9 @@
 }
 
 .table{
-	display:block;
 	margin-left:auto;
 	margin-right:auto;
 	background-color:#fff !important;
-	width:40% !important;
+	width:100% !important;
 }
+
