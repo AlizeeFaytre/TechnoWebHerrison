@@ -60,6 +60,8 @@ public class Deadline implements Serializable {
         return domain;
     }
 
+
+
     public void setDomain(Domain domain) {
         this.domain = domain;
     }

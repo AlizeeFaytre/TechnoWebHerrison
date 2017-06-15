@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.*;
+import java.text.*;
 
 @Controller
 public class AgendaResponsableController {
@@ -65,7 +66,6 @@ public class AgendaResponsableController {
 
         model.addAttribute("listpromo", listpromo);
         model.addAttribute("listdeadlinepromo", listdeadlinepromo);
-        
         model.addAttribute("currentUser", currentUser);
 
         return "respoModule/agenda-responsable";
@@ -94,8 +94,20 @@ public class AgendaResponsableController {
 
 
     @RequestMapping(value = "/new_deadline_insert", method = RequestMethod.POST)
-    public void grille (Model model, Deadline d, HttpServletResponse response){
+    public void deadlineinsert (Model model, String date, String promo, String nom_domain, HttpServletResponse response){
+        Deadline d = new Deadline();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = new Date();
+        try {
+            startDate = df.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Domain dom = domainRepo.findOneByName(nom_domain);
 
+        d.setDate(startDate);
+        d.setPromo(promo);
+        d.setDomain(dom);
         agendarespo.save(d);
         try{
             response.sendRedirect("/agenda-responsable");
