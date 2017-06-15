@@ -86,7 +86,11 @@ public class PresenceController {
             ArrayList<Groupe> tempListGroupe = new ArrayList<>();
             for (Groupe g : listGroupe) {
                 if (g.getPromo().equalsIgnoreCase(p)) {
-                    if (g.getIdClient() == currentUser.getId() || g.getIdTuteur() == currentUser.getId()) {
+                    List<Integer> listIdTuteur = new ArrayList<>();
+                    for (User tuteur:g.getListTuteur()) {
+                        listIdTuteur.add(tuteur.getId());
+                    }
+                    if (g.getClient().getId() == currentUser.getId() || listIdTuteur.contains(currentUser.getId())) {
                         tempListGroupe.add(g);
                         AllCurrentUserGroupes.add(g);
                     }
@@ -119,7 +123,11 @@ public class PresenceController {
             ArrayList<User> listGroupeEleve = new ArrayList<>();
             Map<User, String> mapEleve = new HashMap<>();
             for (User u : listGroupeUsers) {
-                if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()) {
+                List<Integer> listTuteurId = new ArrayList<>();
+                for (User tuteur:selectedGroupe.getListTuteur()) {
+                    listTuteurId.add(tuteur.getId());
+                }
+                if ( !(listTuteurId.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
                     listGroupeEleve.add(u);
                 }
             }
@@ -232,7 +240,11 @@ public class PresenceController {
         //si le currentUser possede les droits : remplissage du map
         //sinon : renvoie map vide = rien est affiche
         try {
-            if (groupeRecherche.getIdClient() == currentUser.getId() || groupeRecherche.getIdTuteur() == currentUser.getId()){
+            List<Integer> listIdTuteur = new ArrayList<>();
+            for (User tuteur:groupeRecherche.getListTuteur()) {
+                listIdTuteur.add(tuteur.getId());
+            }
+            if (groupeRecherche.getClient().getId() == currentUser.getId() || listIdTuteur.contains(currentUser.getId())){
                 tempListGroupe.add(groupeRecherche);
                 mapGroupeByPromo.put(groupeRecherche.getPromo(), tempListGroupe);
             }
@@ -255,11 +267,15 @@ public class PresenceController {
 
         //selection des eleves only dans la list de tous les utilisateur du groupe recherche
         try {
-            if (groupeRecherche.getIdClient() == currentUser.getId() || groupeRecherche.getIdTuteur() == currentUser.getId()){
+            List<Integer> listTuteurId = new ArrayList<>();
+            for (User tuteur:groupeRecherche.getListTuteur()) {
+                listTuteurId.add(tuteur.getId());
+            }
+            if (groupeRecherche.getClient().getId() == currentUser.getId() || listTuteurId.contains(currentUser.getId())){
                 ArrayList<User> listGroupeEleve = new ArrayList<>();
                 Map<User, String> mapEleve = new HashMap<>();
                 for (User u : listGroupeUsers) {
-                    if (u.getId() != groupeRecherche.getIdTuteur() && u.getId() != groupeRecherche.getIdClient()) {
+                    if ( !(listTuteurId.contains(u.getId())) && u.getId() != groupeRecherche.getClient().getId()) {
                         listGroupeEleve.add(u);
                     }
                 }

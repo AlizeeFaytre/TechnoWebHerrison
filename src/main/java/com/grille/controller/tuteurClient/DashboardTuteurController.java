@@ -54,10 +54,13 @@ public class DashboardTuteurController {
         ArrayList<Groupe> tuteurListGroupe = new ArrayList<>();
         ArrayList<Groupe> clientListGroupe = new ArrayList<>();
         for (Groupe g : listGroupe) {
-            if (g.getIdTuteur() == logedUserId) {
-                tuteurListGroupe.add(g);
+            for (User tuteur: g.getListTuteur()) {
+                if (tuteur.getId() == logedUserId) {
+                    tuteurListGroupe.add(g);
+                }
             }
-            if (g.getIdClient() == logedUserId) {
+
+            if (g.getClient().getId() == logedUserId) {
                 clientListGroupe.add(g);
             }
 
@@ -171,10 +174,13 @@ public class DashboardTuteurController {
 
         try {
             for (Groupe g : listResultat) {
-                if (g.getIdTuteur() == logedUserId) {
-                    tuteurListGroupe.add(g);
+                for (User tuteur:g.getListTuteur()) {
+                    if (tuteur.getId() == logedUserId) {
+                        tuteurListGroupe.add(g);
+                    }
                 }
-                if (g.getIdClient() == logedUserId) {
+
+                if (g.getClient().getId() == logedUserId) {
                     clientListGroupe.add(g);
                 }
 

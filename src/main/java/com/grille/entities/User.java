@@ -30,8 +30,11 @@ public class User implements UserDetails {
 
     private String identifiant;
 
+    @ManyToMany(mappedBy = "listTuteur")
+    private Set<Groupe> groupeWhereTuteur = new HashSet<>();
+
     @ManyToMany(mappedBy = "listUser")
-    private Set<Groupe> groupes;
+    private Set<Groupe> groupes = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Evaluate> listEvaluate = new HashSet<Evaluate>();
@@ -41,6 +44,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private Set<Grade> listGrade = new HashSet<Grade>();
+
+    @OneToMany(mappedBy = "client")
+    private Set<Groupe> groupeWhereClient = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name="id_role"))

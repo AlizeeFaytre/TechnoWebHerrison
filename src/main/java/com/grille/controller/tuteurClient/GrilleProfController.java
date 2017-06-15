@@ -58,8 +58,12 @@ public class GrilleProfController {
         //Selectionner le groupe d'url parmi tous les groupes
         Groupe selectedGroupe = groupeRepository.findById(idGr);
         ArrayList<User> selectedGroupelistEleve = new ArrayList<>();
+        List<Integer> listIdTuteur = new ArrayList<>();
+        for (User tuteur:selectedGroupe.getListTuteur()) {
+            listIdTuteur.add(tuteur.getId());
+        }
         for (User u : selectedGroupe.getListUser()) {
-            if (u.getId() != selectedGroupe.getIdTuteur() && u.getId() != selectedGroupe.getIdClient()) {
+            if ( !(listIdTuteur.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
                 selectedGroupelistEleve.add(u);
             }
 
