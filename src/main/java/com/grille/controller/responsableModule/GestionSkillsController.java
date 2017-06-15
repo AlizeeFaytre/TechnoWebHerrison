@@ -78,8 +78,9 @@ public class GestionSkillsController {
 
     @RequestMapping(value = "/new_skill_update", method = RequestMethod.POST)
     public void update_skill (Model model, Skill s, HttpServletResponse response){
-
-        skillrepo.saveAndFlush(s);
+        Skill comp = skillrepo.findByName(s.getName());
+        comp = s;
+        skillrepo.saveAndFlush(comp);
         try{
             response.sendRedirect("/gestion-skills");
         }catch (IOException i){
