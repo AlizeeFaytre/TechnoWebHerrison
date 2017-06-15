@@ -8,14 +8,17 @@ import com.grille.entities.*;
 import com.grille.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -39,8 +42,9 @@ public class GrilleProfController {
     //---------1 ---un mapping pour le visionnage qui map sur la vue grilleEleve
     //---------2 ---un mapping pour la modification (remplisage)
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grilleprof", method = RequestMethod.GET)
-    public String grilleProf(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, @RequestParam("mode") String mode, HttpSession session){
+    public String grilleProf(Model model, @RequestParam("groupe") int idGr, @RequestParam("domain") int idDom, @RequestParam("mode") String mode, HttpSession session) {
 
         User currentUser = userService.getLogedUser(session);
         model.addAttribute("currentUser", currentUser);
@@ -52,18 +56,18 @@ public class GrilleProfController {
 
         //Selectionner le domain d'url dans tous les domain
         Domain selectedDomain = domainRepository.findById(idDom);
-        model.addAttribute("selectedDomain",selectedDomain);
+        model.addAttribute("selectedDomain", selectedDomain);
 
 
         //Selectionner le groupe d'url parmi tous les groupes
         Groupe selectedGroupe = groupeRepository.findById(idGr);
         ArrayList<User> selectedGroupelistEleve = new ArrayList<>();
         List<Integer> listIdTuteur = new ArrayList<>();
-        for (User tuteur:selectedGroupe.getListTuteur()) {
+        for (User tuteur : selectedGroupe.getListTuteur()) {
             listIdTuteur.add(tuteur.getId());
         }
         for (User u : selectedGroupe.getListUser()) {
-            if ( !(listIdTuteur.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
+            if (!(listIdTuteur.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
                 selectedGroupelistEleve.add(u);
             }
         }
@@ -72,16 +76,16 @@ public class GrilleProfController {
             public int compare(User u1, User u2) {
                 String o1 = u1.getIdentifiant();
                 String o2 = u2.getIdentifiant();
-                if (o1.compareTo(o2)< 0){
+                if (o1.compareTo(o2) < 0) {
                     return -1;
-                }else{
+                } else {
                     return 1;
                 }
             }
         });
 
         model.addAttribute("selectedGroupelistEleve", selectedGroupelistEleve);
-        model.addAttribute("selectedGroupe",selectedGroupe);
+        model.addAttribute("selectedGroupe", selectedGroupe);
 
 
         //Selection skill du domain selected
@@ -100,9 +104,9 @@ public class GrilleProfController {
                 public int compare(Skill s1, Skill s2) {
                     String o1 = s1.getName();
                     String o2 = s1.getName();
-                    if (o1.compareTo(o2)< 0){
+                    if (o1.compareTo(o2) < 0) {
                         return -1;
-                    }else{
+                    } else {
                         return 1;
                     }
                 }
@@ -117,13 +121,13 @@ public class GrilleProfController {
 
         //map contenant les skills et une liste d'eleves et de evaluation de cet eleve pour le skill donne
         Map<SkillAndObservation, List<UserAndEval>> mapSkill = new HashMap<>();
-        for (Skill s : selectedDomainlistSkill){
+        for (Skill s : selectedDomainlistSkill) {
             System.out.println(s.getName());
             List<UserAndEval> listUserAndEval = new ArrayList<>();
-            for (User u : selectedGroupelistEleve){
+            for (User u : selectedGroupelistEleve) {
                 UserAndEval userAndEval = new UserAndEval();
                 userAndEval.setUser(u);
-                userAndEval.setEvaluate(evaluateRepository.findByUserAndSkill(u,s));
+                userAndEval.setEvaluate(evaluateRepository.findByUserAndSkill(u, s));
                 /*
                 for (Evaluate e : listEvaluate){
                     if (e.getSkill() == s && e.getUser() == u){
@@ -132,7 +136,7 @@ public class GrilleProfController {
                     }
                 }
                 */
-                if (userAndEval.getEvaluate() == null){
+                if (userAndEval.getEvaluate() == null) {
                     Evaluate evalVide = new Evaluate();
                     evalVide.setLevel("Vide");
                     userAndEval.setEvaluate(evalVide);
@@ -141,15 +145,15 @@ public class GrilleProfController {
             }
             String groupObservation = "";
             String tuteurClientObservation = "";
-            try{
-                for (int i = 0; i<listUserAndEval.size(); i++){
-                    if (listUserAndEval.get(i).getEvaluate().getGroupObservation() != null){
+            try {
+                for (int i = 0; i < listUserAndEval.size(); i++) {
+                    if (listUserAndEval.get(i).getEvaluate().getGroupObservation() != null) {
                         groupObservation = listUserAndEval.get(i).getEvaluate().getGroupObservation();
-                        tuteurClientObservation =listUserAndEval.get(i).getEvaluate().getTuteurClientObservation();
+                        tuteurClientObservation = listUserAndEval.get(i).getEvaluate().getTuteurClientObservation();
                         break;
                     }
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             }
             SkillAndObservation skillAndObservation = new SkillAndObservation();
@@ -162,20 +166,156 @@ public class GrilleProfController {
         Map<SkillAndObservation, List<UserAndEval>> sortMapSkill = doSort(mapSkill);
         model.addAttribute("mapSkill", sortMapSkill);
 
-        if (mode.equalsIgnoreCase("modification")){
-            return("tuteur-client/grillProfModif");
-        }else{
-            return("tuteur-client/grilleProf");
+        if (mode.equalsIgnoreCase("modification")) {
+            return ("tuteur-client/grillProfModif");
+        } else {
+            return ("tuteur-client/grilleProf");
         }
 
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grilleprofmodif", method = RequestMethod.POST)
-    public String grilleProfmodif(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, String groupeObservation, String tuteurClientObservation, String individualObservation, String motCle){
+    public void grilleProfmodif(HttpServletResponse response, Model model, @RequestParam("groupe") int idGr, @RequestParam("domain") int idDom, String groupeObservation, String tuteurClientObservation, String individualObservation, String motCle) {
+
+        Domain selectedDomain = domainRepository.findById(idDom);
+
+        Set<Skill> setSkill = new HashSet<>();
+        try {
+            setSkill = selectedDomain.getListSkill();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        List<Skill> selectedDomainlistSkill = new ArrayList<Skill>(setSkill);
+
+        Collections.sort(selectedDomainlistSkill, new Comparator<Skill>() {
+            @Override
+            public int compare(Skill s1, Skill s2) {
+                String o1 = s1.getName();
+                String o2 = s1.getName();
+                return o1.compareTo(o2);
+            }
+        });
 
 
 
-        return "tuteur-client/test2";
+        Groupe selectedGroupe = groupeRepository.findById(idGr);
+        ArrayList<User> selectedGroupelistEleve = new ArrayList<>();
+
+        List<Integer> listIdTuteur = new ArrayList<>();
+        for (User tuteur : selectedGroupe.getListTuteur()) {
+            listIdTuteur.add(tuteur.getId());
+        }
+
+        for (User u : selectedGroupe.getListUser()) {
+            if (!(listIdTuteur.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
+                selectedGroupelistEleve.add(u);
+            }
+        }
+        Collections.sort(selectedGroupelistEleve, new Comparator<User>() {
+            @Override
+            public int compare(User u1, User u2) {
+                String o1 = u1.getIdentifiant();
+                String o2 = u2.getIdentifiant();
+                if (o1.compareTo(o2) < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+
+        int nombreTotalEval = selectedDomainlistSkill.size() * selectedGroupelistEleve.size();
+
+        ArrayList<Evaluate> listEvaluate = new ArrayList<>();
+
+        for (Skill s : selectedDomainlistSkill) {
+            for (User u : selectedGroupelistEleve) {
+                Evaluate e = new Evaluate();
+                e.setSkill(s);
+                e.setUser(u);
+                e.setDate(new Date());
+                listEvaluate.add(e);
+            }
+        }
+
+        //group Oberservation
+        ArrayList<String> listgroupeObservation = new ArrayList<>();
+        String[] groupeObservationParts = groupeObservation.split(",");
+        for (String s : groupeObservationParts) {
+            for (User u : selectedGroupelistEleve) {
+                listgroupeObservation.add(s);
+            }
+        }
+        for (int i = 0 ; i < listgroupeObservation.size(); i++){
+            listEvaluate.get(i).setGroupObservation(listgroupeObservation.get(i));
+        }
+
+        //tuteurclient Obeservation
+        ArrayList<String> listTuteurClientObservation = new ArrayList<>();
+        String[] tuteurClientObservationParts = tuteurClientObservation.split(",");
+        for (String s : groupeObservationParts) {
+            for (User u : selectedGroupelistEleve) {
+                listTuteurClientObservation.add(s);
+            }
+        }
+        for (int i = 0 ; i < listTuteurClientObservation.size(); i++){
+            listEvaluate.get(i).setTuteurClientObservation(listTuteurClientObservation.get(i));
+        }
+
+        //individual obersvation
+        String[] individualObservationParts = individualObservation.split(",");
+        for (int i = 0 ; i < individualObservationParts.length; i++){
+            listEvaluate.get(i).setIndividualObservation(individualObservationParts[i]);
+        }
+
+        //Eval
+        String[] motCleParts = motCle.split(",");
+        for (String s : motCleParts){
+            if (!s.equalsIgnoreCase("")){
+                String[] subParts = s.split("-");
+                for (Evaluate e : listEvaluate){
+                    if (e.getSkill().getId() == Integer.parseInt(subParts[0]) && e.getUser().getId() == Integer.parseInt(subParts[1])){
+                        if (subParts.length == 3){
+                            e.setLevel(subParts[2]);
+                        }else
+                        {
+                            e.setLevel(subParts[2]+"-"+subParts[3]);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        //ajout ou update dans bdd
+        for (Evaluate e : listEvaluate){
+            if (evaluateRepository.findByUserAndSkill(e.getUser(), e.getSkill()) != null){
+                Evaluate eTrouve = evaluateRepository.findByUserAndSkill(e.getUser(), e.getSkill());
+                try {
+                    if (!e.getLevel().equalsIgnoreCase("")){
+                        eTrouve.setLevel(e.getLevel());
+                    }
+                }catch (NullPointerException n){
+
+                }
+                eTrouve.setIndividualObservation(e.getIndividualObservation());
+                eTrouve.setTuteurClientObservation(e.getTuteurClientObservation());
+                eTrouve.setGroupObservation(e.getGroupObservation());
+                evaluateRepository.saveAndFlush(eTrouve);
+            }else{
+                evaluateRepository.save(e);
+            }
+        }
+
+
+        String redirectPath = "/grilleprof?groupe="+idGr+"&domain="+idDom+"&mode=vue";
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Map<SkillAndObservation, List<UserAndEval>> doSort(Map<SkillAndObservation, List<UserAndEval>> map) {
@@ -196,7 +336,7 @@ public class GrilleProfController {
 
     }
 
-    public class UserAndEval{
+    public class UserAndEval {
         private User user;
         private Evaluate evaluate;
 
@@ -217,7 +357,7 @@ public class GrilleProfController {
         }
     }
 
-    public class SkillAndObservation{
+    public class SkillAndObservation {
         private Skill skill;
         private String groupObservation;
         private String tuteurClientObservation;

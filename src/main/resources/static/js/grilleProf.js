@@ -22,3 +22,12 @@ if (condition == 0){
         $('#table').hide();
     });
 }
+
+function autoComplete(idDom, idUser, value) {
+
+    var idDomS = idDom.toString();
+    var idUserS = idUser.toString();
+    var idS = idDomS +"and" + idUserS;
+
+   document.getElementById(idS).value =idDom + "-" + idUser + "-" + value;
+}

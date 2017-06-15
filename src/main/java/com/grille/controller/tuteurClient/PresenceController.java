@@ -7,6 +7,7 @@ import com.grille.service.UserService;
 
 import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,6 +47,7 @@ public class PresenceController {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
 
@@ -167,6 +169,7 @@ public class PresenceController {
         return "/tuteur-client/presence-tuteur";
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
     public void presenceSubmit(HttpServletResponse response, Model model, String motCle) {
 
@@ -174,28 +177,30 @@ public class PresenceController {
 
         String[] parts = motCle.split(",");
         for (String s : parts) {
-            String[] subParts = s.split("-");
-            Attendance attendance = new Attendance();
-            User u = userRepository.findById(Integer.parseInt(subParts[0]));
-            attendance.setUser(u);
-            Boolean state = false;
-            if (Integer.parseInt(subParts[1]) == 1) {
-                state = true;
-            }
-            attendance.setState(state);
-            attendance.setDate(new Date());
-
-            boolean existe = false;
-            for (Attendance a : listAttendanceByDate) {
-                if (a.getUser() == u) {
-                    a.setState(state);
-                    attendanceRepository.saveAndFlush(a);
-                    existe = true;
-                    break;
+            if (!s.equalsIgnoreCase("")){
+                String[] subParts = s.split("-");
+                Attendance attendance = new Attendance();
+                User u = userRepository.findById(Integer.parseInt(subParts[0]));
+                attendance.setUser(u);
+                Boolean state = false;
+                if (Integer.parseInt(subParts[1]) == 1) {
+                    state = true;
                 }
-            }
-            if (!existe) {
-                attendanceRepository.save(attendance);
+                attendance.setState(state);
+                attendance.setDate(new Date());
+
+                boolean existe = false;
+                for (Attendance a : listAttendanceByDate) {
+                    if (a.getUser() == u) {
+                        a.setState(state);
+                        attendanceRepository.saveAndFlush(a);
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    attendanceRepository.save(attendance);
+                }
             }
         }
 
@@ -208,6 +213,7 @@ public class PresenceController {
         }
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/presence-groupe-recherche", method = RequestMethod.POST)
     public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
         //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
@@ -223,6 +229,7 @@ public class PresenceController {
         }
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/presence-recherche-resultat", method = RequestMethod.GET)
     public String dashResultRecherche(Model model, HttpSession session,@RequestParam("groupe") int id,@RequestParam("recherche") String motCle) {
 
