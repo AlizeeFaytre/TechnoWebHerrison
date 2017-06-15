@@ -1,6 +1,7 @@
 package com.grille.controller.responsableModule;
 
 import com.grille.dao.GroupeRepository;
+import com.grille.dao.RoleRepository;
 import com.grille.dao.UserRepository;
 import com.grille.entities.Groupe;
 import com.grille.entities.User;
@@ -37,6 +38,9 @@ public class GestionGroupeController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @GetMapping("/gestionGroupes")
     public String groupeAccueil(HttpSession session, Model model, @RequestParam(name="promo")String promo, @RequestParam(name="page")Integer page){
         User currentUser = userService.getLogedUser(session);
@@ -47,7 +51,7 @@ public class GestionGroupeController {
         Map<Groupe, Set<User>> groupes = new HashMap<>();
 
         for (Groupe g:listGroupe) {
-            groupes.put(g, groupeService.getStudent(g));
+            groupes.put(g, g.getListUser());
         }
 
         model.addAttribute("listeGroupe", groupes);
@@ -103,23 +107,51 @@ public class GestionGroupeController {
 
         model.addAttribute("listeEleve", listeEleve);
 
+        Set<User> listProf = roleRepository.findByName("prof").getListUser();
+
+        model.addAttribute("listProf", listProf);
+
         return "respoModule/gestion_groupes";
     }
 
     @RequestMapping(value = "/groupeInsert", method = RequestMethod.POST)
-    public void inserte(Groupe groupe, HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo){
+    public void inserte(HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo){
         System.out.println(postbody);
+
+        Groupe groupe = new Groupe();
+
         String[] tab = postbody.split("&");
 
         Set<User> listUser = new HashSet<>();
 
-        for (int i= 2; i<tab.length; i++){
-            String userstr = tab[i].substring(12);
-            User user = userRepository.findByIdentifiant(userstr);
-            listUser.add(user);
+        Set<User> listTuteur = new HashSet<>();
+
+        for (int i= 0; i<tab.length; i++){
+            if (tab[i].startsWith("studentList")){
+                String userstr = tab[i].substring(12);
+                User user = userRepository.findByIdentifiant(userstr);
+                listUser.add(user);
+            }
+            else if (tab[i].startsWith("nom")) {
+                String nom = tab[i].substring(4).replace('+', ' ');
+                groupe.setNom(nom);
+            }
+            else if (tab[i].startsWith("listTuteur")){
+                String userstr = tab[i].substring(11);
+                User user = userRepository.findByIdentifiant(userstr);
+                listTuteur.add(user);
+            }
+            else {
+                String userstr = tab[i].substring(7);
+                User user = userRepository.findByIdentifiant(userstr);
+                groupe.setClient(user);
+            }
+
         }
 
         groupe.setListUser(listUser);
+
+        groupe.setListTuteur(listTuteur);
 
         groupe.setPromo(promo);
 

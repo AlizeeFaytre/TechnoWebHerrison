@@ -49,8 +49,8 @@
                 <ul class="list-unstyled">
                     <li data-th-each="user:${groupe.value}" data-th-text="${user.prenom} + ' ' + ${user.nom}">Nom Prenom</li>
                 </ul>
-                <p>tuteur :Hervé Feller</p>
-                <p>Client : Zakia</p>
+                <p data-th-each="tuteur:${groupe.key.listTuteur}" data-th-text="'Tuteur :' +  ${tuteur.prenom} + ' ' + ${tuteur.nom}">tuteur :Hervé Feller</p>
+                <p data-th-text="'Client :' + ' ' + ${groupe.key.client.prenom} + ' ' + ${groupe.key.client.nom}">Client : Zakia</p>
 
                 <!-- les deux buttons -->
                 <div class="boite_gestion_groupes">
@@ -141,69 +141,41 @@
                 </div>
 
                 <!-- formulaire creation groupe -->
-                <form class="form-horizontal" data-th-action="'/groupeInsert?promo=' + ${promo}" data-th-object="${groupe}" action="groupeInsert" method="post">
+                <form class="form-horizontal" data-th-action="'/groupeInsert?promo=' + ${promo}" action="groupeInsert" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="identifiant_du_groupe_creation_groupe">Nom du groupe :</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" data-th-field="*{nom}" name="identifiant_groupe" id="identifiant_du_groupe_creation_groupe">
+                                <input type="text" class="form-control" name="nom" id="identifiant_du_groupe_creation_groupe">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="eleve_creation_groupe">Elèves :</label>
-                            <select class="js-example-basic-multiple js-example-responsive " id="eleve_creation_groupe"  style="width: 50%" name="studentList" multiple="multiple">
+                            <select class="mySelect js-example-basic-multiple js-example-responsive " id="eleve_creation_groupe"  style="width: 50%" name="studentList" multiple="multiple">
                                 <option data-th-id="${eleve.identifiant}" data-th-each="eleve:${listeEleve}" data-th-text="${eleve.prenom} + ' ' + ${eleve.nom}" data-th-attr="value = ${eleve.identifiant}" value="eleve">eleve</option>
                             </select>
-                            <!--<div class="col-sm-7">
-                                <input type="text" class="form-control" name="nom_eleve" placeholder="Nom Prénom" id="eleve_creation_groupe">
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="button_simple btn btn-default" aria-label="Ajout">
-                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                </button>
-                            </div>-->
-                        </div>
-
-
-                        <!--<div class="visualisation_membres">
-
-                            &lt;!&ndash; 1er membre &ndash;&gt;
-                            <div class="membre row">
-                                <p class="nom_membre col-sm-10 text-center">Dafit Jiawei </p>
-                                <div class="col-sm-2 text-center">
-                                    <button type="button" class="button_simple btn btn-default" aria-label="Ajout">
-                                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            &lt;!&ndash; 2nd membre &ndash;&gt;
-                            <div class="membre row">
-                                <p class="nom_membre col-sm-10 text-center">Richard Thomas </p>
-                                <div class="col-sm-2 text-center">
-                                    <button type="button" class="button_simple btn btn-default" aria-label="Ajout">
-                                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="nom_tuteur">Tuteur :</label>
+                            <label class="control-label col-sm-3" for="listTuteur">Tuteurs :</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="nom_tuteur" id="nom_tuteur">
+                                <select class="mySelect js-example-basic-multiple" multiple="multiple" style="width: 50%" name="listTuteur" id="listTuteur">
+                                    <option data-th-each="tuteur:${listProf}" data-th-attr="value = ${tuteur.identifiant}" data-th-text="${tuteur.prenom} + ' ' + ${tuteur.nom}" data-th-id="${tuteur.identifiant}"></option>
+                                </select>
                             </div>
                         </div>
 
+
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="nom_client">Client :</label>
+                            <label class="control-label col-sm-3" for="client">Client :</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="nom_client" id="nom_client">
+                                <select class="mySelect js-example-basic-single js-example-responsive" style="width: 50%" name="client" id="client">
+                                    <option data-th-each="tuteur:${listProf}" data-th-value="${tuteur.identifiant}" data-th-text="${tuteur.prenom} + ' ' + ${tuteur.nom}" value="client" data-th-id="${tuteur.identifiant}"></option>
+                                </select>
                             </div>
                         </div>
--->
+
 
                     </div>
                     <div class="modal-footer">
@@ -214,6 +186,7 @@
 
         </div>
     </div>
+    <!-- FIN DE LA MODALE D'AJOUT DE GROUPE -->
 
     <!-- Modal modification groupe -->
     <div class="modal fade" id="modification_groupe_modal" role="dialog">
@@ -357,7 +330,13 @@
 </body>
 
 <script type="text/javascript">
-    $('#eleve_creation_groupe').select2();
+    /*$('#eleve_creation_groupe').select2();
+
+    $('#listTuteur').select2();
+
+    $('#client').select2();*/
+
+    $('.mySelect').select2();
 </script>
 
 </html>
