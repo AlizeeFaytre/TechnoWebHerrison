@@ -187,8 +187,24 @@ public class GrilleProfController {
             e.printStackTrace();
         }
 
-        List<Skill> selectedDomainlistSkill = new ArrayList<Skill>(setSkill);
+        List<Skill> sdl = new ArrayList<Skill>(setSkill);
+        List<String> sl = new ArrayList<>();
+        for (Skill s: sdl){
+            sl.add(s.getName());
+        }
 
+        Collections.sort(sl);
+
+        ArrayList<Skill> selectedDomainlistSkill = new ArrayList<>();
+        for (String s : sl){
+            for (Skill sk : sdl){
+                if (sk.getName().equalsIgnoreCase(s)){
+                    selectedDomainlistSkill.add(sk);
+                }
+            }
+        }
+
+        /*
         Collections.sort(selectedDomainlistSkill, new Comparator<Skill>() {
             @Override
             public int compare(Skill s1, Skill s2) {
@@ -197,6 +213,7 @@ public class GrilleProfController {
                 return o1.compareTo(o2);
             }
         });
+        */
 
 
 
