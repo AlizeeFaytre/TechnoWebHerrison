@@ -7,6 +7,7 @@
     <title>Grille de compétence</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/grilleEleve.css" data-th-href="@{/css/grilleEleve.css}">
+    <link rel="stylesheet" href="../../static/css/grilleProf.css" data-th-href="@{/css/grilleProf.css}">
     <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
     <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
     <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
@@ -24,7 +25,7 @@
         <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-center">
         <li th:each="domain:${listDomain}"><a
-                th:href="|grilleprofvue?groupe=${selectedGroupe.id}&domain=${domain.id}&mode=modification|"
+                th:href="|grilleprof?groupe=${selectedGroupe.id}&domain=${domain.id}&mode=modification|"
                 th:text="${domain.name}"></a></li>
     </ul>
 </div>
