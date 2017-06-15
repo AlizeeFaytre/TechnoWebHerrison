@@ -8,6 +8,7 @@ import com.grille.entities.User;
 import com.grille.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class GestionSkillsController {
     private UserService userService;
 
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value="/gestion-skills", method = RequestMethod.GET)
     public String indexbis (Model model, HttpSession session){
     	User currentUser = userService.getLogedUser(session);
@@ -41,6 +43,7 @@ public class GestionSkillsController {
         return "respoModule/gestion-skills";
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/gestion-skill-recherche", method = RequestMethod.POST)
     public void collectMotCle(HttpServletResponse response, String motCle){
 
@@ -52,6 +55,7 @@ public class GestionSkillsController {
 
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value="/gestion-skills-resultat", method = RequestMethod.GET)
     public String resultat (Model model, @RequestParam("recherche") String motCle, HttpSession session){
         List<Skill> listSkill = skillrepo.findAll();
@@ -64,6 +68,7 @@ public class GestionSkillsController {
         return "respoModule/gestion-skills";
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/new_skill_insert", method = RequestMethod.POST)
     public void grille (Model model, Skill s, HttpServletResponse response){
 
@@ -76,6 +81,7 @@ public class GestionSkillsController {
 
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/new_skill_update", method = RequestMethod.POST)
     public void update_skill (Model model, Skill s, HttpServletResponse response){
         Skill comp = skillrepo.findByName(s.getName());
@@ -89,6 +95,7 @@ public class GestionSkillsController {
 
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/delete-skill", method = RequestMethod.GET)
     public void delete(HttpServletResponse response, @RequestParam("skill") int id){
         Skill s = skillrepo.findById(id);

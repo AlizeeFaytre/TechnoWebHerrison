@@ -10,6 +10,7 @@ import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class GestionGroupeController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @GetMapping("/gestionGroupes")
     public String groupeAccueil(HttpSession session, Model model, @RequestParam(name="promo")String promo, @RequestParam(name="page")Integer page){
         User currentUser = userService.getLogedUser(session);
@@ -114,6 +116,7 @@ public class GestionGroupeController {
         return "respoModule/gestion_groupes";
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/groupeInsert", method = RequestMethod.POST)
     public void inserte(HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo){
         System.out.println(postbody);
@@ -164,6 +167,7 @@ public class GestionGroupeController {
         }
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/deleteGroupe", method = RequestMethod.GET)
     public void deleteGroupe( @RequestParam(name="promo")String promo, @RequestParam(name = "groupeID") Integer groupeID, HttpServletResponse response){
        groupeRepository.delete(groupeID);
