@@ -39,3 +39,7 @@ a.btn-circle:hover {
   text-align: center !important;
   transform: translate(-50%, 0) !important;
 }
+
+.table{
+	margin-top:10% !important;
+}

@@ -24,25 +24,8 @@ public class Groupe implements Serializable{
     @JoinTable(name = "tuteur_groupe", joinColumns = @JoinColumn(name = "id_groupe"), inverseJoinColumns = @JoinColumn(name="id_user"))
     private Set<User> listTuteur;
 
-    public Set<User> getListTuteur() {
-        return listTuteur;
-    }
-
-    public void setListTuteur(Set<User> listTuteur) {
-        this.listTuteur = listTuteur;
-    }
-
-    public User getClient() {
-        return client;
-    }
-
-    public void setClient(User client) {
-        this.client = client;
-    }
-
     @ManyToOne
     @JoinColumn(name = "id_user")
-
     private User client;
 
     @ManyToMany
@@ -98,5 +81,21 @@ public class Groupe implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Set<User> getListTuteur() {
+        return listTuteur;
+    }
+
+    public void setListTuteur(Set<User> listTuteur) {
+        this.listTuteur = listTuteur;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
 }
