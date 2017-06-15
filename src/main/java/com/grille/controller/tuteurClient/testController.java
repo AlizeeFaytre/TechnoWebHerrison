@@ -34,13 +34,8 @@ public class testController {
 
     @RequestMapping(value = "/testjia", method = RequestMethod.GET)
     public String test(Model model) {
-        Date date = new Date();
-        System.out.println(date.getTime());
-        User user = userRepository.findById(1);
-        Attendance attendance = new Attendance();
-        attendance.setState(true);
-        attendance.setUser(user);
-        attendance.setDate(date);
+
+        model.addAttribute("toto","toto");
 
         return "tuteur-client/test";
 

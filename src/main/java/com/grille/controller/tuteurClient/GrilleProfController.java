@@ -39,8 +39,8 @@ public class GrilleProfController {
     //---------1 ---un mapping pour le visionnage qui map sur la vue grilleEleve
     //---------2 ---un mapping pour la modification (remplisage)
 
-    @RequestMapping(value = "/grilleprofvue", method = RequestMethod.GET)
-    public String grilleProfvue(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, HttpSession session){
+    @RequestMapping(value = "/grilleprof", method = RequestMethod.GET)
+    public String grilleProf(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, @RequestParam("mode") String mode, HttpSession session){
 
         User currentUser = userService.getLogedUser(session);
         model.addAttribute("currentUser", currentUser);
@@ -66,8 +66,20 @@ public class GrilleProfController {
             if ( !(listIdTuteur.contains(u.getId())) && u.getId() != selectedGroupe.getClient().getId()) {
                 selectedGroupelistEleve.add(u);
             }
-
         }
+        Collections.sort(selectedGroupelistEleve, new Comparator<User>() {
+            @Override
+            public int compare(User u1, User u2) {
+                String o1 = u1.getIdentifiant();
+                String o2 = u2.getIdentifiant();
+                if (o1.compareTo(o2)< 0){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        });
+
         model.addAttribute("selectedGroupelistEleve", selectedGroupelistEleve);
         model.addAttribute("selectedGroupe",selectedGroupe);
 
@@ -80,8 +92,25 @@ public class GrilleProfController {
             e.printStackTrace();
         }
 
-        ArrayList<Skill> selectedDomainlistSkill = new ArrayList<Skill>(setSkill);
-        model.addAttribute("selectedDomainListSkill", selectedDomainlistSkill);
+        List<Skill> selectedDomainlistSkill = new ArrayList<Skill>(setSkill);
+
+        try {
+            Collections.sort(selectedDomainlistSkill, new Comparator<Skill>() {
+                @Override
+                public int compare(Skill s1, Skill s2) {
+                    String o1 = s1.getName();
+                    String o2 = s1.getName();
+                    if (o1.compareTo(o2)< 0){
+                        return -1;
+                    }else{
+                        return 1;
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //Selection des evluates pour ce groupe et les skills du domain selected
         List<Evaluate> listEvaluate = evaluateRepository.findAll();
@@ -89,6 +118,7 @@ public class GrilleProfController {
         //map contenant les skills et une liste d'eleves et de evaluation de cet eleve pour le skill donne
         Map<SkillAndObservation, List<UserAndEval>> mapSkill = new HashMap<>();
         for (Skill s : selectedDomainlistSkill){
+            System.out.println(s.getName());
             List<UserAndEval> listUserAndEval = new ArrayList<>();
             for (User u : selectedGroupelistEleve){
                 UserAndEval userAndEval = new UserAndEval();
@@ -128,17 +158,42 @@ public class GrilleProfController {
             skillAndObservation.setTuteurClientObservation(tuteurClientObservation);
             mapSkill.put(skillAndObservation, listUserAndEval);
         }
-        model.addAttribute("mapSkill", mapSkill);
 
-        return("tuteur-client/grilleProf");
+        Map<SkillAndObservation, List<UserAndEval>> sortMapSkill = doSort(mapSkill);
+        model.addAttribute("mapSkill", sortMapSkill);
+
+        if (mode.equalsIgnoreCase("modification")){
+            return("tuteur-client/grillProfModif");
+        }else{
+            return("tuteur-client/grilleProf");
+        }
+
     }
 
     @RequestMapping(value = "/grilleprofmodif", method = RequestMethod.POST)
-    public String grilleProfmodif(){
+    public String grilleProfmodif(Model model, @RequestParam("groupe")int idGr, @RequestParam("domain")int idDom, String groupeObservation, String tuteurClientObservation, String individualObservation, String motCle){
 
 
 
-        return("tuteur-client/grilleProf");
+        return "tuteur-client/test2";
+    }
+
+    public Map<SkillAndObservation, List<UserAndEval>> doSort(Map<SkillAndObservation, List<UserAndEval>> map) {
+        Comparator<SkillAndObservation> comparator = new KeyComparator<SkillAndObservation>();
+        Map<SkillAndObservation, List<UserAndEval>> sortedMap = new TreeMap<>(comparator);
+        sortedMap.putAll(map);
+        return sortedMap;
+    }
+
+    public class KeyComparator<SkillAndObservation> implements Comparator<GrilleProfController.SkillAndObservation> {
+
+        @Override
+        public int compare(GrilleProfController.SkillAndObservation sourceKey, GrilleProfController.SkillAndObservation targetKey) {
+            String o1 = sourceKey.getSkill().getName();
+            String o2 = targetKey.getSkill().getName();
+            return o1.compareTo(o2);
+        }
+
     }
 
     public class UserAndEval{

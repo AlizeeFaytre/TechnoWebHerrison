@@ -7,7 +7,6 @@
     <title>Grille de compétence</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/grilleEleve.css" data-th-href="@{/css/grilleEleve.css}">
-    <link rel="stylesheet" href="../../static/css/myCSS.css" data-th-href="@{/css/myCSS.css}">
     <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
     <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
     <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
@@ -19,14 +18,16 @@
 <div class="header" th:include="fragments/header-tuteur :: header-tuteur"></div>
 
 <!-- ajout d'un select par dropdown bootstrap pour select domain, jiaw 15/05/17 -->
-<div class="dropdown text-center">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Domain
+<div class="container">
+    <div class="dropdown text-center">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Domain
 
-        <span class="caret"></span></button>
-    <ul class="dropdown-menu dropdown-menu-center">
-        <li th:each="domain:${listDomain}"><a th:href="|grilleprofvue?groupe=${selectedGroupe.id}&domain=${domain.id}|"
-                                              th:text="${domain.name}"></a></li>
-    </ul>
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-center">
+            <li th:each="domain:${listDomain}"><a th:href="|grilleprofvue?groupe=${selectedGroupe.id}&domain=${domain.id}&mode=vue|"
+                                                  th:text="${domain.name}"></a></li>
+        </ul>
+    </div>
 </div>
 
 
@@ -126,9 +127,10 @@
     </table>
 </div>
 <div class="container">
-    <a class="col-sm-12 text-center">Modification</a>
+    <a th:href="|grilleprof?groupe=${selectedGroupe.id}&domain=${selectedDomain.id}&mode=modification|" class="col-sm-12 text-center">Modification</a>
 </div>
   <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
 </body>
+
 
 </html>

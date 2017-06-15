@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://thymeLeaf.org">
 <head>
     <meta charset="utf-8">
@@ -6,7 +7,6 @@
     <title>Grille de compétence</title>
     <link rel="stylesheet" href="../../static/css/bootstrap.css" data-th-href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/grilleEleve.css" data-th-href="@{/css/grilleEleve.css}">
-    <link rel="stylesheet" href="../../static/css/myCSS.css" data-th-href="@{/css/myCSS.css}">
     <link rel="stylesheet" href="../../static/css/header.css" data-th-href="@{/css/header.css}">
     <link rel="stylesheet" href="../../static/css/footer.css" data-th-href="@{/css/footer.css}">
     <link rel="stylesheet" href="../../static/css/style.css" data-th-href="@{/css/style.css}">
@@ -15,128 +15,133 @@
     <script src="../../static/js/grilleProf.js" data-th-src="@{/js/grilleProf.js}" charset="utf-8"></script>
 </head>
 <body>
-<div th:include="fragments/header-tuteur :: header-tuteur"></div>
+<div class="header" th:include="fragments/header-tuteur :: header-tuteur"></div>
 
 <!-- ajout d'un select par dropdown bootstrap pour select domain, jiaw 15/05/17 -->
 <div class="dropdown text-center">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Domain
+
         <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-center">
-        <li th:each="domain:${listDomain}"><a th:href="|grilleprofvue?groupe=${selectedGroupe.id}&domain=${domain.id}|"
-                                              th:text="${domain.name}"></a></li>
+        <li th:each="domain:${listDomain}"><a
+                th:href="|grilleprofvue?groupe=${selectedGroupe.id}&domain=${domain.id}&mode=modification|"
+                th:text="${domain.name}"></a></li>
     </ul>
 </div>
 
-
-<div class="container" id="table">
-    <table class="tg table table-bordered col-md-12">
-        <!-- en tête du tableau ! -->
-        <tr>
-            <th class="tg-baqh competence" colspan="9" th:text="${selectedDomain.name}"></th>
-        </tr>
-        <tr>
-            <td class="tg-yw4l col-md-3 grey" rowspan="2"></td>
-            <td class="tg-baqh col-md-2 grey" rowspan="2">observation sur l'équipe</td>
-            <td class="tg-baqh col-md-2 grey" rowspan="2">observation Tuteur-Client</td>
-            <td class="tg-baqh col-md-2 grey" rowspan="2">observation individuelles</td>
-            <td class="tg-baqh col-md-2 grey" colspan="5">niveau individuel</td>
-            <td class="tg-baqh col-md-1 grey" rowspan="2">étudiants</td>
-        </tr>
-        <tr class="last">
-            <td class="tg-baqh grey"><p>Loin</p></td>
-            <td class="tg-baqh grey"><p>Proche</p></td>
-            <td class="tg-baqh grey"><p>Tres Proche</p></td>
-            <td class="tg-baqh grey"><p>Attendu</p></td>
-            <td class="tg-baqh grey"><p>Au-Dela</p></td>
-        </tr>
-        <!-- fin de l'entete du tableau -->
-
-        <!-- une compétence -->
-        <section th:each="skill : ${listSkill}">
-            <tbody class="derouleMoi">
+<form th:action="|/grilleprofmodif?groupe=${selectedGroupe.id}&domain=${selectedDomain.id}|" method="post">
+    <div class="container" id="table">
+        <table class="tg table table-bordered col-md-12">
+            <!-- en tête du tableau ! -->
             <tr>
-                <td class="competence intitule" colspan="9"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"
-                                                                  th:text="${skill.name}"></span></td>
-                <td th:text="${skill.description}"></td>
-            </tr>
-            </tbody>
-            <tbody class="completeCompetence">
-            <tr>
-                <td class="tg-yw4l grey" rowspan="7">extraire et comprendre les besoins fonctionnel et non fonctionnel
-                </td>
-                <td class="tg-yw4l" rowspan="7"><textarea name="name" class="form-control" rows="12"></textarea></td>
-                <td class="tg-yw4l" rowspan="7"><textarea name="name" class="form-control" rows="12"></textarea></td>
-                <td class="tg-yw4l">observation individuel eleve 1</td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey">Alizée Faytre</td>
+                <th class="tg-baqh competence" colspan="9" th:text="${selectedDomain.name}"></th>
             </tr>
             <tr>
-                <td class="tg-yw4l">observation individuel du deuxième eleves qui est un cancre absolue c'est pas
-                    possible d'etre aussi nul !!
-                </td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey">Deuxième eleve !</td>
-            </tr>
-            <tr>
-
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey"></td>
-            </tr>
-            <tr>
-                <td class="tg-yw4l">Bonne élève très appliquée mais parle beaucoup</td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey">Esther Laurette</td>
-            </tr>
-            <tr>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey"></td>
-            </tr>
-            <tr>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey"></td>
+                <td class="tg-yw4l col-md-3 grey" rowspan="2"></td>
+                <td class="tg-baqh col-md-2 grey" rowspan="2">observation sur l'équipe</td>
+                <td class="tg-baqh col-md-2 grey" rowspan="2">observation Tuteur-Client</td>
+                <td class="tg-baqh col-md-2 grey" rowspan="2">observation individuelles</td>
+                <td class="tg-baqh col-md-2 grey" colspan="5">niveau individuel</td>
+                <td class="tg-baqh col-md-1 grey" rowspan="2">étudiants</td>
             </tr>
             <tr class="last">
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l"></td>
-                <td class="tg-yw4l grey"></td>
+                <td class="tg-baqh grey"><p>Loin</p></td>
+                <td class="tg-baqh grey"><p>Proche</p></td>
+                <td class="tg-baqh grey"><p>Très Proche</p></td>
+                <td class="tg-baqh grey"><p>Attendu</p></td>
+                <td class="tg-baqh grey"><p>Au-delà</p></td>
             </tr>
-            </tbody>
-        </section>
-        <!-- fin de la compétence -->
-    </table>
-</div>
-  <div class="footer" th:include="fragments/footer :: footer">ISEP</div>
+            <!-- fin de l'entete du tableau -->
+
+            <!-- une compétence -->
+            <section th:each="skill : ${mapSkill}">
+                <tbody class="derouleMoi">
+                <tr>
+                    <td class="competence intitule" colspan="9"><span class="glyphicon glyphicon-menu-up"
+                                                                      aria-hidden="true"
+                                                                      th:text="${skill.key.skill.name}"></span></td>
+                </tr>
+                </tbody>
+                <tbody class="completeCompetence">
+                <!-- 1er eleve -->
+                <tr>
+                    <td class="tg-yw4l grey" rowspan="7" th:text="${skill.key.skill.description}"></td>
+                    <td class="tg-yw4l" rowspan="7">
+                        <textarea name="groupeObservation" class="form-control" rows="12"
+                                  data-th-text="${skill.key.groupObservation}"></textarea>
+                    </td>
+                    <td class="tg-yw4l" rowspan="7">
+                        <textarea name="tuteurClientObservation" class="form-control" rows="12"
+                                  data-th-text="${skill.key.tuteurClientObservation}"></textarea>
+                    </td>
+                </tr>
+
+
+                <tr th:each="eleve : ${skill.value}">
+                    <td class="tg-yw4l">
+                        <textarea name="individualObservation" class="form-control" rows="6"
+                                  data-th-text="${eleve.evaluate.individualObservation}"></textarea>
+                    </td>
+                    <div data-th-switch="${eleve.evaluate.level}">
+                        <div data-th-case="'Loin'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin" checked></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà"></td>
+                        </div>
+                        <div data-th-case="'Proche'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche" checked></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà"></td>
+                        </div>
+                        <div data-th-case="'Très Proche'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche" checked></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà"></td>
+                        </div>
+                        <div data-th-case="'Attendu'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu" checked></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà"></td>
+                        </div>
+                        <div data-th-case="'Au-delà'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà" checked></td>
+                        </div>
+                        <div data-th-case="'Vide'">
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Loin"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Très Proche"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Attendu"></td>
+                            <td class="tg-yw4l"><input type="radio" name="eval" value="Au-delà"></td>
+                        </div>
+                    </div>
+                    <td class="tg-yw4l grey" th:text="${eleve.user.nom} + ' ' +${eleve.user.prenom}"></td>
+                </tr>
+                </tbody>
+            </section>
+            <!-- fin de la compétence -->
+        </table>
+    </div>
+    <input th:id="${selectedDomain.id}" type="hidden" name="motCle">
+    <div class="container">
+        <span class="col-sm-12 text-center">
+            <button type="submit" class="btn btn-default">Enregistrer</button>
+        </span>
+    </div>
+</form>
+
+<div class="footer" th:include="fragments/footer :: footer">ISEP</div>
 </body>
 
 </html>

@@ -10,14 +10,7 @@
 
 <form th:action="chercher"  method="post">
     <label>Presence :</label>
-    <div th:each = "user,iterStat : ${listUser}">
-        <p th:text="${iterStat.index}"></p></br>
-        <p th:text="${user.nom}"></p>
-        <input th:onclick="|test(${user.id}, this.value);|"  type="radio" th:name="${user.id}" value="1">
-        <input th:onclick="|test(${user.id}, this.value);|"  type="radio" th:name="${user.id}" value="0">
-        <input th:id="${user.id}" type="hidden" name = "motCle">
-    </div>
-
+    <textarea name="motCle" class="form-control" rows="12" th:text="${toto}"></textarea>
     <input type="submit" value="Valider"/>
 
 </form>
