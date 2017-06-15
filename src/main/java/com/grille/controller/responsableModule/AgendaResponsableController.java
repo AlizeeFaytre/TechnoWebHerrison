@@ -5,6 +5,7 @@ import com.grille.dao.DeadlineRepository;
 import com.grille.dao.DomainRepository;
 import com.grille.entities.Deadline;
 import com.grille.entities.Domain;
+import com.grille.entities.Skill;
 import com.grille.entities.User;
 import com.grille.service.UserService;
 
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -101,6 +103,20 @@ public class AgendaResponsableController {
             i.printStackTrace();
         }
 
+    }
+
+
+    @RequestMapping(value = "/delete_deadline", method = RequestMethod.GET)
+    public void delete(HttpServletResponse response, @RequestParam("deadline") int id){
+        Deadline d = deadlinerepo.findById(id);
+        deadlinerepo.delete(d);
+
+        String redirectPath = "/agenda-responsable";
+        try {
+            response.sendRedirect(redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
