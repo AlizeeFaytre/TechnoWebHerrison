@@ -116,4 +116,51 @@ public class UserService {
 
         return Double.toString(note);
     }
+
+    public String getPromoFromClasse(String promo){
+        String currentSemester = getCurrentSemester();
+        String semester = currentSemester.split(" - ")[1];
+        Integer year = Integer.parseInt(currentSemester.split(" - ")[0]);
+        if (semester.equals("S1")){
+            switch (promo){
+                case "I1":
+                    promo = Integer.toString(year + 5);
+                    break;
+                case "I2":
+                    promo = Integer.toString(year + 4);
+                    break;
+                case "A1":
+                    promo = Integer.toString(year + 3);
+                    break;
+                case "A2":
+                    promo = Integer.toString(year + 2);
+                    break;
+                case "A3":
+                    promo = Integer.toString(year + 1);
+                    break;
+            }
+        }
+        else {
+            switch (promo){
+                case "I1":
+                    promo = Integer.toString(year + 4);
+                    break;
+                case "I2":
+                    promo = Integer.toString(year + 3);
+                    break;
+                case "A1":
+                    promo = Integer.toString(year + 2);
+                    break;
+                case "A2":
+                    promo = Integer.toString(year + 1);
+                    break;
+                case "A3":
+                    promo = Integer.toString(year);
+                    break;
+            }
+        }
+
+        return promo;
+
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.*;
@@ -21,10 +22,13 @@ import java.util.*;
  */
 public class AuthenticationConfig implements AuthenticationManager {
 
+    @Autowired
     private LDAPService ldapService;
 
+    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private RoleRepository roleRepository;
 
     public AuthenticationConfig(LDAPService ldapService, UserRepository userRepository, RoleRepository roleRepository) {
@@ -43,6 +47,15 @@ public class AuthenticationConfig implements AuthenticationManager {
 
         if ((username.equals("admin")) && (pw.equals("admin"))){
             return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        }
+        else if ((username.equals("eleve")) && (pw.equals("eleve"))){
+            return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_eleve")));
+        }
+        else if ((username.equals("prof")) && (pw.equals("prof"))){
+            return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_prof")));
+        }
+        else if ((username.equals("respoModule")) && (pw.equals("respoModule"))){
+            return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_respoModule")));
         }
 
         try {
@@ -80,16 +93,27 @@ public class AuthenticationConfig implements AuthenticationManager {
                 user.setRoles(listRole);
 
                 userRepository.save(user);
-
-                if (role.getName() == "eleve"){
+                if (role.getName().equals("eleve")){
                     return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_eleve")));
+                }
+
+                else if (role.getName().equals("prof")){
+                    return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_prof")));
+                }
+
+                else if (role.getName().equals("respoModule")){
+                    return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_respoModule")));
+                }
+
+                else if (role.getName().equals("administration")){
+                    return new UsernamePasswordAuthenticationToken(username, pw, Collections.singletonList(new SimpleGrantedAuthority("ROLE_administration")));
                 }
 
             }
             else {
-                Set<Role> roleSet = identifiedUser.getRoles();
+                Set<Role> setRole = identifiedUser.getRoles();
                 ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
-                for (Role role:roleSet) {
+                for (Role role:setRole) {
                     roles.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
                 }
 

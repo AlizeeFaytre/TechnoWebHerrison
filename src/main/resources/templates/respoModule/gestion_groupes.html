@@ -150,6 +150,8 @@
                             </div>
                         </div>
 
+                        <input class="collapse" name="semester" data-th-value="${currentSemester}">
+
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="eleve_creation_groupe">Elèves :</label>
                             <select class="mySelect js-example-basic-multiple js-example-responsive " id="eleve_creation_groupe"  style="width: 50%" name="studentList" multiple="multiple">
@@ -311,7 +313,9 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title text-center">Supprimer ce groupe ?</h4>
                 </div>
-                <form data-th-action="'/deleteGroupe?promo=' + ${promo} + '&groupeID=' + ${groupe.key.id}">
+                <form data-th-action="@{/deleteGroupe}" method="get">
+                    <input class="collapse" name="promo" data-th-value="${promo}">
+                    <input class="collapse" name="groupeID" data-th-value="${groupe.key.id}">
                     <div class="modal-footer">
                         <div class="row text-center">
                             <button type="button" class="btn btn-default" data-dismiss="modal" >Annuler</button>

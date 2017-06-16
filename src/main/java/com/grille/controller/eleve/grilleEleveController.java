@@ -44,13 +44,6 @@ public class grilleEleveController {
         User currentUser = userService.getLogedUser(session);
         Groupe group = userService.getCurrentGroupe(currentUser);
         Set<User> listUser = group.getListUser();
-        //on enlève de la liste les tuteurs et professeurs
-        for (User user:listUser) {
-            Set<Role> listRoles = user.getRoles();
-            if(!(listRoles.contains(roleRepository.findByName("eleve")))){
-                listUser.remove(user);
-            }
-        }
 
         Domain domain = domainRepository.findOneByName(domainName);
 

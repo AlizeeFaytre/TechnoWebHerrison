@@ -4,9 +4,11 @@ import com.grille.dao.DomainRepository;
 import com.grille.dao.GridRepository;
 import com.grille.entities.Domain;
 
+import com.grille.entities.Grid;
 import com.grille.entities.User;
 import com.grille.service.UserService;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,6 +119,42 @@ public class GestionDomainController {
         return "respoModule/gestion_grille";
     }
 
+    @RequestMapping(value = "modifGrille", method = RequestMethod.GET)
+    public void editGrille(HttpServletResponse response, @RequestParam(name = "promo") String promo, HttpServletRequest request){
+
+        String postBody = request.getQueryString();
+
+        Set<Domain> domains = new HashSet<>();
+
+        String[] tabPost = postBody.split("&");
+        for (String part:tabPost) {
+            if (part.startsWith("promo")){
+                promo = userService.getPromoFromClasse(promo);
+            }
+            else if (part.startsWith("listDomain")){
+                Integer idDomain = Integer.parseInt(part.substring(11));
+                domains.add(domainrepo.findById(idDomain));
+            }
+        }
+
+        Grid grille = gridRepository.findByPromo(promo);
+
+        if (grille.equals(null)){
+            grille = new Grid();
+            grille.setPromo(promo);
+        }
+
+        grille.setListDomain(domains);
+
+        gridRepository.save(grille);
+
+        try {
+            response.sendRedirect("/gestion_grille");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping(value = "/delete-domain", method = RequestMethod.GET)
     public void delete(HttpServletResponse response, @RequestParam("domain") int id){
         Domain d = domainrepo.findById(id);
@@ -131,8 +169,25 @@ public class GestionDomainController {
     }
 
     @RequestMapping(value = "/deleteGrille", method = RequestMethod.GET)
-    public void deleteGrille(HttpServletResponse response, @RequestParam("promo") String promo, @RequestBody String getbody){
-        System.out.println(getbody);
+    public void deleteGrille(HttpServletResponse response, @RequestParam("promo") String promo, HttpServletRequest request){
+        String postBody = request.getQueryString();
+
+        String[] tabPost = postBody.split("&");
+        for (String part:tabPost) {
+            if (part.startsWith("promo")) {
+                promo = userService.getPromoFromClasse(promo);
+            }
+        }
+
+        Grid grille = gridRepository.findByPromo(promo);
+
+        gridRepository.delete(grille.getId());
+
+        try {
+            response.sendRedirect("/gestion_grille");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

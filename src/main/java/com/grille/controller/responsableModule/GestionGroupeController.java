@@ -111,11 +111,13 @@ public class GestionGroupeController {
 
         model.addAttribute("listProf", listProf);
 
+        model.addAttribute("currentSemester", currentSemester);
+
         return "respoModule/gestion_groupes";
     }
 
     @RequestMapping(value = "/groupeInsert", method = RequestMethod.POST)
-    public void inserte(HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo){
+    public void inserte(HttpServletResponse response,@RequestBody String postbody, @RequestParam(name="promo")String promo, @RequestParam(name = "semester")String semester){
         System.out.println(postbody);
 
         Groupe groupe = new Groupe();
@@ -154,6 +156,8 @@ public class GestionGroupeController {
         groupe.setListTuteur(listTuteur);
 
         groupe.setPromo(promo);
+
+        groupe.setSemester(semester);
 
         groupeRepository.save(groupe);
 

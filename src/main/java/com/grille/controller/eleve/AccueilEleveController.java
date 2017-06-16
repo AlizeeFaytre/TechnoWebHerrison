@@ -38,7 +38,7 @@ public class AccueilEleveController {
     private GridService gridService;
 
     // @RolesAllowed({RolesNames.eleve})
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_eleve"})
     @GetMapping("/accueilEleve")
     public String accueil(HttpSession session, Model model){
         User currentUser = userService.getLogedUser(session);
