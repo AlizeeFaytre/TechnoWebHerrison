@@ -52,7 +52,7 @@ public class loginController {
         }
         else {
             try{
-                response.sendRedirect("/dashboard-tuteur?groupe=1");
+                response.sendRedirect("/dashboard-tuteur?groupe=0");
             }catch (IOException i){
                 i.printStackTrace();
             }

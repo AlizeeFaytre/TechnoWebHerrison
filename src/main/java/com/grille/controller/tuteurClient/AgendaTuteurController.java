@@ -37,7 +37,7 @@ public class AgendaTuteurController {
     @Autowired
     private UserService userService;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/agenda-tuteur", method = RequestMethod.GET)
     public String index (Model model, HttpSession session){
         /* List<Deadline> listDeadline = agendarespo.findAll();

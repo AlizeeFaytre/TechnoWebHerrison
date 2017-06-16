@@ -91,6 +91,8 @@ public class AccueilEleveController {
         Groupe groupe = userService.getCurrentGroupe(currentUser);
         model.addAttribute("groupe", groupe);
 
+        model.addAttribute("userDomain", userGrid.getListDomain());
+
         model.addAttribute("currentUser", currentUser);
 
         return "eleves/accueilEleve";

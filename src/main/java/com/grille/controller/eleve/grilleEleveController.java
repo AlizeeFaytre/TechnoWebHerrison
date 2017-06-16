@@ -8,6 +8,7 @@ import com.grille.entities.*;
 import com.grille.service.GridService;
 import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ public class grilleEleveController {
     @Autowired
     private GridService gridService;
 
+    @Secured({"ROLE_ADMIN", "ROLE_eleve"})
     @GetMapping("/grille")
     public String grille(HttpSession session, Model model, @RequestParam(name="domain")String domainName){
         User currentUser = userService.getLogedUser(session);
@@ -116,6 +118,9 @@ public class grilleEleveController {
 
         model.addAttribute("ligneGrille", listeLigne);
         model.addAttribute("currentUser", currentUser);
+
+        Grid userGrid = gridService.getGrid(currentUser);
+        model.addAttribute("userDomain", userGrid.getListDomain());
 
         return "eleves/grilleEleve";
     }

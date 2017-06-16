@@ -47,7 +47,7 @@ public class PresenceController {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/presence", method = RequestMethod.GET)
     public String presence(Model model, @RequestParam("groupe") int id, HttpSession session) {
 
@@ -169,7 +169,7 @@ public class PresenceController {
         return "/tuteur-client/presence-tuteur";
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/presence-submit", method = RequestMethod.POST)
     public void presenceSubmit(HttpServletResponse response, Model model, String motCle) {
 
@@ -213,7 +213,7 @@ public class PresenceController {
         }
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/presence-groupe-recherche", method = RequestMethod.POST)
     public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
         //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
@@ -229,7 +229,7 @@ public class PresenceController {
         }
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/presence-recherche-resultat", method = RequestMethod.GET)
     public String dashResultRecherche(Model model, HttpSession session,@RequestParam("groupe") int id,@RequestParam("recherche") String motCle) {
 

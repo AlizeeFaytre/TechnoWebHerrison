@@ -122,6 +122,7 @@ public class GestionDomainController {
     }
 
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "modifGrille", method = RequestMethod.GET)
     public void editGrille(HttpServletResponse response, @RequestParam(name = "promo") String promo, HttpServletRequest request){
 

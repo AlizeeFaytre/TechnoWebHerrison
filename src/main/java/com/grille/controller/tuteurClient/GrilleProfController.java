@@ -42,7 +42,7 @@ public class GrilleProfController {
     //---------1 ---un mapping pour le visionnage qui map sur la vue grilleEleve
     //---------2 ---un mapping pour la modification (remplisage)
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/grilleprof", method = RequestMethod.GET)
     public String grilleProf(Model model, @RequestParam("groupe") int idGr, @RequestParam("domain") int idDom, @RequestParam("mode") String mode, HttpSession session) {
 
@@ -174,7 +174,7 @@ public class GrilleProfController {
 
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN", "ROLE_prof"})
     @RequestMapping(value = "/grilleprofmodif", method = RequestMethod.POST)
     public void grilleProfmodif(HttpServletResponse response, Model model, @RequestParam("groupe") int idGr, @RequestParam("domain") int idDom, String groupeObservation, String tuteurClientObservation, String individualObservation, String motCle) {
 
