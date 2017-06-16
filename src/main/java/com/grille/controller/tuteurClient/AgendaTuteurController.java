@@ -9,6 +9,7 @@ import com.grille.entities.User;
 import com.grille.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class AgendaTuteurController {
     @Autowired
     private UserService userService;
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/agenda-tuteur", method = RequestMethod.GET)
     public String index (Model model, HttpSession session){
         /* List<Deadline> listDeadline = agendarespo.findAll();

@@ -8,6 +8,7 @@ import com.grille.entities.Groupe;
 import com.grille.entities.User;
 import com.grille.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class DashboardTuteurController {
     private DomainRepository domainRepository;
 
 
-
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/dashboard-tuteur", method = RequestMethod.GET)
     public String index(Model model, HttpSession session, @RequestParam("groupe") int id) {
 
@@ -112,6 +113,7 @@ public class DashboardTuteurController {
 
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/dashboard-tuteur-recherche", method = RequestMethod.POST)
     public void collectMotCle(HttpServletResponse response, @RequestParam("groupe") int id, String motCle){
         //En cas de soumission de champ vide dans la barre de recherche on redirige vers le controller dashboard-tuteur GET
@@ -128,7 +130,7 @@ public class DashboardTuteurController {
     }
 
 
-
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/dashboard-tuteur-resultat", method = RequestMethod.GET)
     public String dashResultRecherche(Model model, HttpSession session, @RequestParam("groupe") int id,@RequestParam("recherche") String motCle) {
 

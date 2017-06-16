@@ -10,6 +10,7 @@ import com.grille.entities.User;
 import com.grille.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class AgendaResponsableController {
     @Autowired
     private UserService userService;
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/agenda-responsable", method = RequestMethod.GET)
     public String index (Model model, HttpSession session){
         /* List<Deadline> listDeadline = agendarespo.findAll();
@@ -93,6 +95,7 @@ public class AgendaResponsableController {
     }
 
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/new_deadline_insert", method = RequestMethod.POST)
     public void deadlineinsert (Model model, String date, String promo, String nom_domain, HttpServletResponse response){
         Deadline d = new Deadline();
@@ -118,6 +121,7 @@ public class AgendaResponsableController {
     }
 
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/delete_deadline", method = RequestMethod.GET)
     public void delete(HttpServletResponse response, @RequestParam("deadline") int id){
         Deadline d = deadlinerepo.findById(id);

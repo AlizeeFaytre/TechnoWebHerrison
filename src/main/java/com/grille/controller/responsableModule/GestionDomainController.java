@@ -10,6 +10,7 @@ import com.grille.service.UserService;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class GestionDomainController {
     @Autowired
     private UserService userService;
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @GetMapping("/gestion_grille")
     public String index (Model model, HttpSession session){
     	User currentUser = userService.getLogedUser(session);
@@ -119,6 +121,7 @@ public class GestionDomainController {
         return "respoModule/gestion_grille";
     }
 
+
     @RequestMapping(value = "modifGrille", method = RequestMethod.GET)
     public void editGrille(HttpServletResponse response, @RequestParam(name = "promo") String promo, HttpServletRequest request){
 
@@ -155,6 +158,8 @@ public class GestionDomainController {
         }
     }
 
+
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/delete-domain", method = RequestMethod.GET)
     public void delete(HttpServletResponse response, @RequestParam("domain") int id){
         Domain d = domainrepo.findById(id);
@@ -168,6 +173,7 @@ public class GestionDomainController {
         }
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_respoModule"})
     @RequestMapping(value = "/deleteGrille", method = RequestMethod.GET)
     public void deleteGrille(HttpServletResponse response, @RequestParam("promo") String promo, HttpServletRequest request){
         String postBody = request.getQueryString();
